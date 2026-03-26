@@ -33,7 +33,7 @@ export const proposals = pgTable('proposals', {
   valueInCents: integer('value_in_cents').notNull(),
   deadline: text('deadline'),
   paymentTerms: text('payment_terms'),
-  templateId: text('template_id', { enum: ['clean', 'moderno'] }).default('clean').notNull(),
+  templateId: text('template_id', { enum: ['clean', 'moderno', 'bold', 'minimal', 'executivo'] }).default('clean').notNull(),
   status: text('status', {
     enum: ['rascunho', 'enviada', 'aprovada', 'recusada'],
   })

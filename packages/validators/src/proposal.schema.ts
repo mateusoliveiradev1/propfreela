@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 // ─── Enums (mirrors DB schema, avoids runtime import of @propfreela/db) ───────
 
-export const ProposalTemplateEnum = z.enum(['clean', 'moderno'])
+export const ProposalTemplateEnum = z.enum(['clean', 'moderno', 'bold', 'minimal', 'executivo'])
 export const ProposalStatusEnum = z.enum(['rascunho', 'enviada', 'aprovada', 'recusada'])
 
 // ─── Create ───────────────────────────────────────────────────────────────────
@@ -42,3 +42,14 @@ export const ListProposalsSchema = z.object({
 })
 
 export type ListProposalsInput = z.infer<typeof ListProposalsSchema>
+
+// ─── AI Generation ──────────────────────────────────────────────────────────
+
+export const GenerateScopeSchema = z.object({
+  clientName: z.string().min(1, 'Nome do cliente é obrigatório'),
+  title: z.string().min(1, 'Título é obrigatório'),
+  valueInCents: z.number().int().positive().optional(),
+  currentScope: z.string().optional(),
+})
+
+export type GenerateScopeInput = z.infer<typeof GenerateScopeSchema>

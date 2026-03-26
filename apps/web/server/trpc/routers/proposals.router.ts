@@ -2,10 +2,12 @@ import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import { router, protectedProcedure } from '../trpc'
 import { proposalsService } from '../../services/proposals.service'
+import { aiService } from '../../services/ai.service'
 import {
   CreateProposalSchema,
   UpdateProposalSchema,
   ListProposalsSchema,
+  GenerateScopeSchema,
 } from '@propfreela/validators'
 
 export const proposalsRouter = router({
@@ -64,4 +66,12 @@ export const proposalsRouter = router({
         db: ctx.db,
       }),
     ),
+
+  generateScope: protectedProcedure.input(GenerateScopeSchema).mutation(async ({ input }) => {
+    // If there's existing scope text, refine it; otherwise generate from scratch
+    if (input.currentScope && input.currentScope.trim().length > 10) {
+      return aiService.refineScope(input)
+    }
+    return aiService.generateScope(input)
+  }),
 })

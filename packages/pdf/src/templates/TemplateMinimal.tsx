@@ -44,8 +44,8 @@ export function TemplateMinimal({ proposal, user }: Props) {
     page: {
       fontFamily: 'Inter',
       backgroundColor: '#FFFFFF',
-      paddingHorizontal: 72,
-      paddingVertical: 60,
+      paddingHorizontal: 60,
+      paddingVertical: 48,
       fontSize: 10,
       color: '#2A2A28',
     },
@@ -102,17 +102,17 @@ export function TemplateMinimal({ proposal, user }: Props) {
     hairline: {
       height: 0.5,
       backgroundColor: '#DDD8D0',
-      marginVertical: 40,
+      marginVertical: 24,
     },
     hairlineTight: {
       height: 0.5,
       backgroundColor: '#DDD8D0',
-      marginVertical: 36,
+      marginVertical: 20,
     },
 
     /* ── Client ── */
     clientName: {
-      fontSize: 38,
+      fontSize: 28,
       fontWeight: 600,
       color: '#1A1A18',
       lineHeight: 1.05,
@@ -129,26 +129,26 @@ export function TemplateMinimal({ proposal, user }: Props) {
       color: '#C0BCB4',
       letterSpacing: 1,
       textTransform: 'uppercase',
-      marginBottom: 14,
+      marginBottom: 8,
     },
     scopeText: {
       fontSize: 10,
       color: '#4A4A48',
-      lineHeight: 2.0,
+      lineHeight: 1.6,
     },
 
     /* ── Price ── */
     priceAmount: {
-      fontSize: 40,
+      fontSize: 30,
       fontWeight: 600,
       color: accent,
-      marginBottom: 32,
+      marginBottom: 20,
     },
 
     /* ── Metadata ── */
     metaRow: {
       flexDirection: 'row',
-      gap: 56,
+      gap: 36,
     },
     metaBlock: {},
     metaLabel: {

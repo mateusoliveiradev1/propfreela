@@ -77,8 +77,8 @@ export function TemplateModerno({ proposal, user }: Props) {
     sidebar: {
       width: 220,
       backgroundColor: '#0F0F0E',
-      paddingHorizontal: 28,
-      paddingVertical: 40,
+      paddingHorizontal: 24,
+      paddingVertical: 32,
       flexDirection: 'column',
     },
     sidebarLogo: {
@@ -92,12 +92,13 @@ export function TemplateModerno({ proposal, user }: Props) {
       fontWeight: 600,
       color: '#FFFFFF',
       lineHeight: 1.3,
+      marginBottom: 6,
     },
     accentLine: {
       width: 32,
       height: 2,
       backgroundColor: accent,
-      marginVertical: 20,
+      marginBottom: 20,
     },
     metaLabel: {
       fontSize: 6,
@@ -110,7 +111,7 @@ export function TemplateModerno({ proposal, user }: Props) {
     metaValue: {
       fontSize: 10,
       color: '#B8B4AC',
-      marginBottom: 24,
+      marginBottom: 16,
       lineHeight: 1.5,
     },
     sidebarSpacer: {
@@ -125,8 +126,8 @@ export function TemplateModerno({ proposal, user }: Props) {
     /* ── Main content area ── */
     main: {
       flex: 1,
-      padding: 44,
-      paddingBottom: 72,
+      padding: 36,
+      paddingBottom: 56,
       backgroundColor: '#FFFFFF',
       flexDirection: 'column',
     },
@@ -136,23 +137,24 @@ export function TemplateModerno({ proposal, user }: Props) {
       color: accent,
       letterSpacing: 3,
       textTransform: 'uppercase',
-      marginBottom: 12,
+      marginBottom: 6,
     },
     clientName: {
-      fontSize: 28,
+      fontSize: 24,
       fontWeight: 600,
       color: '#0D0D0B',
       lineHeight: 1.15,
-      marginBottom: 6,
+      marginBottom: 3,
     },
     clientEmail: {
       fontSize: 10,
       color: '#6B6860',
+      marginBottom: 16,
     },
     divider: {
       height: 1,
       backgroundColor: '#E8E5DE',
-      marginVertical: 24,
+      marginVertical: 14,
     },
     sectionLabel: {
       fontSize: 7,
@@ -160,12 +162,12 @@ export function TemplateModerno({ proposal, user }: Props) {
       color: '#9B9790',
       letterSpacing: 1.5,
       textTransform: 'uppercase',
-      marginBottom: 12,
+      marginBottom: 8,
     },
     scopeText: {
       fontSize: 10,
       color: '#3D3D3A',
-      lineHeight: 1.8,
+      lineHeight: 1.6,
     },
 
     /* ── Value highlight box ── */
@@ -173,7 +175,7 @@ export function TemplateModerno({ proposal, user }: Props) {
       backgroundColor: '#F7F6F3',
       borderLeftWidth: 4,
       borderLeftColor: accent,
-      padding: 24,
+      padding: 18,
     },
     valueBoxLabel: {
       fontSize: 7,
@@ -184,7 +186,7 @@ export function TemplateModerno({ proposal, user }: Props) {
       marginBottom: 8,
     },
     valueBoxAmount: {
-      fontSize: 34,
+      fontSize: 28,
       fontWeight: 600,
       color: accent,
       lineHeight: 1.05,
@@ -192,7 +194,7 @@ export function TemplateModerno({ proposal, user }: Props) {
     valueBoxPayment: {
       fontSize: 9,
       color: '#6B6860',
-      marginTop: 10,
+      marginTop: 5,
       lineHeight: 1.5,
     },
 

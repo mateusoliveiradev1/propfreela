@@ -90,8 +90,8 @@ export function TemplateExecutivo({ proposal, user }: Props) {
     /* ── Body ── */
     body: {
       paddingHorizontal: 56,
-      paddingTop: 36,
-      paddingBottom: 56,
+      paddingTop: 28,
+      paddingBottom: 48,
     },
 
     /* ── Centered header ── */
@@ -105,7 +105,7 @@ export function TemplateExecutivo({ proposal, user }: Props) {
       marginBottom: 10,
     },
     headerCompanyName: {
-      fontSize: 18,
+      fontSize: 15,
       fontWeight: 600,
       color: '#0D0D0B',
       marginBottom: 10,
@@ -120,18 +120,18 @@ export function TemplateExecutivo({ proposal, user }: Props) {
     headerDivider: {
       height: 1,
       backgroundColor: '#E4E0D8',
-      marginVertical: 20,
+      marginVertical: 14,
       width: '100%',
     },
 
     /* ── Numbered section row ── */
     section: {
       flexDirection: 'row',
-      marginBottom: 28,
+      marginBottom: 18,
     },
     sectionNumber: {
-      width: 48,
-      fontSize: 28,
+      width: 36,
+      fontSize: 22,
       fontWeight: 600,
       color: accent,
       opacity: 0.25,
@@ -145,12 +145,12 @@ export function TemplateExecutivo({ proposal, user }: Props) {
       color: '#9B9790',
       letterSpacing: 1.5,
       textTransform: 'uppercase',
-      marginBottom: 8,
+      marginBottom: 6,
     },
 
     /* ── 01 Client ── */
     clientName: {
-      fontSize: 18,
+      fontSize: 15,
       fontWeight: 600,
       color: '#0D0D0B',
       marginBottom: 3,
@@ -164,12 +164,12 @@ export function TemplateExecutivo({ proposal, user }: Props) {
     scopeText: {
       fontSize: 10,
       color: '#3D3D3A',
-      lineHeight: 1.8,
+      lineHeight: 1.6,
     },
 
     /* ── 03 Investment ── */
     price: {
-      fontSize: 30,
+      fontSize: 24,
       fontWeight: 600,
       color: accent,
     },

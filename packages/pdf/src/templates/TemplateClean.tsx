@@ -51,7 +51,7 @@ export function TemplateClean({ proposal, user }: Props) {
     /* ── Large accent header block ────────────────────────────────── */
     headerBlock: {
       backgroundColor: accent,
-      height: 90,
+      height: 68,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -84,8 +84,8 @@ export function TemplateClean({ proposal, user }: Props) {
     /* ── Body ─────────────────────────────────────────────────────── */
     body: {
       paddingHorizontal: 56,
-      paddingTop: 40,
-      paddingBottom: 80,
+      paddingTop: 24,
+      paddingBottom: 56,
     },
 
     /* ── Client section ───────────────────────────────────────────── */
@@ -95,28 +95,28 @@ export function TemplateClean({ proposal, user }: Props) {
       color: accent,
       letterSpacing: 2,
       textTransform: 'uppercase',
-      marginBottom: 10,
+      marginBottom: 6,
     },
     clientName: {
-      fontSize: 30,
+      fontSize: 24,
       fontWeight: 600,
       color: '#0D0D0B',
       lineHeight: 1.15,
-      marginBottom: 6,
+      marginBottom: 4,
     },
     clientEmail: {
       fontSize: 10,
       color: '#8A857D',
       letterSpacing: 0.3,
-      marginBottom: 4,
+      marginBottom: 0,
     },
 
     /* ── Divider ──────────────────────────────────────────────────── */
     divider: {
       height: 1,
       backgroundColor: '#E8E5DF',
-      marginTop: 24,
-      marginBottom: 24,
+      marginTop: 14,
+      marginBottom: 14,
     },
 
     /* ── Scope section — "quote" style with accent left bar ──────── */
@@ -126,7 +126,7 @@ export function TemplateClean({ proposal, user }: Props) {
       color: '#9B9790',
       letterSpacing: 2,
       textTransform: 'uppercase',
-      marginBottom: 12,
+      marginBottom: 8,
     },
     scopeQuote: {
       borderLeftWidth: 3,
@@ -137,7 +137,7 @@ export function TemplateClean({ proposal, user }: Props) {
     scopeText: {
       fontSize: 10,
       color: '#3D3D3A',
-      lineHeight: 1.85,
+      lineHeight: 1.6,
     },
 
     /* ── Investment section — two columns ─────────────────────────── */
@@ -161,10 +161,10 @@ export function TemplateClean({ proposal, user }: Props) {
       color: '#9B9790',
       letterSpacing: 2,
       textTransform: 'uppercase',
-      marginBottom: 8,
+      marginBottom: 5,
     },
     investmentPrice: {
-      fontSize: 36,
+      fontSize: 28,
       fontWeight: 600,
       color: accent,
       lineHeight: 1.05,
@@ -191,7 +191,7 @@ export function TemplateClean({ proposal, user }: Props) {
 
     /* ── Payment terms ────────────────────────────────────────────── */
     paymentSection: {
-      marginTop: 24,
+      marginTop: 14,
     },
     paymentLabel: {
       fontSize: 7,
@@ -199,7 +199,7 @@ export function TemplateClean({ proposal, user }: Props) {
       color: '#9B9790',
       letterSpacing: 2,
       textTransform: 'uppercase',
-      marginBottom: 10,
+      marginBottom: 6,
     },
     paymentQuote: {
       borderLeftWidth: 3,
@@ -210,7 +210,7 @@ export function TemplateClean({ proposal, user }: Props) {
     paymentText: {
       fontSize: 10,
       color: '#3D3D3A',
-      lineHeight: 1.75,
+      lineHeight: 1.5,
     },
 
     /* ── Footer ───────────────────────────────────────────────────── */

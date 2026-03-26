@@ -76,9 +76,9 @@ export function TemplateBold({ proposal, user }: Props) {
     /* ── Massive accent header ───────────────────── */
     header: {
       backgroundColor: accent,
-      height: 130,
+      height: 100,
       paddingHorizontal: 52,
-      paddingVertical: 32,
+      paddingVertical: 24,
       justifyContent: 'space-between',
     },
     headerTopRow: {
@@ -119,13 +119,13 @@ export function TemplateBold({ proposal, user }: Props) {
     /* ── Body ────────────────────────────────────── */
     body: {
       paddingHorizontal: 52,
-      paddingTop: 36,
-      paddingBottom: 80,
+      paddingTop: 24,
+      paddingBottom: 56,
     },
 
     /* ── Client info ─────────────────────────────── */
     clientName: {
-      fontSize: 32,
+      fontSize: 28,
       fontWeight: 600,
       color: '#0D0D0B',
       lineHeight: 1.1,
@@ -141,7 +141,7 @@ export function TemplateBold({ proposal, user }: Props) {
     thickDivider: {
       height: 3,
       backgroundColor: accent,
-      marginVertical: 24,
+      marginVertical: 14,
     },
 
     /* ── Scope section ───────────────────────────── */
@@ -151,18 +151,18 @@ export function TemplateBold({ proposal, user }: Props) {
       color: accent,
       letterSpacing: 1.5,
       textTransform: 'uppercase',
-      marginBottom: 12,
+      marginBottom: 8,
     },
     scopeText: {
       fontSize: 10,
       color: '#3D3D3A',
-      lineHeight: 1.85,
+      lineHeight: 1.6,
     },
 
     /* ── Full-width accent investment card ────────── */
     investmentCard: {
       backgroundColor: accent,
-      padding: 28,
+      padding: 22,
       marginTop: 8,
     },
     investmentLabel: {
@@ -175,11 +175,11 @@ export function TemplateBold({ proposal, user }: Props) {
       marginBottom: 8,
     },
     investmentAmount: {
-      fontSize: 38,
+      fontSize: 32,
       fontWeight: 600,
       color: '#FFFFFF',
       lineHeight: 1.05,
-      marginBottom: 18,
+      marginBottom: 12,
     },
     investmentDetailsRow: {
       flexDirection: 'row',

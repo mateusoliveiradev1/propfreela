@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { cn } from './cn.js'
+import { cn } from './cn'
 
 type ButtonVariant = 'primary' | 'ghost' | 'destructive'
 type ButtonSize = 'sm' | 'md' | 'lg'

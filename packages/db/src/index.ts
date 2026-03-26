@@ -1,6 +1,6 @@
 import { neon } from '@neondatabase/serverless'
 import { drizzle } from 'drizzle-orm/neon-http'
-import * as schema from './schema.js'
+import * as schema from './schema'
 
 export function createDb(connectionString: string) {
   const sql = neon(connectionString)
@@ -10,4 +10,4 @@ export function createDb(connectionString: string) {
 export type Database = ReturnType<typeof createDb>
 
 // Re-export everything from schema so consumers only need one import
-export * from './schema.js'
+export * from './schema'

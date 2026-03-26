@@ -1,24 +1,21 @@
 import {
   Document,
   Font,
+  Image,
   Page,
   StyleSheet,
   Text,
   View,
 } from '@react-pdf/renderer'
 import type { Proposal, User } from '@propfreela/db'
+import { INTER_REGULAR, INTER_SEMIBOLD } from '../fonts'
 
+// Fonts are embedded as base64 data URIs — no file system or network access needed.
 Font.register({
   family: 'Inter',
   fonts: [
-    {
-      src: 'https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff',
-      fontWeight: 400,
-    },
-    {
-      src: 'https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuGKYAZ9hiJ-Ek-_EeA.woff',
-      fontWeight: 600,
-    },
+    { src: INTER_REGULAR, fontWeight: 400 },
+    { src: INTER_SEMIBOLD, fontWeight: 600 },
   ],
 })
 
@@ -52,155 +49,204 @@ export function TemplateModerno({ proposal, user }: Props) {
       fontSize: 10,
       color: '#0D0D0B',
     },
-    watermark: {
+
+    // Watermark — stamp centered on page, rendered on top of everything
+    watermarkOverlay: {
       position: 'absolute',
-      top: '40%',
+      top: 0,
       left: 0,
       right: 0,
-      textAlign: 'center',
-      fontSize: 52,
-      color: '#E8E8E8',
-      fontWeight: 600,
-      transform: 'rotate(-30deg)',
-      opacity: 0.4,
-      zIndex: 10,
+      bottom: 0,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
+    watermarkStamp: {
+      borderWidth: 2,
+      borderColor: '#D4D4D4',
+      paddingHorizontal: 28,
+      paddingVertical: 14,
+      transform: 'rotate(-12deg)',
+    },
+    watermarkText: {
+      fontSize: 20,
+      fontWeight: 600,
+      color: '#D4D4D4',
+      letterSpacing: 5,
+      textTransform: 'uppercase',
+    },
+
+    // Sidebar
     sidebar: {
-      width: 180,
-      backgroundColor: '#0D0D0B',
+      width: 192,
+      backgroundColor: '#111110',
       padding: 32,
       flexDirection: 'column',
     },
-    sidebarCompany: {
-      fontSize: 14,
+    sidebarLogo: {
+      height: 30,
+      maxWidth: 128,
+      objectFit: 'contain',
+      marginBottom: 12,
+    },
+    sidebarCompanyName: {
+      fontSize: 13,
       fontWeight: 600,
       color: '#FFFFFF',
-      marginBottom: 40,
+      lineHeight: 1.3,
+      marginBottom: 8,
     },
-    sidebarLabel: {
-      fontSize: 7,
-      color: '#6B6860',
-      letterSpacing: 1,
+    accentLine: {
+      height: 2,
+      backgroundColor: accent,
+      width: 28,
+      marginTop: 4,
+      marginBottom: 32,
+    },
+    sidebarEyebrow: {
+      fontSize: 6,
+      fontWeight: 600,
+      color: '#4A4845',
+      letterSpacing: 1.5,
       textTransform: 'uppercase',
       marginBottom: 4,
     },
     sidebarValue: {
       fontSize: 9,
-      color: '#EFEDE8',
-      marginBottom: 20,
+      color: '#C8C4BC',
+      marginBottom: 24,
       lineHeight: 1.5,
     },
-    accentLine: {
-      height: 2,
-      backgroundColor: accent,
-      width: 32,
-      marginBottom: 32,
+    sidebarSpacer: {
+      flex: 1,
     },
+    sidebarBrand: {
+      fontSize: 7,
+      color: '#3A3835',
+      letterSpacing: 0.5,
+    },
+
+    // Main area
     main: {
       flex: 1,
       padding: 40,
+      paddingBottom: 72,
     },
-    badge: {
+    mainBadge: {
       fontSize: 7,
-      color: accent,
-      letterSpacing: 1.5,
-      textTransform: 'uppercase',
-      marginBottom: 12,
       fontWeight: 600,
+      color: accent,
+      letterSpacing: 2,
+      textTransform: 'uppercase',
+      marginBottom: 10,
     },
-    proposalTitle: {
-      fontSize: 24,
+    clientName: {
+      fontSize: 26,
       fontWeight: 600,
       color: '#0D0D0B',
+      lineHeight: 1.15,
       marginBottom: 4,
-      lineHeight: 1.2,
     },
     clientEmail: {
       fontSize: 9,
       color: '#6B6860',
-      marginBottom: 32,
+      marginBottom: 24,
     },
     divider: {
       height: 1,
-      backgroundColor: '#D8D4CC',
-      marginVertical: 24,
+      backgroundColor: '#E4E0D8',
+      marginVertical: 20,
     },
     sectionLabel: {
       fontSize: 7,
-      color: '#6B6860',
-      letterSpacing: 1,
+      fontWeight: 600,
+      color: '#9B9790',
+      letterSpacing: 1.5,
       textTransform: 'uppercase',
-      marginBottom: 8,
+      marginBottom: 10,
     },
     scopeText: {
       fontSize: 10,
       color: '#3D3D3A',
-      lineHeight: 1.7,
+      lineHeight: 1.8,
     },
-    valueContainer: {
-      backgroundColor: '#F7F6F3',
-      borderRadius: 4,
+
+    // Value highlight box
+    valueBox: {
+      backgroundColor: '#F5F4F1',
+      borderLeftWidth: 3,
+      borderLeftColor: accent,
       padding: 20,
-      marginTop: 8,
     },
-    valueLabel: {
-      fontSize: 8,
-      color: '#6B6860',
-      letterSpacing: 0.8,
+    valueBoxLabel: {
+      fontSize: 7,
+      fontWeight: 600,
+      color: '#9B9790',
+      letterSpacing: 1.5,
       textTransform: 'uppercase',
-      marginBottom: 4,
+      marginBottom: 8,
     },
-    valueLarge: {
-      fontSize: 28,
+    valueBoxAmount: {
+      fontSize: 32,
       fontWeight: 600,
       color: accent,
+      lineHeight: 1.05,
     },
-    paymentTerms: {
+    valueBoxPayment: {
       fontSize: 9,
       color: '#6B6860',
       marginTop: 8,
+      lineHeight: 1.5,
     },
+
+    // Footer
     footer: {
       position: 'absolute',
       bottom: 24,
       right: 40,
       fontSize: 7,
-      color: '#A8A49C',
+      color: '#B0AB9F',
     },
   })
 
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        {isFreePlan && <Text style={styles.watermark}>PropFreela Grátis</Text>}
-
         {/* Sidebar */}
         <View style={styles.sidebar}>
-          <Text style={styles.sidebarCompany}>{companyName}</Text>
+          {user.logoUrl ? (
+            <Image src={user.logoUrl} style={styles.sidebarLogo} />
+          ) : (
+            <Text style={styles.sidebarCompanyName}>{companyName}</Text>
+          )}
           <View style={styles.accentLine} />
 
-          <Text style={styles.sidebarLabel}>Data</Text>
-          <Text style={styles.sidebarValue}>{new Date().toLocaleDateString('pt-BR')}</Text>
+          <Text style={styles.sidebarEyebrow}>Data</Text>
+          <Text style={styles.sidebarValue}>
+            {new Date().toLocaleDateString('pt-BR')}
+          </Text>
 
           {proposal.deadline ? (
             <>
-              <Text style={styles.sidebarLabel}>Prazo</Text>
+              <Text style={styles.sidebarEyebrow}>Prazo</Text>
               <Text style={styles.sidebarValue}>{formatDate(proposal.deadline)}</Text>
             </>
           ) : null}
 
           {proposal.paymentTerms ? (
             <>
-              <Text style={styles.sidebarLabel}>Pagamento</Text>
+              <Text style={styles.sidebarEyebrow}>Pagamento</Text>
               <Text style={styles.sidebarValue}>{proposal.paymentTerms}</Text>
             </>
           ) : null}
+
+          <View style={styles.sidebarSpacer} />
+          <Text style={styles.sidebarBrand}>propfreela.com.br</Text>
         </View>
 
         {/* Main Content */}
         <View style={styles.main}>
-          <Text style={styles.badge}>Proposta Comercial</Text>
-          <Text style={styles.proposalTitle}>{proposal.clientName}</Text>
+          <Text style={styles.mainBadge}>Proposta Comercial</Text>
+          <Text style={styles.clientName}>{proposal.clientName}</Text>
           {proposal.clientEmail ? (
             <Text style={styles.clientEmail}>{proposal.clientEmail}</Text>
           ) : null}
@@ -212,18 +258,28 @@ export function TemplateModerno({ proposal, user }: Props) {
 
           <View style={styles.divider} />
 
-          <View style={styles.valueContainer}>
-            <Text style={styles.valueLabel}>Investimento</Text>
-            <Text style={styles.valueLarge}>{formatCurrency(proposal.valueInCents)}</Text>
+          <View style={styles.valueBox}>
+            <Text style={styles.valueBoxLabel}>Investimento</Text>
+            <Text style={styles.valueBoxAmount}>
+              {formatCurrency(proposal.valueInCents)}
+            </Text>
             {proposal.paymentTerms ? (
-              <Text style={styles.paymentTerms}>{proposal.paymentTerms}</Text>
+              <Text style={styles.valueBoxPayment}>{proposal.paymentTerms}</Text>
             ) : null}
           </View>
         </View>
 
-        <Text style={styles.footer}>
-          {proposal.title} · propfreela.com.br
-        </Text>
+        {/* Watermark — rendered last so it appears on top of content */}
+        {isFreePlan && (
+          <View style={styles.watermarkOverlay}>
+            <View style={styles.watermarkStamp}>
+              <Text style={styles.watermarkText}>PropFreela Grátis</Text>
+            </View>
+          </View>
+        )}
+
+        {/* Footer */}
+        <Text style={styles.footer}>{proposal.title} · propfreela.com.br</Text>
       </Page>
     </Document>
   )

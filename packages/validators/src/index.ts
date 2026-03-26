@@ -1,2 +1,2 @@
-export * from './proposal.schema.js'
-export * from './user.schema.js'
+export * from './proposal.schema'
+export * from './user.schema'

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { cn } from './cn.js'
+import { cn } from './cn'
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   error?: boolean

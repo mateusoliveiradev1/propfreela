@@ -21,7 +21,7 @@ export const CreateProposalSchema = z.object({
     .positive('Valor deve ser maior que zero'),
   deadline: z.string().optional(),
   paymentTerms: z.string().optional(),
-  templateId: ProposalTemplateEnum.default('clean'),
+  templateId: ProposalTemplateEnum,
 })
 
 export type CreateProposalInput = z.infer<typeof CreateProposalSchema>

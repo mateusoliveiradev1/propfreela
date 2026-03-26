@@ -3,8 +3,8 @@ import { createElement } from 'react'
 import type { ReactElement } from 'react'
 import type { DocumentProps } from '@react-pdf/renderer'
 import type { Proposal, User } from '@propfreela/db'
-import { TemplateClean } from './templates/TemplateClean.js'
-import { TemplateModerno } from './templates/TemplateModerno.js'
+import { TemplateClean } from './templates/TemplateClean'
+import { TemplateModerno } from './templates/TemplateModerno'
 
 export type PdfOptions = {
   proposal: Proposal

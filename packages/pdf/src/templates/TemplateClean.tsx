@@ -1,25 +1,21 @@
 import {
   Document,
   Font,
+  Image,
   Page,
   StyleSheet,
   Text,
   View,
 } from '@react-pdf/renderer'
 import type { Proposal, User } from '@propfreela/db'
+import { INTER_REGULAR, INTER_SEMIBOLD } from '../fonts'
 
-// Register fonts
+// Fonts are embedded as base64 data URIs — no file system or network access needed.
 Font.register({
   family: 'Inter',
   fonts: [
-    {
-      src: 'https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff',
-      fontWeight: 400,
-    },
-    {
-      src: 'https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuGKYAZ9hiJ-Ek-_EeA.woff',
-      fontWeight: 600,
-    },
+    { src: INTER_REGULAR, fontWeight: 400 },
+    { src: INTER_SEMIBOLD, fontWeight: 600 },
   ],
 })
 
@@ -49,176 +45,261 @@ export function TemplateClean({ proposal, user }: Props) {
     page: {
       fontFamily: 'Inter',
       backgroundColor: '#FFFFFF',
-      paddingHorizontal: 56,
-      paddingVertical: 56,
       fontSize: 10,
       color: '#0D0D0B',
     },
-    watermark: {
+
+    // Thin accent bar at the very top
+    accentBar: {
+      height: 4,
+      backgroundColor: accent,
+    },
+
+    // Watermark — stamp centered on page (no rotation clipping issues)
+    watermarkOverlay: {
       position: 'absolute',
-      top: '40%',
+      top: 0,
       left: 0,
       right: 0,
-      textAlign: 'center',
-      fontSize: 52,
-      color: '#E8E8E8',
-      fontWeight: 600,
-      transform: 'rotate(-30deg)',
-      opacity: 0.4,
+      bottom: 0,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
+    watermarkStamp: {
+      borderWidth: 2,
+      borderColor: '#D4D4D4',
+      paddingHorizontal: 28,
+      paddingVertical: 14,
+      transform: 'rotate(-12deg)',
+    },
+    watermarkText: {
+      fontSize: 20,
+      fontWeight: 600,
+      color: '#D4D4D4',
+      letterSpacing: 5,
+      textTransform: 'uppercase',
+    },
+
+    // Main body
+    body: {
+      paddingHorizontal: 52,
+      paddingTop: 36,
+      paddingBottom: 72,
+    },
+
+    // Header: logo/name on left, badge on right
     header: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      alignItems: 'flex-start',
-      marginBottom: 40,
-      paddingBottom: 24,
+      alignItems: 'center',
+      marginBottom: 36,
+      paddingBottom: 20,
       borderBottomWidth: 1,
-      borderBottomColor: '#D8D4CC',
+      borderBottomColor: '#E4E0D8',
+    },
+    companyLogo: {
+      height: 28,
+      maxWidth: 140,
+      objectFit: 'contain',
     },
     companyName: {
-      fontSize: 18,
+      fontSize: 16,
       fontWeight: 600,
       color: '#0D0D0B',
     },
-    badge: {
+    headerBadge: {
       backgroundColor: accent,
       color: '#FFFFFF',
-      fontSize: 8,
-      paddingHorizontal: 10,
-      paddingVertical: 4,
-      borderRadius: 2,
+      fontSize: 7,
       fontWeight: 600,
-      letterSpacing: 0.5,
+      letterSpacing: 1.5,
+      paddingHorizontal: 10,
+      paddingVertical: 5,
+      borderRadius: 2,
     },
-    section: {
-      marginBottom: 28,
-    },
-    sectionLabel: {
-      fontSize: 8,
-      color: '#6B6860',
-      letterSpacing: 1,
+
+    // Client section
+    eyebrow: {
+      fontSize: 7,
+      fontWeight: 600,
+      color: '#9B9790',
+      letterSpacing: 1.5,
       textTransform: 'uppercase',
       marginBottom: 8,
     },
-    sectionTitle: {
-      fontSize: 22,
+    clientName: {
+      fontSize: 28,
       fontWeight: 600,
       color: '#0D0D0B',
-      lineHeight: 1.3,
-    },
-    row: {
-      flexDirection: 'row',
-      gap: 32,
-      marginBottom: 20,
-    },
-    col: {
-      flex: 1,
-    },
-    label: {
-      fontSize: 8,
-      color: '#6B6860',
-      letterSpacing: 0.8,
-      textTransform: 'uppercase',
+      lineHeight: 1.15,
       marginBottom: 4,
     },
-    value: {
-      fontSize: 11,
-      color: '#0D0D0B',
+    clientEmail: {
+      fontSize: 10,
+      color: '#6B6860',
+      marginBottom: 24,
     },
-    valueLarge: {
-      fontSize: 24,
+
+    divider: {
+      height: 1,
+      backgroundColor: '#E4E0D8',
+      marginVertical: 20,
+    },
+
+    sectionLabel: {
+      fontSize: 7,
       fontWeight: 600,
-      color: accent,
+      color: '#9B9790',
+      letterSpacing: 1.5,
+      textTransform: 'uppercase',
+      marginBottom: 10,
     },
     scopeText: {
       fontSize: 10,
       color: '#3D3D3A',
-      lineHeight: 1.7,
+      lineHeight: 1.8,
     },
-    divider: {
-      height: 1,
-      backgroundColor: '#D8D4CC',
-      marginVertical: 24,
+
+    // Metrics row
+    metricsRow: {
+      flexDirection: 'row',
+      marginTop: 4,
     },
+    metricBlock: {
+      flex: 1,
+      paddingRight: 24,
+    },
+    metricBlockBordered: {
+      flex: 1,
+      paddingLeft: 24,
+      borderLeftWidth: 1,
+      borderLeftColor: '#E4E0D8',
+    },
+    metricLabel: {
+      fontSize: 7,
+      fontWeight: 600,
+      color: '#9B9790',
+      letterSpacing: 1.5,
+      textTransform: 'uppercase',
+      marginBottom: 6,
+    },
+    metricValueAccent: {
+      fontSize: 30,
+      fontWeight: 600,
+      color: accent,
+      lineHeight: 1.05,
+    },
+    metricValue: {
+      fontSize: 15,
+      fontWeight: 600,
+      color: '#0D0D0B',
+    },
+
+    paymentSection: {
+      marginTop: 20,
+    },
+    paymentText: {
+      fontSize: 10,
+      color: '#3D3D3A',
+      lineHeight: 1.6,
+    },
+
+    // Footer
     footer: {
       position: 'absolute',
-      bottom: 40,
-      left: 56,
-      right: 56,
+      bottom: 24,
+      left: 52,
+      right: 52,
       flexDirection: 'row',
       justifyContent: 'space-between',
-      alignItems: 'center',
+      paddingTop: 12,
+      borderTopWidth: 1,
+      borderTopColor: '#E4E0D8',
     },
-    footerText: {
-      fontSize: 8,
-      color: '#A8A49C',
+    footerLeft: {
+      fontSize: 7,
+      color: '#B0AB9F',
     },
-    footerBrand: {
-      fontSize: 8,
-      color: '#A8A49C',
+    footerRight: {
+      fontSize: 7,
+      fontWeight: 600,
+      color: '#B0AB9F',
     },
   })
 
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        {isFreePlan && <Text style={styles.watermark}>PropFreela Grátis</Text>}
+        {/* Accent bar */}
+        <View style={styles.accentBar} />
 
-        {/* Header */}
-        <View style={styles.header}>
-          <Text style={styles.companyName}>{companyName}</Text>
-          <Text style={styles.badge}>PROPOSTA COMERCIAL</Text>
-        </View>
+        {/* Body */}
+        <View style={styles.body}>
+          {/* Header */}
+          <View style={styles.header}>
+            {user.logoUrl ? (
+              <Image src={user.logoUrl} style={styles.companyLogo} />
+            ) : (
+              <Text style={styles.companyName}>{companyName}</Text>
+            )}
+            <Text style={styles.headerBadge}>PROPOSTA COMERCIAL</Text>
+          </View>
 
-        {/* Title */}
-        <View style={styles.section}>
-          <Text style={styles.sectionLabel}>Proposta para</Text>
-          <Text style={styles.sectionTitle}>{proposal.clientName}</Text>
+          {/* Client */}
+          <Text style={styles.eyebrow}>Proposta para</Text>
+          <Text style={styles.clientName}>{proposal.clientName}</Text>
           {proposal.clientEmail ? (
-            <Text style={{ ...styles.value, marginTop: 4, color: '#6B6860' }}>
-              {proposal.clientEmail}
-            </Text>
+            <Text style={styles.clientEmail}>{proposal.clientEmail}</Text>
           ) : null}
-        </View>
 
-        <View style={styles.divider} />
+          <View style={styles.divider} />
 
-        {/* Scope */}
-        <View style={styles.section}>
+          {/* Scope */}
           <Text style={styles.sectionLabel}>Escopo do projeto</Text>
           <Text style={styles.scopeText}>{proposal.scope}</Text>
-        </View>
 
-        <View style={styles.divider} />
+          <View style={styles.divider} />
 
-        {/* Value + Deadline */}
-        <View style={styles.row}>
-          <View style={styles.col}>
-            <Text style={styles.label}>Investimento</Text>
-            <Text style={styles.valueLarge}>{formatCurrency(proposal.valueInCents)}</Text>
+          {/* Metrics */}
+          <View style={styles.metricsRow}>
+            <View style={styles.metricBlock}>
+              <Text style={styles.metricLabel}>Investimento</Text>
+              <Text style={styles.metricValueAccent}>
+                {formatCurrency(proposal.valueInCents)}
+              </Text>
+            </View>
+            {proposal.deadline ? (
+              <View style={styles.metricBlockBordered}>
+                <Text style={styles.metricLabel}>Prazo de entrega</Text>
+                <Text style={styles.metricValue}>{formatDate(proposal.deadline)}</Text>
+              </View>
+            ) : null}
           </View>
-          {proposal.deadline ? (
-            <View style={styles.col}>
-              <Text style={styles.label}>Prazo de entrega</Text>
-              <Text style={styles.value}>{formatDate(proposal.deadline)}</Text>
+
+          {/* Payment terms */}
+          {proposal.paymentTerms ? (
+            <View style={styles.paymentSection}>
+              <Text style={styles.sectionLabel}>Condições de pagamento</Text>
+              <Text style={styles.paymentText}>{proposal.paymentTerms}</Text>
             </View>
           ) : null}
         </View>
 
-        {/* Payment Terms */}
-        {proposal.paymentTerms ? (
-          <View style={styles.section}>
-            <Text style={styles.label}>Condições de pagamento</Text>
-            <Text style={styles.value}>{proposal.paymentTerms}</Text>
+        {/* Watermark — rendered after body so it appears on top */}
+        {isFreePlan && (
+          <View style={styles.watermarkOverlay}>
+            <View style={styles.watermarkStamp}>
+              <Text style={styles.watermarkText}>PropFreela Grátis</Text>
+            </View>
           </View>
-        ) : null}
+        )}
 
         {/* Footer */}
         <View style={styles.footer}>
-          <Text style={styles.footerText}>
+          <Text style={styles.footerLeft}>
             {proposal.title} · Gerado em {new Date().toLocaleDateString('pt-BR')}
           </Text>
-          <Text style={styles.footerBrand}>propfreela.com.br</Text>
+          <Text style={styles.footerRight}>propfreela.com.br</Text>
         </View>
       </Page>
     </Document>

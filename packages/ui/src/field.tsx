@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { cn } from './cn.js'
+import { cn } from './cn'
 
 type FieldProps = {
   label: string
-  error?: string
-  hint?: string
+  error?: string | undefined
+  hint?: string | undefined
   required?: boolean
   children: React.ReactNode
   className?: string

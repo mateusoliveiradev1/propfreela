@@ -1,3 +1,6 @@
 export { generatePdf, type PdfOptions } from './pdf.service'
 export { TemplateClean } from './templates/TemplateClean'
 export { TemplateModerno } from './templates/TemplateModerno'
+export { TemplateBold } from './templates/TemplateBold'
+export { TemplateMinimal } from './templates/TemplateMinimal'
+export { TemplateExecutivo } from './templates/TemplateExecutivo'

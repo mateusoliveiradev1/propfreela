@@ -163,7 +163,6 @@ export function TemplateBold({ proposal, user }: Props) {
     investmentCard: {
       backgroundColor: accent,
       padding: 28,
-      borderRadius: 0,
       marginTop: 8,
     },
     investmentLabel: {

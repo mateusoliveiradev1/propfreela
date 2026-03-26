@@ -37,14 +37,16 @@ Com o PropFreela você:
 | Recurso | Grátis | Pro |
 |---|---|---|
 | Propostas por mês | 3 | Ilimitadas |
-| Templates de PDF | Todos | Todos |
+| Templates de PDF | 5 | 5 |
+| Geração de escopo com IA | Sim | Sim |
 | Watermark no PDF | Sim | Não |
 | Logo própria no PDF | Não | Sim |
-| Geração de escopo com IA | Sim | Sim |
+| Cor de destaque | Não | Sim |
 | Histórico de propostas | Sim | Sim |
 | Duplicar proposta | Sim | Sim |
+| Suporte por email | Não | Sim |
 
-**Plano Pro:** R$ 29/mês ou R$ 197/ano
+**Plano Pro:** R$ 29/mês ou R$ 197/ano (economize 44%)
 
 ---
 

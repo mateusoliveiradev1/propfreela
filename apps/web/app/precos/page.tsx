@@ -56,7 +56,8 @@ export default function PrecosPage() {
             <ul className="mb-8 space-y-3">
               {[
                 '3 propostas por mês',
-                '2 templates de PDF',
+                '5 templates de PDF',
+                'Geração de escopo com IA',
                 'Histórico completo',
                 'Editar e duplicar propostas',
                 'PDF com watermark PropFreela',
@@ -88,7 +89,8 @@ export default function PrecosPage() {
             <ul className="mb-8 space-y-3">
               {[
                 'Propostas ilimitadas',
-                '2 templates de PDF',
+                '5 templates de PDF',
+                'Geração de escopo com IA',
                 'Histórico completo',
                 'Editar e duplicar propostas',
                 'PDF sem watermark',

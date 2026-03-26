@@ -103,7 +103,7 @@ export default function LandingPage() {
           <div className="grid grid-cols-3 gap-12">
             <Feature
               label="PDF profissional"
-              description="Dois templates cuidadosamente desenhados. Sua logo, sua cor de destaque, seu nome. Sem watermark no plano Pro."
+              description="Cinco templates profissionais. Sua logo, sua cor de destaque, seu nome. Sem watermark no plano Pro."
             />
             <Feature
               label="Tudo organizado"
@@ -126,8 +126,9 @@ export default function LandingPage() {
             period="para sempre"
             features={[
               '3 propostas por mês',
+              '5 templates de PDF',
+              'Geração de escopo com IA',
               'PDF com watermark PropFreela',
-              '2 templates incluídos',
               'Histórico completo',
             ]}
             cta="Começar grátis"
@@ -141,6 +142,8 @@ export default function LandingPage() {
             yearlyNote="ou R$197/ano (economize 44%)"
             features={[
               'Propostas ilimitadas',
+              '5 templates de PDF',
+              'Geração de escopo com IA',
               'PDF sem watermark',
               'Sua logo no PDF',
               'Cor de destaque personalizada',

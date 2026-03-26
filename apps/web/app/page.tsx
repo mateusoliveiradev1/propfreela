@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { FaqAccordion } from '@/components/landing/FaqAccordion'
 
 export const metadata: Metadata = {
   title: 'PropFreela — Propostas comerciais profissionais para freelancers',
@@ -17,13 +18,13 @@ export const metadata: Metadata = {
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-bg-base font-sans">
-      {/* Nav */}
+      {/* ── Nav ─────────────────────────────────────────────────── */}
       <header className="border-b border-border">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <span className="text-sm font-medium tracking-tight text-fg-base">PropFreela</span>
           <div className="flex items-center gap-6">
             <Link href="/precos" className="text-xs text-fg-muted hover:text-fg-base">
-              Preços
+              Precos
             </Link>
             <Link
               href="/login"
@@ -35,37 +36,35 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="mx-auto max-w-5xl px-6 pb-24 pt-20">
+      {/* ── Hero ────────────────────────────────────────────────── */}
+      <section className="mx-auto max-w-5xl px-6 pb-20 pt-20">
         <div className="max-w-2xl">
-          <p className="mb-4 text-xs font-medium uppercase tracking-[0.15em] text-fg-muted">
-            Para freelancers brasileiros
-          </p>
-          <h1 className="mb-6 text-5xl font-light leading-tight text-fg-base">
-            Propostas comerciais profissionais em minutos.
-            <br />
-            <span className="text-accent">Sem Word. Sem complicação.</span>
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-border bg-bg-subtle px-3 py-1">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+            <span className="text-xs text-fg-muted">+500 propostas criadas por freelancers</span>
+          </div>
+          <h1 className="mb-6 text-5xl font-light leading-[1.1] text-fg-base">
+            Feche mais projetos com propostas que{' '}
+            <span className="text-accent">impressionam.</span>
           </h1>
-          <p className="mb-10 text-base leading-relaxed text-fg-muted">
-            Crie, personalize e baixe propostas em PDF com sua marca. Impressione seus clientes
-            antes mesmo de começar o projeto. Grátis para começar.
+          <p className="mb-10 max-w-lg text-base leading-relaxed text-fg-muted">
+            Crie propostas comerciais profissionais em PDF em menos de 2 minutos.
+            Com IA que gera o escopo pra voce. Gratis para comecar.
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
             <Link
               href="/login"
-              className="inline-flex h-11 items-center rounded-sm bg-accent px-6 text-sm font-medium text-accent-fg transition-colors hover:bg-accent-hover"
+              className="inline-flex h-12 items-center justify-center rounded-sm bg-accent px-8 text-sm font-medium text-accent-fg transition-colors hover:bg-accent-hover"
             >
-              Começar grátis — sem cartão
+              Criar minha primeira proposta
             </Link>
-            <Link href="/precos" className="text-sm text-fg-muted hover:text-fg-base">
-              Ver planos →
-            </Link>
+            <span className="text-xs text-fg-placeholder">Gratis, sem cartao de credito</span>
           </div>
         </div>
 
         {/* PDF mockup */}
-        <div className="mt-16 rounded-sm border border-border bg-bg-subtle p-8">
-          <div className="mx-auto max-w-lg space-y-4 rounded-sm border border-border bg-bg-base p-8">
+        <div className="mt-16 rounded-sm border border-border bg-bg-subtle p-6 sm:p-8">
+          <div className="mx-auto max-w-lg space-y-4 rounded-sm border border-border bg-bg-base p-6 sm:p-8">
             <div className="flex items-start justify-between">
               <div>
                 <p className="text-xs font-medium uppercase tracking-[0.12em] text-fg-muted">
@@ -89,74 +88,210 @@ export default function LandingPage() {
                 Escopo
               </p>
               <p className="text-sm leading-relaxed text-fg-muted">
-                Desenvolvimento de website institucional responsivo com até 5 páginas, painel
-                administrativo para edição de conteúdo e integração com Google Analytics...
+                Desenvolvimento de website institucional responsivo com ate 5 paginas, painel
+                administrativo para edicao de conteudo e integracao com Google Analytics...
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Features */}
+      {/* ── Social proof bar ───────────────────────────────────── */}
+      <section className="border-y border-border bg-bg-subtle">
+        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-8 px-6 py-6 sm:justify-between">
+          <Stat value="500+" label="propostas criadas" />
+          <Stat value="5" label="templates profissionais" />
+          <Stat value="< 2 min" label="para gerar um PDF" />
+          <Stat value="R$0" label="para comecar" />
+        </div>
+      </section>
+
+      {/* ── Como funciona (3 steps) ────────────────────────────── */}
+      <section className="mx-auto max-w-5xl px-6 py-20">
+        <p className="mb-3 text-center text-xs font-medium uppercase tracking-[0.15em] text-fg-muted">
+          Como funciona
+        </p>
+        <h2 className="mb-14 text-center text-3xl font-light text-fg-base">
+          Tres passos. Dois minutos.
+        </h2>
+        <div className="grid gap-10 sm:grid-cols-3 sm:gap-8">
+          <Step
+            number="01"
+            title="Preencha os dados"
+            description="Nome do cliente, valor, prazo e uma breve descricao do projeto. Simples assim."
+          />
+          <Step
+            number="02"
+            title="IA gera o escopo"
+            description="Nossa inteligencia artificial cria um escopo profissional completo. Voce pode editar o que quiser."
+          />
+          <Step
+            number="03"
+            title="Baixe o PDF"
+            description="Escolha um dos 5 templates, personalize com sua marca e baixe um PDF pronto para enviar."
+          />
+        </div>
+      </section>
+
+      {/* ── Features grid (6) ──────────────────────────────────── */}
       <section className="border-t border-border bg-bg-subtle">
         <div className="mx-auto max-w-5xl px-6 py-20">
-          <div className="grid grid-cols-3 gap-12">
+          <p className="mb-3 text-center text-xs font-medium uppercase tracking-[0.15em] text-fg-muted">
+            Tudo que voce precisa
+          </p>
+          <h2 className="mb-14 text-center text-3xl font-light text-fg-base">
+            Feito para quem vive de freelance
+          </h2>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             <Feature
-              label="PDF profissional"
-              description="Cinco templates profissionais. Sua logo, sua cor de destaque, seu nome. Sem watermark no plano Pro."
+              icon="&#9998;"
+              title="5 templates profissionais"
+              description="Clean, Moderno, Bold, Minimal e Executivo. Todos cabem em uma pagina A4."
             />
             <Feature
-              label="Tudo organizado"
-              description="Histórico completo de propostas. Status, valores, datas. Saiba exatamente onde cada negociação está."
+              icon="&#9889;"
+              title="Escopo gerado por IA"
+              description="Descreva o projeto em uma frase. A IA transforma em escopo detalhado e profissional."
             />
             <Feature
-              label="Rápido de verdade"
-              description="Preencha o formulário, baixe o PDF. Sem curva de aprendizado, sem tutorial necessário."
+              icon="&#128196;"
+              title="PDF perfeito"
+              description="Layout limpo, tipografia profissional. Seu cliente recebe algo que transmite confianca."
+            />
+            <Feature
+              icon="&#127912;"
+              title="Sua marca no PDF"
+              description="Adicione sua logo e cor de destaque. Cada proposta sai com a cara do seu negocio."
+            />
+            <Feature
+              icon="&#128202;"
+              title="Dashboard completo"
+              description="Historico de propostas, status, valores e filtros. Tenha controle total das suas negociacoes."
+            />
+            <Feature
+              icon="&#128279;"
+              title="Link de aprovacao"
+              description="Compartilhe um link. Seu cliente visualiza a proposta e aprova com um clique — sem criar conta."
             />
           </div>
         </div>
       </section>
 
-      {/* Pricing CTA */}
+      {/* ── Pricing ────────────────────────────────────────────── */}
       <section className="mx-auto max-w-5xl px-6 py-20">
-        <div className="grid grid-cols-2 gap-6">
-          <PricingCard
-            plan="Gratuito"
-            price="R$0"
-            period="para sempre"
-            features={[
-              '3 propostas por mês',
-              '5 templates de PDF',
-              'Geração de escopo com IA',
-              'PDF com watermark PropFreela',
-              'Histórico completo',
-            ]}
-            cta="Começar grátis"
-            ctaHref="/login"
-            variant="ghost"
-          />
-          <PricingCard
-            plan="Pro"
-            price="R$29"
-            period="por mês"
-            yearlyNote="ou R$197/ano (economize 44%)"
-            features={[
-              'Propostas ilimitadas',
-              '5 templates de PDF',
-              'Geração de escopo com IA',
-              'PDF sem watermark',
-              'Sua logo no PDF',
-              'Cor de destaque personalizada',
-              'Suporte por email',
-            ]}
-            cta="Assinar Pro"
-            ctaHref="/login"
-            variant="primary"
-          />
+        <p className="mb-3 text-center text-xs font-medium uppercase tracking-[0.15em] text-fg-muted">
+          Planos
+        </p>
+        <h2 className="mb-4 text-center text-3xl font-light text-fg-base">
+          Simples e transparente
+        </h2>
+        <p className="mb-14 text-center text-sm text-fg-muted">
+          Sem contrato. Cancele quando quiser.
+        </p>
+
+        <div className="mx-auto grid max-w-2xl gap-6 sm:grid-cols-2">
+          {/* Free */}
+          <div className="rounded-sm border border-border p-8">
+            <p className="mb-1 text-xs font-medium uppercase tracking-[0.12em] text-fg-muted">
+              Gratuito
+            </p>
+            <div className="mb-6 flex items-baseline gap-1">
+              <span className="font-mono text-3xl font-light text-fg-base">R$0</span>
+              <span className="text-xs text-fg-muted">para sempre</span>
+            </div>
+            <ul className="mb-8 space-y-2">
+              {[
+                '3 propostas por mes',
+                '5 templates de PDF',
+                'Geracao de escopo com IA',
+                'Historico completo',
+                'PDF com watermark PropFreela',
+              ].map((f) => (
+                <li key={f} className="flex items-start gap-2 text-sm text-fg-muted">
+                  <span className="mt-0.5 text-accent">&#10003;</span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <Link
+              href="/login"
+              className="inline-flex h-10 w-full items-center justify-center rounded-sm border border-border text-sm text-fg-base transition-colors hover:bg-bg-subtle"
+            >
+              Comecar gratis
+            </Link>
+          </div>
+
+          {/* Pro */}
+          <div className="rounded-sm border-2 border-accent p-8">
+            <div className="mb-1 flex items-center gap-2">
+              <p className="text-xs font-medium uppercase tracking-[0.12em] text-accent">Pro</p>
+              <span className="rounded-full bg-accent px-2 py-0.5 text-[10px] font-medium text-accent-fg">
+                Popular
+              </span>
+            </div>
+            <div className="mb-1 flex items-baseline gap-1">
+              <span className="font-mono text-3xl font-light text-fg-base">R$29</span>
+              <span className="text-xs text-fg-muted">por mes</span>
+            </div>
+            <p className="mb-6 text-xs text-fg-placeholder">ou R$197/ano — economize 44%</p>
+            <ul className="mb-8 space-y-2">
+              {[
+                'Propostas ilimitadas',
+                '5 templates de PDF',
+                'Geracao de escopo com IA',
+                'PDF sem watermark',
+                'Sua logo no PDF',
+                'Cor de destaque personalizada',
+                'Suporte por email',
+              ].map((f) => (
+                <li key={f} className="flex items-start gap-2 text-sm text-fg-muted">
+                  <span className="mt-0.5 text-accent">&#10003;</span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <Link
+              href="/login"
+              className="inline-flex h-10 w-full items-center justify-center rounded-sm bg-accent text-sm font-medium text-accent-fg transition-colors hover:bg-accent-hover"
+            >
+              Assinar Pro
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* SEO links */}
+      {/* ── FAQ ─────────────────────────────────────────────────── */}
+      <section className="border-t border-border">
+        <div className="mx-auto max-w-2xl px-6 py-20">
+          <p className="mb-3 text-center text-xs font-medium uppercase tracking-[0.15em] text-fg-muted">
+            Perguntas frequentes
+          </p>
+          <h2 className="mb-10 text-center text-3xl font-light text-fg-base">
+            Tire suas duvidas
+          </h2>
+          <FaqAccordion />
+        </div>
+      </section>
+
+      {/* ── Final CTA ──────────────────────────────────────────── */}
+      <section className="bg-accent">
+        <div className="mx-auto max-w-5xl px-6 py-16 text-center">
+          <h2 className="mb-4 text-3xl font-light text-accent-fg">
+            Pronto para impressionar seus clientes?
+          </h2>
+          <p className="mb-8 text-sm text-accent-fg/70">
+            Crie sua primeira proposta em menos de 2 minutos. Gratis, sem cartao.
+          </p>
+          <Link
+            href="/login"
+            className="inline-flex h-12 items-center rounded-sm bg-bg-base px-8 text-sm font-medium text-accent transition-colors hover:bg-bg-subtle"
+          >
+            Comecar agora — e gratis
+          </Link>
+        </div>
+      </section>
+
+      {/* ── SEO links ──────────────────────────────────────────── */}
       <section className="border-t border-border">
         <div className="mx-auto max-w-5xl px-6 py-12">
           <p className="mb-4 text-xs font-medium uppercase tracking-[0.12em] text-fg-muted">
@@ -167,87 +302,64 @@ export default function LandingPage() {
               href="/blog/como-fazer-proposta-comercial-freelancer"
               className="text-sm text-fg-muted hover:text-fg-base"
             >
-              Como fazer uma proposta comercial →
+              Como fazer uma proposta comercial &rarr;
             </Link>
             <Link
               href="/blog/modelos-proposta-comercial-freelancer"
               className="text-sm text-fg-muted hover:text-fg-base"
             >
-              Modelos de proposta para freelancer →
+              Modelos de proposta para freelancer &rarr;
             </Link>
           </div>
         </div>
       </section>
 
       <footer className="border-t border-border">
-        <div className="mx-auto max-w-5xl px-6 py-8">
+        <div className="mx-auto flex max-w-5xl flex-col gap-2 px-6 py-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-fg-placeholder">
-            © {new Date().getFullYear()} PropFreela. Feito para freelancers brasileiros.
+            &copy; {new Date().getFullYear()} PropFreela. Feito para freelancers brasileiros.
           </p>
+          <div className="flex gap-4">
+            <Link href="/termos-de-uso" className="text-xs text-fg-placeholder hover:text-fg-muted">
+              Termos de uso
+            </Link>
+            <Link href="/privacidade" className="text-xs text-fg-placeholder hover:text-fg-muted">
+              Privacidade
+            </Link>
+          </div>
         </div>
       </footer>
     </div>
   )
 }
 
-function Feature({ label, description }: { label: string; description: string }) {
+/* ── Sub-components ─────────────────────────────────────────────── */
+
+function Stat({ value, label }: { value: string; label: string }) {
+  return (
+    <div className="text-center">
+      <p className="font-mono text-lg font-light text-fg-base">{value}</p>
+      <p className="text-xs text-fg-muted">{label}</p>
+    </div>
+  )
+}
+
+function Step({ number, title, description }: { number: string; title: string; description: string }) {
   return (
     <div>
-      <p className="mb-2 text-sm font-medium text-fg-base">{label}</p>
+      <span className="mb-3 inline-block font-mono text-2xl font-light text-accent">{number}</span>
+      <p className="mb-2 text-sm font-medium text-fg-base">{title}</p>
       <p className="text-sm leading-relaxed text-fg-muted">{description}</p>
     </div>
   )
 }
 
-function PricingCard({
-  plan,
-  price,
-  period,
-  yearlyNote,
-  features,
-  cta,
-  ctaHref,
-  variant,
-}: {
-  plan: string
-  price: string
-  period: string
-  yearlyNote?: string
-  features: string[]
-  cta: string
-  ctaHref: string
-  variant: 'primary' | 'ghost'
-}) {
+function Feature({ icon, title, description }: { icon: string; title: string; description: string }) {
   return (
-    <div className="rounded-sm border border-border p-8">
-      <p className="mb-1 text-xs font-medium uppercase tracking-[0.12em] text-fg-muted">
-        {plan}
-      </p>
-      <div className="mb-1 flex items-baseline gap-1">
-        <span className="font-mono text-3xl font-light text-fg-base">{price}</span>
-        <span className="text-xs text-fg-muted">{period}</span>
-      </div>
-      {yearlyNote && (
-        <p className="mb-6 text-xs text-fg-placeholder">{yearlyNote}</p>
-      )}
-      <ul className="mb-8 space-y-2">
-        {features.map((f) => (
-          <li key={f} className="flex items-start gap-2 text-sm text-fg-muted">
-            <span className="mt-0.5 text-accent">✓</span>
-            {f}
-          </li>
-        ))}
-      </ul>
-      <Link
-        href={ctaHref}
-        className={
-          variant === 'primary'
-            ? 'inline-flex h-10 w-full items-center justify-center rounded-sm bg-accent text-sm font-medium text-accent-fg transition-colors hover:bg-accent-hover'
-            : 'inline-flex h-10 w-full items-center justify-center rounded-sm border border-border text-sm text-fg-base transition-colors hover:bg-bg-subtle'
-        }
-      >
-        {cta}
-      </Link>
+    <div className="rounded-sm border border-border bg-bg-base p-6">
+      <span className="mb-3 inline-block text-xl" dangerouslySetInnerHTML={{ __html: icon }} />
+      <p className="mb-2 text-sm font-medium text-fg-base">{title}</p>
+      <p className="text-sm leading-relaxed text-fg-muted">{description}</p>
     </div>
   )
 }

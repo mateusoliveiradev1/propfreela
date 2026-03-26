@@ -39,6 +39,7 @@ export const proposals = pgTable('proposals', {
   })
     .default('rascunho')
     .notNull(),
+  publicToken: text('public_token').unique(),
   pdfUrl: text('pdf_url'),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),

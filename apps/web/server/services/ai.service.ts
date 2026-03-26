@@ -11,6 +11,10 @@ import type { GenerateScopeInput } from '@propfreela/validators'
 //    Chave grátis: https://console.groq.com → API Keys → Create
 //    Limite free: ~14.400 req/dia
 
+// ─── Constants ───────────────────────────────────────────────────────────────
+
+const AI_TIMEOUT_MS = 15_000 // 15 seconds max per AI call
+
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function formatBRL(cents: number): string {
@@ -33,6 +37,7 @@ async function callGemini(prompt: string): Promise<string> {
       contents: [{ parts: [{ text: prompt }] }],
       generationConfig: { maxOutputTokens: 1024, temperature: 0.75 },
     }),
+    signal: AbortSignal.timeout(AI_TIMEOUT_MS),
   })
 
   if (!res.ok) {
@@ -73,6 +78,7 @@ async function callGroq(prompt: string): Promise<string> {
         { role: 'user', content: prompt },
       ],
     }),
+    signal: AbortSignal.timeout(AI_TIMEOUT_MS),
   })
 
   if (!res.ok) {

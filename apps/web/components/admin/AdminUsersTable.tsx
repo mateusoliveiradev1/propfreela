@@ -20,8 +20,8 @@ export function AdminUsersTable({ initialUsers }: { initialUsers: AdminUser[] })
   })
 
   return (
-    <div className="overflow-hidden rounded-sm border border-border">
-      <table className="w-full text-sm">
+    <div className="overflow-x-auto rounded-sm border border-border">
+      <table className="w-full min-w-[480px] text-sm">
         <thead>
           <tr className="border-b border-border bg-bg-subtle">
             <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-[0.1em] text-fg-muted">
@@ -33,7 +33,7 @@ export function AdminUsersTable({ initialUsers }: { initialUsers: AdminUser[] })
             <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-[0.1em] text-fg-muted">
               Propostas
             </th>
-            <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-[0.1em] text-fg-muted">
+            <th className="hidden px-4 py-3 text-left text-xs font-medium uppercase tracking-[0.1em] text-fg-muted sm:table-cell">
               Cadastro
             </th>
             <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-[0.1em] text-fg-muted">
@@ -67,7 +67,7 @@ export function AdminUsersTable({ initialUsers }: { initialUsers: AdminUser[] })
               <td className="px-4 py-3 font-mono text-sm text-fg-base">
                 {user.proposalCount}
               </td>
-              <td className="px-4 py-3 text-xs text-fg-muted">
+              <td className="hidden px-4 py-3 text-xs text-fg-muted sm:table-cell">
                 {new Date(user.createdAt).toLocaleDateString('pt-BR')}
               </td>
               <td className="px-4 py-3">

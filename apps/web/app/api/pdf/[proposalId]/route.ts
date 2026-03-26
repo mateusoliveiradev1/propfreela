@@ -4,10 +4,17 @@ import { db } from '@/server/db'
 import { generatePdf } from '@propfreela/pdf'
 import { proposals, users } from '@propfreela/db'
 import { eq, and } from 'drizzle-orm'
+import { rateLimit } from '@/lib/rate-limit'
 
 type Params = { params: Promise<{ proposalId: string }> }
 
 export async function GET(_req: NextRequest, { params }: Params) {
+  const ip = _req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown'
+  const { success } = rateLimit({ key: `pdf:${ip}`, limit: 10, windowMs: 60_000 })
+  if (!success) {
+    return NextResponse.json({ error: 'Muitas requisicoes. Tente novamente em um minuto.' }, { status: 429 })
+  }
+
   const session = await auth()
   if (!session?.user?.id) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })

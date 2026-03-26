@@ -31,7 +31,7 @@ export default async function ProposalDetailPage({ params }: Props) {
   }
 
   return (
-    <div className="px-10 py-10">
+    <div className="px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-10">
       {/* Back */}
       <Link
         href="/propostas"
@@ -40,7 +40,7 @@ export default async function ProposalDetailPage({ params }: Props) {
         ← Voltar para propostas
       </Link>
 
-      <div className="flex items-start justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <p className="mb-1 text-xs font-medium uppercase tracking-[0.15em] text-fg-muted">
             {proposal.clientName}
@@ -57,8 +57,8 @@ export default async function ProposalDetailPage({ params }: Props) {
         <ProposalActions proposal={proposal} />
       </div>
 
-      <div className="mt-10 grid grid-cols-3 gap-6">
-        <div className="col-span-2 space-y-8">
+      <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <div className="space-y-8 lg:col-span-2">
           <Section label="Escopo do projeto">
             <p className="whitespace-pre-wrap text-sm leading-relaxed text-fg-muted">
               {proposal.scope}

@@ -84,4 +84,41 @@ export const userRouter = router({
       return { url: session.url }
     }),
 
+  cancelSubscription: protectedProcedure.mutation(async ({ ctx }) => {
+    const [user] = await ctx.db
+      .select({
+        plan: users.plan,
+        stripeSubscriptionId: users.stripeSubscriptionId,
+      })
+      .from(users)
+      .where(eq(users.id, ctx.session.user.id))
+      .limit(1)
+
+    if (!user) throw new TRPCError({ code: 'NOT_FOUND' })
+    if (user.plan !== 'pro') {
+      throw new TRPCError({ code: 'BAD_REQUEST', message: 'Voce ja esta no plano gratuito' })
+    }
+
+    if (user.stripeSubscriptionId) {
+      const stripeKey = process.env['STRIPE_SECRET_KEY']
+      if (stripeKey) {
+        const Stripe = (await import('stripe')).default
+        const stripe = new Stripe(stripeKey)
+        await stripe.subscriptions.update(user.stripeSubscriptionId, {
+          cancel_at_period_end: true,
+        })
+      }
+    }
+
+    // Downgrade immediately if no Stripe (e.g. admin-assigned Pro)
+    if (!user.stripeSubscriptionId) {
+      await ctx.db
+        .update(users)
+        .set({ plan: 'free', updatedAt: new Date() })
+        .where(eq(users.id, ctx.session.user.id))
+    }
+
+    return { cancelled: true }
+  }),
+
 })

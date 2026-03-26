@@ -21,7 +21,7 @@ export default async function DashboardPage() {
   const approved = proposals.filter((p) => p.status === 'aprovada').length
 
   return (
-    <div className="px-10 py-10">
+    <div className="px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-10">
       {/* Header */}
       <div className="mb-10">
         <p className="mb-1 text-xs font-medium uppercase tracking-[0.15em] text-fg-muted">
@@ -33,7 +33,7 @@ export default async function DashboardPage() {
       </div>
 
       {/* Metrics */}
-      <div className="mb-10 grid grid-cols-3 gap-6">
+      <div className="mb-10 grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
         <MetricCard
           label="Propostas este mês"
           value={`${proposalCount.thisMonth} / ${proposalCount.remaining + proposalCount.thisMonth}`}

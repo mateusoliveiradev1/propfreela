@@ -244,7 +244,7 @@ export function TemplateBold({ proposal, user }: Props) {
               <Text style={styles.headerCompany}>{companyName}</Text>
             )}
             <Text style={styles.headerDate}>
-              {formatDate(proposal.createdAt ?? new Date().toISOString())}
+              {formatDate(proposal.createdAt instanceof Date ? proposal.createdAt.toISOString() : (proposal.createdAt ?? new Date().toISOString()))}
             </Text>
           </View>
           <Text style={styles.headerTitle}>PROPOSTA COMERCIAL</Text>

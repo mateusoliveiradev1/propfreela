@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { signIn } from '@/auth'
 
 export const dynamic = 'force-dynamic'
@@ -48,7 +49,15 @@ export default function LoginPage({
         </form>
 
         <p className="text-center text-xs text-fg-placeholder">
-          Ao entrar você concorda com os termos de uso.
+          Ao entrar você concorda com os{' '}
+          <Link href="/termos-de-uso" className="underline hover:text-fg-muted">
+            termos de uso
+          </Link>{' '}
+          e a{' '}
+          <Link href="/privacidade" className="underline hover:text-fg-muted">
+            política de privacidade
+          </Link>
+          .
         </p>
       </div>
     </div>

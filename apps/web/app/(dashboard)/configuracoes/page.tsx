@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { ConfiguracoesForm } from '@/components/settings/ConfiguracoesForm'
+import { CancelPlanButton } from '@/components/settings/CancelPlanButton'
 import { createServerCaller } from '@/lib/trpc/server'
 
 export const metadata: Metadata = { title: 'Configurações' }
@@ -14,7 +15,7 @@ export default async function ConfiguracoesPage({
   const user = await caller.user.getMe()
 
   return (
-    <div className="px-10 py-10">
+    <div className="px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-10">
       <div className="mb-10">
         <p className="mb-1 text-xs font-medium uppercase tracking-[0.15em] text-fg-muted">
           Configurações
@@ -45,8 +46,10 @@ export default async function ConfiguracoesPage({
                   : 'Propostas ilimitadas • sem watermark • logo própria'}
               </p>
             </div>
-            {user.plan === 'free' && (
+            {user.plan === 'free' ? (
               <UpgradeButton />
+            ) : (
+              <CancelPlanButton />
             )}
           </div>
         </div>

@@ -11,7 +11,7 @@ export default async function PropostasPage() {
   const proposals = await caller.proposals.list({})
 
   return (
-    <div className="px-10 py-10">
+    <div className="px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-10">
       <div className="mb-8 flex items-end justify-between">
         <div>
           <p className="mb-1 text-xs font-medium uppercase tracking-[0.15em] text-fg-muted">
@@ -39,7 +39,7 @@ export default async function PropostasPage() {
             <Link
               key={proposal.id}
               href={`/propostas/${proposal.id}`}
-              className="flex items-center justify-between px-6 py-5 transition-colors hover:bg-bg-subtle"
+              className="flex flex-col px-5 py-4 transition-colors hover:bg-bg-subtle sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-5"
             >
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-medium text-fg-base">
@@ -47,12 +47,12 @@ export default async function PropostasPage() {
                 </p>
                 <p className="mt-0.5 text-xs text-fg-muted">{proposal.clientName}</p>
               </div>
-              <div className="ml-8 flex shrink-0 items-center gap-6">
+              <div className="mt-1 flex flex-col items-end gap-1 sm:ml-8 sm:mt-0 sm:flex-row sm:items-center sm:gap-6">
                 <span className="font-mono text-sm text-fg-base">
                   {formatCurrency(proposal.valueInCents)}
                 </span>
                 <ProposalStatusBadge status={proposal.status} />
-                <span className="text-xs text-fg-placeholder">
+                <span className="hidden text-xs text-fg-placeholder sm:block">
                   {new Date(proposal.createdAt).toLocaleDateString('pt-BR')}
                 </span>
               </div>

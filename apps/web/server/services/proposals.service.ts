@@ -172,6 +172,106 @@ async function duplicate({
   return duplicated
 }
 
+// ─── Share & Approve ─────────────────────────────────────────────────────────
+
+async function generateShareToken({
+  id,
+  userId,
+  db,
+}: ServiceContext & { id: string }): Promise<{ token: string; url: string }> {
+  const proposal = await getById({ id, userId, db })
+  if (!proposal) throw new TRPCError({ code: 'NOT_FOUND' })
+
+  // Reuse existing token if already shared
+  if (proposal.publicToken) {
+    const url = `${process.env['NEXT_PUBLIC_APP_URL'] ?? ''}/p/${proposal.publicToken}`
+    return { token: proposal.publicToken, url }
+  }
+
+  const token = createId()
+
+  await db
+    .update(proposals)
+    .set({
+      publicToken: token,
+      // Auto-transition from rascunho → enviada when sharing
+      ...(proposal.status === 'rascunho' ? { status: 'enviada' as const } : {}),
+      updatedAt: new Date(),
+    })
+    .where(eq(proposals.id, id))
+
+  const url = `${process.env['NEXT_PUBLIC_APP_URL'] ?? ''}/p/${token}`
+  return { token, url }
+}
+
+async function getByPublicToken({
+  token,
+  db,
+}: {
+  token: string
+  db: Database
+}) {
+  const [row] = await db
+    .select({
+      id: proposals.id,
+      title: proposals.title,
+      clientName: proposals.clientName,
+      clientEmail: proposals.clientEmail,
+      scope: proposals.scope,
+      valueInCents: proposals.valueInCents,
+      deadline: proposals.deadline,
+      paymentTerms: proposals.paymentTerms,
+      templateId: proposals.templateId,
+      status: proposals.status,
+      createdAt: proposals.createdAt,
+      // User info for branding
+      userName: users.name,
+      companyName: users.companyName,
+      accentColor: users.accentColor,
+      logoUrl: users.logoUrl,
+      userPlan: users.plan,
+    })
+    .from(proposals)
+    .innerJoin(users, eq(proposals.userId, users.id))
+    .where(eq(proposals.publicToken, token))
+    .limit(1)
+
+  if (!row) throw new TRPCError({ code: 'NOT_FOUND', message: 'Proposta não encontrada' })
+  return row
+}
+
+async function respondByPublicToken({
+  token,
+  action,
+  db,
+}: {
+  token: string
+  action: 'aprovada' | 'recusada'
+  db: Database
+}) {
+  const [proposal] = await db
+    .select({ id: proposals.id, status: proposals.status })
+    .from(proposals)
+    .where(eq(proposals.publicToken, token))
+    .limit(1)
+
+  if (!proposal) throw new TRPCError({ code: 'NOT_FOUND', message: 'Proposta não encontrada' })
+
+  if (proposal.status !== 'enviada') {
+    throw new TRPCError({
+      code: 'BAD_REQUEST',
+      message: 'Esta proposta já foi respondida',
+    })
+  }
+
+  await db
+    .update(proposals)
+    .set({ status: action, updatedAt: new Date() })
+    .where(eq(proposals.publicToken, token))
+
+  return { status: action }
+}
+
 // ─── Export ───────────────────────────────────────────────────────────────────
 
 export const proposalsService = {
@@ -182,4 +282,7 @@ export const proposalsService = {
   update,
   remove,
   duplicate,
+  generateShareToken,
+  getByPublicToken,
+  respondByPublicToken,
 }

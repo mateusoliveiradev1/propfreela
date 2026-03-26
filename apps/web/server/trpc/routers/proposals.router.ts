@@ -8,6 +8,7 @@ import {
   UpdateProposalSchema,
   ListProposalsSchema,
   GenerateScopeSchema,
+  ShareProposalSchema,
 } from '@propfreela/validators'
 
 export const proposalsRouter = router({
@@ -61,6 +62,16 @@ export const proposalsRouter = router({
     .input(z.object({ id: z.string().min(1) }))
     .mutation(({ ctx, input }) =>
       proposalsService.duplicate({
+        id: input.id,
+        userId: ctx.session.user.id,
+        db: ctx.db,
+      }),
+    ),
+
+  share: protectedProcedure
+    .input(ShareProposalSchema)
+    .mutation(({ ctx, input }) =>
+      proposalsService.generateShareToken({
         id: input.id,
         userId: ctx.session.user.id,
         db: ctx.db,

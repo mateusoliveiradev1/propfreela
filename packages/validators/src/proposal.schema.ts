@@ -53,3 +53,20 @@ export const GenerateScopeSchema = z.object({
 })
 
 export type GenerateScopeInput = z.infer<typeof GenerateScopeSchema>
+
+// ─── Share & Respond ─────────────────────────────────────────────────────────
+
+export const ShareProposalSchema = z.object({
+  id: z.string().min(1, 'ID da proposta é obrigatório'),
+})
+
+export type ShareProposalInput = z.infer<typeof ShareProposalSchema>
+
+export const RespondProposalSchema = z.object({
+  token: z.string().min(1, 'Token é obrigatório'),
+  action: z.enum(['aprovada', 'recusada'], {
+    required_error: 'Ação é obrigatória',
+  }),
+})
+
+export type RespondProposalInput = z.infer<typeof RespondProposalSchema>

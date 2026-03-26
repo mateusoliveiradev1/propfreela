@@ -48,7 +48,7 @@ export function TemplateBold({ proposal, user }: Props) {
       color: '#0D0D0B',
     },
 
-    // Watermark
+    /* ── Watermark ───────────────────────────────── */
     watermarkOverlay: {
       position: 'absolute',
       top: 0,
@@ -73,18 +73,22 @@ export function TemplateBold({ proposal, user }: Props) {
       textTransform: 'uppercase',
     },
 
-    // Full-width accent header
-    headerBand: {
+    /* ── Massive accent header ───────────────────── */
+    header: {
       backgroundColor: accent,
+      height: 130,
       paddingHorizontal: 52,
-      paddingVertical: 28,
+      paddingVertical: 32,
+      justifyContent: 'space-between',
+    },
+    headerTopRow: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
     },
     headerLogo: {
-      height: 26,
-      maxWidth: 120,
+      height: 28,
+      maxWidth: 130,
       objectFit: 'contain',
     },
     headerCompany: {
@@ -92,112 +96,130 @@ export function TemplateBold({ proposal, user }: Props) {
       fontWeight: 600,
       color: '#FFFFFF',
     },
-    headerBadge: {
-      fontSize: 8,
+    headerDate: {
+      fontSize: 9,
+      color: '#FFFFFF',
+      opacity: 0.6,
+    },
+    headerTitle: {
+      fontSize: 20,
       fontWeight: 600,
       color: '#FFFFFF',
-      letterSpacing: 2,
+      letterSpacing: 4,
       textTransform: 'uppercase',
-      opacity: 0.85,
     },
 
-    // Body
+    /* ── Accent accent bar (decorative strip below header) ── */
+    accentStrip: {
+      height: 4,
+      backgroundColor: accent,
+      opacity: 0.35,
+    },
+
+    /* ── Body ────────────────────────────────────── */
     body: {
       paddingHorizontal: 52,
-      paddingTop: 32,
-      paddingBottom: 72,
+      paddingTop: 36,
+      paddingBottom: 80,
     },
 
-    // Client
+    /* ── Client info ─────────────────────────────── */
     clientName: {
-      fontSize: 30,
+      fontSize: 32,
       fontWeight: 600,
       color: '#0D0D0B',
-      lineHeight: 1.15,
-      marginBottom: 4,
+      lineHeight: 1.1,
+      marginBottom: 6,
     },
     clientEmail: {
       fontSize: 10,
-      color: '#6B6860',
-      marginBottom: 28,
+      color: '#8A857D',
+      marginBottom: 8,
     },
 
-    divider: {
-      height: 2,
-      backgroundColor: '#E4E0D8',
-      marginVertical: 22,
+    /* ── Thick accent divider ────────────────────── */
+    thickDivider: {
+      height: 3,
+      backgroundColor: accent,
+      marginVertical: 24,
     },
 
+    /* ── Scope section ───────────────────────────── */
     sectionLabel: {
       fontSize: 8,
       fontWeight: 600,
       color: accent,
       letterSpacing: 1.5,
       textTransform: 'uppercase',
-      marginBottom: 10,
+      marginBottom: 12,
     },
     scopeText: {
       fontSize: 10,
       color: '#3D3D3A',
-      lineHeight: 1.8,
+      lineHeight: 1.85,
     },
 
-    // Value card
-    valueCard: {
+    /* ── Full-width accent investment card ────────── */
+    investmentCard: {
       backgroundColor: accent,
-      borderRadius: 4,
-      padding: 24,
+      padding: 28,
+      borderRadius: 0,
       marginTop: 8,
     },
-    valueCardLabel: {
+    investmentLabel: {
       fontSize: 7,
       fontWeight: 600,
       color: '#FFFFFF',
       letterSpacing: 1.5,
       textTransform: 'uppercase',
-      opacity: 0.7,
-      marginBottom: 6,
+      opacity: 0.6,
+      marginBottom: 8,
     },
-    valueCardAmount: {
-      fontSize: 34,
+    investmentAmount: {
+      fontSize: 38,
       fontWeight: 600,
       color: '#FFFFFF',
       lineHeight: 1.05,
-      marginBottom: 12,
+      marginBottom: 18,
     },
-    valueCardRow: {
+    investmentDetailsRow: {
       flexDirection: 'row',
-      gap: 32,
+      gap: 36,
+      borderTopWidth: 1,
+      borderTopColor: '#FFFFFF',
+      paddingTop: 14,
     },
-    valueCardMeta: {
+    investmentDetail: {
       flex: 1,
     },
-    valueCardMetaLabel: {
+    investmentDetailLabel: {
       fontSize: 6,
       fontWeight: 600,
       color: '#FFFFFF',
       letterSpacing: 1.5,
       textTransform: 'uppercase',
-      opacity: 0.6,
-      marginBottom: 3,
+      opacity: 0.55,
+      marginBottom: 4,
     },
-    valueCardMetaValue: {
-      fontSize: 10,
+    investmentDetailValue: {
+      fontSize: 11,
+      fontWeight: 600,
       color: '#FFFFFF',
-      opacity: 0.9,
+      opacity: 0.95,
     },
 
-    // Footer
+    /* ── Footer ──────────────────────────────────── */
     footer: {
       position: 'absolute',
-      bottom: 24,
+      bottom: 22,
       left: 52,
       right: 52,
       flexDirection: 'row',
       justifyContent: 'space-between',
-      paddingTop: 12,
-      borderTopWidth: 1,
-      borderTopColor: '#E4E0D8',
+      alignItems: 'center',
+      paddingTop: 10,
+      borderTopWidth: 2,
+      borderTopColor: '#E8E5DF',
     },
     footerLeft: {
       fontSize: 7,
@@ -207,64 +229,82 @@ export function TemplateBold({ proposal, user }: Props) {
       fontSize: 7,
       fontWeight: 600,
       color: '#B0AB9F',
+      letterSpacing: 0.5,
     },
   })
 
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        {/* Accent header band */}
-        <View style={styles.headerBand}>
-          {user.logoUrl ? (
-            <Image src={user.logoUrl} style={styles.headerLogo} />
-          ) : (
-            <Text style={styles.headerCompany}>{companyName}</Text>
-          )}
-          <Text style={styles.headerBadge}>Proposta Comercial</Text>
+        {/* ── MASSIVE ACCENT HEADER ── */}
+        <View style={styles.header}>
+          <View style={styles.headerTopRow}>
+            {user.logoUrl ? (
+              <Image src={user.logoUrl} style={styles.headerLogo} />
+            ) : (
+              <Text style={styles.headerCompany}>{companyName}</Text>
+            )}
+            <Text style={styles.headerDate}>
+              {formatDate(proposal.createdAt ?? new Date().toISOString())}
+            </Text>
+          </View>
+          <Text style={styles.headerTitle}>PROPOSTA COMERCIAL</Text>
         </View>
 
-        {/* Body */}
+        {/* Subtle strip for visual depth */}
+        <View style={styles.accentStrip} />
+
+        {/* ── BODY ── */}
         <View style={styles.body}>
+          {/* Client info — big and bold */}
           <Text style={styles.clientName}>{proposal.clientName}</Text>
           {proposal.clientEmail ? (
             <Text style={styles.clientEmail}>{proposal.clientEmail}</Text>
           ) : null}
 
-          <View style={styles.divider} />
+          {/* Thick accent divider */}
+          <View style={styles.thickDivider} />
 
-          <Text style={styles.sectionLabel}>Escopo do projeto</Text>
+          {/* Scope section */}
+          <Text style={styles.sectionLabel}>ESCOPO DO PROJETO</Text>
           <Text style={styles.scopeText}>{proposal.scope}</Text>
 
-          <View style={styles.divider} />
+          {/* Thick accent divider */}
+          <View style={styles.thickDivider} />
 
-          {/* Value card */}
-          <View style={styles.valueCard}>
-            <Text style={styles.valueCardLabel}>Investimento</Text>
-            <Text style={styles.valueCardAmount}>
+          {/* ── FULL-WIDTH INVESTMENT CARD ── */}
+          <View style={styles.investmentCard}>
+            <Text style={styles.investmentLabel}>INVESTIMENTO</Text>
+            <Text style={styles.investmentAmount}>
               {formatCurrency(proposal.valueInCents)}
             </Text>
-            <View style={styles.valueCardRow}>
+
+            <View style={styles.investmentDetailsRow}>
               {proposal.deadline ? (
-                <View style={styles.valueCardMeta}>
-                  <Text style={styles.valueCardMetaLabel}>Prazo</Text>
-                  <Text style={styles.valueCardMetaValue}>
+                <View style={styles.investmentDetail}>
+                  <Text style={styles.investmentDetailLabel}>PRAZO</Text>
+                  <Text style={styles.investmentDetailValue}>
                     {formatDate(proposal.deadline)}
                   </Text>
                 </View>
               ) : null}
               {proposal.paymentTerms ? (
-                <View style={styles.valueCardMeta}>
-                  <Text style={styles.valueCardMetaLabel}>Pagamento</Text>
-                  <Text style={styles.valueCardMetaValue}>
+                <View style={styles.investmentDetail}>
+                  <Text style={styles.investmentDetailLabel}>PAGAMENTO</Text>
+                  <Text style={styles.investmentDetailValue}>
                     {proposal.paymentTerms}
                   </Text>
                 </View>
               ) : null}
+              <View style={styles.investmentDetail}>
+                <Text style={styles.investmentDetailLabel}>VALIDADE</Text>
+                <Text style={styles.investmentDetailValue}>30 dias</Text>
+              </View>
             </View>
           </View>
         </View>
 
-        {/* Watermark */}
+        {/* ── WATERMARK ── */}
         {isFreePlan && (
           <View style={styles.watermarkOverlay}>
             <View style={styles.watermarkStamp}>
@@ -273,11 +313,9 @@ export function TemplateBold({ proposal, user }: Props) {
           </View>
         )}
 
-        {/* Footer */}
+        {/* ── FOOTER ── */}
         <View style={styles.footer}>
-          <Text style={styles.footerLeft}>
-            {proposal.title} · Gerado em {new Date().toLocaleDateString('pt-BR')}
-          </Text>
+          <Text style={styles.footerLeft}>{proposal.title}</Text>
           <Text style={styles.footerRight}>propfreela.com.br</Text>
         </View>
       </Page>

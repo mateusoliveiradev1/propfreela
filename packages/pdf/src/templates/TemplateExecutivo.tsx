@@ -48,7 +48,7 @@ export function TemplateExecutivo({ proposal, user }: Props) {
       color: '#0D0D0B',
     },
 
-    // Watermark
+    /* ── Watermark ── */
     watermarkOverlay: {
       position: 'absolute',
       top: 0,
@@ -73,12 +73,12 @@ export function TemplateExecutivo({ proposal, user }: Props) {
       textTransform: 'uppercase',
     },
 
-    // Top and bottom accent borders
-    accentBorderTop: {
+    /* ── Accent bars ── */
+    accentBarTop: {
       height: 3,
       backgroundColor: accent,
     },
-    accentBorderBottom: {
+    accentBarBottom: {
       position: 'absolute',
       bottom: 0,
       left: 0,
@@ -87,58 +87,56 @@ export function TemplateExecutivo({ proposal, user }: Props) {
       backgroundColor: accent,
     },
 
-    // Body
+    /* ── Body ── */
     body: {
       paddingHorizontal: 56,
       paddingTop: 36,
-      paddingBottom: 64,
+      paddingBottom: 56,
     },
 
-    // Header — centered
-    headerSection: {
+    /* ── Centered header ── */
+    header: {
       alignItems: 'center',
-      marginBottom: 28,
     },
     headerLogo: {
-      height: 30,
-      maxWidth: 140,
+      height: 32,
+      maxWidth: 160,
       objectFit: 'contain',
-      marginBottom: 8,
+      marginBottom: 10,
     },
-    headerCompany: {
-      fontSize: 16,
+    headerCompanyName: {
+      fontSize: 18,
       fontWeight: 600,
       color: '#0D0D0B',
-      marginBottom: 6,
+      marginBottom: 10,
     },
-    headerSubtitle: {
-      fontSize: 8,
+    headerLabel: {
+      fontSize: 9,
       fontWeight: 600,
       color: accent,
-      letterSpacing: 3,
+      letterSpacing: 4,
       textTransform: 'uppercase',
     },
-
-    divider: {
+    headerDivider: {
       height: 1,
       backgroundColor: '#E4E0D8',
       marginVertical: 20,
+      width: '100%',
     },
 
-    // Numbered section
-    numberedSection: {
+    /* ── Numbered section row ── */
+    section: {
       flexDirection: 'row',
-      marginBottom: 24,
+      marginBottom: 28,
     },
     sectionNumber: {
-      fontSize: 22,
+      width: 48,
+      fontSize: 28,
       fontWeight: 600,
       color: accent,
-      opacity: 0.3,
-      width: 40,
-      marginRight: 8,
+      opacity: 0.25,
     },
-    sectionContent: {
+    sectionBody: {
       flex: 1,
     },
     sectionLabel: {
@@ -150,44 +148,44 @@ export function TemplateExecutivo({ proposal, user }: Props) {
       marginBottom: 8,
     },
 
-    // Client
+    /* ── 01 Client ── */
     clientName: {
-      fontSize: 16,
+      fontSize: 18,
       fontWeight: 600,
       color: '#0D0D0B',
-      marginBottom: 2,
+      marginBottom: 3,
     },
     clientEmail: {
       fontSize: 10,
       color: '#6B6860',
     },
 
-    // Scope
+    /* ── 02 Scope ── */
     scopeText: {
       fontSize: 10,
       color: '#3D3D3A',
       lineHeight: 1.8,
     },
 
-    // Value
-    valueAmount: {
-      fontSize: 28,
+    /* ── 03 Investment ── */
+    price: {
+      fontSize: 30,
       fontWeight: 600,
       color: accent,
-      lineHeight: 1.05,
     },
 
-    // Conditions — table-like rows
+    /* ── 04 Conditions table ── */
     conditionRow: {
       flexDirection: 'row',
-      paddingVertical: 6,
+      alignItems: 'center',
+      paddingVertical: 7,
       borderBottomWidth: 0.5,
       borderBottomColor: '#E4E0D8',
     },
     conditionLabel: {
       fontSize: 9,
       color: '#9B9790',
-      width: 120,
+      width: 130,
     },
     conditionValue: {
       fontSize: 10,
@@ -195,17 +193,17 @@ export function TemplateExecutivo({ proposal, user }: Props) {
       flex: 1,
     },
 
-    // Footer
+    /* ── Footer ── */
     footer: {
       position: 'absolute',
-      bottom: 16,
+      bottom: 14,
       left: 56,
       right: 56,
       flexDirection: 'row',
       justifyContent: 'space-between',
-      paddingTop: 10,
       borderTopWidth: 1,
       borderTopColor: '#E4E0D8',
+      paddingTop: 10,
     },
     footerLeft: {
       fontSize: 7,
@@ -221,28 +219,28 @@ export function TemplateExecutivo({ proposal, user }: Props) {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        {/* Top accent border */}
-        <View style={styles.accentBorderTop} />
+        {/* ── Top accent bar ── */}
+        <View style={styles.accentBarTop} />
 
-        {/* Body */}
+        {/* ── Body ── */}
         <View style={styles.body}>
-          {/* Header — centered */}
-          <View style={styles.headerSection}>
+          {/* ── Centered header ── */}
+          <View style={styles.header}>
             {user.logoUrl ? (
               <Image src={user.logoUrl} style={styles.headerLogo} />
             ) : (
-              <Text style={styles.headerCompany}>{companyName}</Text>
+              <Text style={styles.headerCompanyName}>{companyName}</Text>
             )}
-            <Text style={styles.headerSubtitle}>Proposta Comercial</Text>
+            <Text style={styles.headerLabel}>PROPOSTA COMERCIAL</Text>
           </View>
 
-          <View style={styles.divider} />
+          <View style={styles.headerDivider} />
 
-          {/* 01 — Client */}
-          <View style={styles.numberedSection}>
+          {/* ── 01 — Cliente ── */}
+          <View style={styles.section}>
             <Text style={styles.sectionNumber}>01</Text>
-            <View style={styles.sectionContent}>
-              <Text style={styles.sectionLabel}>Cliente</Text>
+            <View style={styles.sectionBody}>
+              <Text style={styles.sectionLabel}>CLIENTE</Text>
               <Text style={styles.clientName}>{proposal.clientName}</Text>
               {proposal.clientEmail ? (
                 <Text style={styles.clientEmail}>{proposal.clientEmail}</Text>
@@ -250,31 +248,31 @@ export function TemplateExecutivo({ proposal, user }: Props) {
             </View>
           </View>
 
-          {/* 02 — Scope */}
-          <View style={styles.numberedSection}>
+          {/* ── 02 — Escopo do projeto ── */}
+          <View style={styles.section}>
             <Text style={styles.sectionNumber}>02</Text>
-            <View style={styles.sectionContent}>
-              <Text style={styles.sectionLabel}>Escopo do projeto</Text>
+            <View style={styles.sectionBody}>
+              <Text style={styles.sectionLabel}>ESCOPO DO PROJETO</Text>
               <Text style={styles.scopeText}>{proposal.scope}</Text>
             </View>
           </View>
 
-          {/* 03 — Investment */}
-          <View style={styles.numberedSection}>
+          {/* ── 03 — Investimento ── */}
+          <View style={styles.section}>
             <Text style={styles.sectionNumber}>03</Text>
-            <View style={styles.sectionContent}>
-              <Text style={styles.sectionLabel}>Investimento</Text>
-              <Text style={styles.valueAmount}>
+            <View style={styles.sectionBody}>
+              <Text style={styles.sectionLabel}>INVESTIMENTO</Text>
+              <Text style={styles.price}>
                 {formatCurrency(proposal.valueInCents)}
               </Text>
             </View>
           </View>
 
-          {/* 04 — Conditions */}
-          <View style={styles.numberedSection}>
+          {/* ── 04 — Prazos e condições ── */}
+          <View style={styles.section}>
             <Text style={styles.sectionNumber}>04</Text>
-            <View style={styles.sectionContent}>
-              <Text style={styles.sectionLabel}>Prazos e condições</Text>
+            <View style={styles.sectionBody}>
+              <Text style={styles.sectionLabel}>PRAZOS E CONDIÇÕES</Text>
 
               <View style={styles.conditionRow}>
                 <Text style={styles.conditionLabel}>Data da proposta</Text>
@@ -294,7 +292,7 @@ export function TemplateExecutivo({ proposal, user }: Props) {
 
               {proposal.paymentTerms ? (
                 <View style={styles.conditionRow}>
-                  <Text style={styles.conditionLabel}>Pagamento</Text>
+                  <Text style={styles.conditionLabel}>Forma de pagamento</Text>
                   <Text style={styles.conditionValue}>
                     {proposal.paymentTerms}
                   </Text>
@@ -304,7 +302,7 @@ export function TemplateExecutivo({ proposal, user }: Props) {
           </View>
         </View>
 
-        {/* Watermark */}
+        {/* ── Watermark ── */}
         {isFreePlan && (
           <View style={styles.watermarkOverlay}>
             <View style={styles.watermarkStamp}>
@@ -313,14 +311,14 @@ export function TemplateExecutivo({ proposal, user }: Props) {
           </View>
         )}
 
-        {/* Footer */}
+        {/* ── Footer ── */}
         <View style={styles.footer}>
           <Text style={styles.footerLeft}>{proposal.title}</Text>
           <Text style={styles.footerRight}>propfreela.com.br</Text>
         </View>
 
-        {/* Bottom accent border */}
-        <View style={styles.accentBorderBottom} />
+        {/* ── Bottom accent bar ── */}
+        <View style={styles.accentBarBottom} />
       </Page>
     </Document>
   )

@@ -10,7 +10,6 @@ import {
 import type { Proposal, User } from '@propfreela/db'
 import { INTER_REGULAR, INTER_SEMIBOLD } from '../fonts'
 
-// Fonts are embedded as base64 data URIs — no file system or network access needed.
 Font.register({
   family: 'Inter',
   fonts: [
@@ -49,13 +48,198 @@ export function TemplateClean({ proposal, user }: Props) {
       color: '#0D0D0B',
     },
 
-    // Thin accent bar at the very top
-    accentBar: {
-      height: 4,
+    /* ── Large accent header block ────────────────────────────────── */
+    headerBlock: {
       backgroundColor: accent,
+      height: 90,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingHorizontal: 56,
+    },
+    headerLeft: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    companyLogo: {
+      height: 32,
+      maxWidth: 160,
+      objectFit: 'contain',
+    },
+    companyNameHeader: {
+      fontSize: 18,
+      fontWeight: 600,
+      color: '#FFFFFF',
+      letterSpacing: 0.5,
+    },
+    headerTitle: {
+      fontSize: 9,
+      fontWeight: 600,
+      color: '#FFFFFF',
+      opacity: 0.55,
+      letterSpacing: 3,
+      textTransform: 'uppercase',
     },
 
-    // Watermark — stamp centered on page (no rotation clipping issues)
+    /* ── Body ─────────────────────────────────────────────────────── */
+    body: {
+      paddingHorizontal: 56,
+      paddingTop: 40,
+      paddingBottom: 80,
+    },
+
+    /* ── Client section ───────────────────────────────────────────── */
+    eyebrow: {
+      fontSize: 7,
+      fontWeight: 600,
+      color: accent,
+      letterSpacing: 2,
+      textTransform: 'uppercase',
+      marginBottom: 10,
+    },
+    clientName: {
+      fontSize: 30,
+      fontWeight: 600,
+      color: '#0D0D0B',
+      lineHeight: 1.15,
+      marginBottom: 6,
+    },
+    clientEmail: {
+      fontSize: 10,
+      color: '#8A857D',
+      letterSpacing: 0.3,
+      marginBottom: 4,
+    },
+
+    /* ── Divider ──────────────────────────────────────────────────── */
+    divider: {
+      height: 1,
+      backgroundColor: '#E8E5DF',
+      marginTop: 24,
+      marginBottom: 24,
+    },
+
+    /* ── Scope section — "quote" style with accent left bar ──────── */
+    scopeLabel: {
+      fontSize: 7,
+      fontWeight: 600,
+      color: '#9B9790',
+      letterSpacing: 2,
+      textTransform: 'uppercase',
+      marginBottom: 12,
+    },
+    scopeQuote: {
+      borderLeftWidth: 3,
+      borderLeftColor: accent,
+      paddingLeft: 20,
+      paddingVertical: 4,
+    },
+    scopeText: {
+      fontSize: 10,
+      color: '#3D3D3A',
+      lineHeight: 1.85,
+    },
+
+    /* ── Investment section — two columns ─────────────────────────── */
+    investmentRow: {
+      flexDirection: 'row',
+    },
+    investmentLeft: {
+      flex: 1,
+      paddingRight: 32,
+    },
+    investmentRight: {
+      flex: 1,
+      paddingLeft: 32,
+      borderLeftWidth: 1,
+      borderLeftColor: '#E8E5DF',
+      justifyContent: 'center',
+    },
+    investmentLabel: {
+      fontSize: 7,
+      fontWeight: 600,
+      color: '#9B9790',
+      letterSpacing: 2,
+      textTransform: 'uppercase',
+      marginBottom: 8,
+    },
+    investmentPrice: {
+      fontSize: 36,
+      fontWeight: 600,
+      color: accent,
+      lineHeight: 1.05,
+      marginBottom: 4,
+    },
+    detailRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 10,
+    },
+    detailLabel: {
+      fontSize: 7,
+      fontWeight: 600,
+      color: '#9B9790',
+      letterSpacing: 1.5,
+      textTransform: 'uppercase',
+      width: 100,
+    },
+    detailValue: {
+      fontSize: 11,
+      fontWeight: 600,
+      color: '#0D0D0B',
+    },
+
+    /* ── Payment terms ────────────────────────────────────────────── */
+    paymentSection: {
+      marginTop: 24,
+    },
+    paymentLabel: {
+      fontSize: 7,
+      fontWeight: 600,
+      color: '#9B9790',
+      letterSpacing: 2,
+      textTransform: 'uppercase',
+      marginBottom: 10,
+    },
+    paymentQuote: {
+      borderLeftWidth: 3,
+      borderLeftColor: '#E8E5DF',
+      paddingLeft: 20,
+      paddingVertical: 4,
+    },
+    paymentText: {
+      fontSize: 10,
+      color: '#3D3D3A',
+      lineHeight: 1.75,
+    },
+
+    /* ── Footer ───────────────────────────────────────────────────── */
+    footer: {
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingHorizontal: 56,
+      paddingVertical: 16,
+      borderTopWidth: 1,
+      borderTopColor: '#E8E5DF',
+    },
+    footerLeft: {
+      fontSize: 7,
+      color: '#B0AB9F',
+      letterSpacing: 0.3,
+    },
+    footerRight: {
+      fontSize: 7,
+      fontWeight: 600,
+      color: accent,
+      letterSpacing: 0.5,
+    },
+
+    /* ── Watermark ────────────────────────────────────────────────── */
     watermarkOverlay: {
       position: 'absolute',
       top: 0,
@@ -79,174 +263,27 @@ export function TemplateClean({ proposal, user }: Props) {
       letterSpacing: 5,
       textTransform: 'uppercase',
     },
-
-    // Main body
-    body: {
-      paddingHorizontal: 52,
-      paddingTop: 36,
-      paddingBottom: 72,
-    },
-
-    // Header: logo/name on left, badge on right
-    header: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginBottom: 36,
-      paddingBottom: 20,
-      borderBottomWidth: 1,
-      borderBottomColor: '#E4E0D8',
-    },
-    companyLogo: {
-      height: 28,
-      maxWidth: 140,
-      objectFit: 'contain',
-    },
-    companyName: {
-      fontSize: 16,
-      fontWeight: 600,
-      color: '#0D0D0B',
-    },
-    headerBadge: {
-      backgroundColor: accent,
-      color: '#FFFFFF',
-      fontSize: 7,
-      fontWeight: 600,
-      letterSpacing: 1.5,
-      paddingHorizontal: 10,
-      paddingVertical: 5,
-      borderRadius: 2,
-    },
-
-    // Client section
-    eyebrow: {
-      fontSize: 7,
-      fontWeight: 600,
-      color: '#9B9790',
-      letterSpacing: 1.5,
-      textTransform: 'uppercase',
-      marginBottom: 8,
-    },
-    clientName: {
-      fontSize: 28,
-      fontWeight: 600,
-      color: '#0D0D0B',
-      lineHeight: 1.15,
-      marginBottom: 4,
-    },
-    clientEmail: {
-      fontSize: 10,
-      color: '#6B6860',
-      marginBottom: 24,
-    },
-
-    divider: {
-      height: 1,
-      backgroundColor: '#E4E0D8',
-      marginVertical: 20,
-    },
-
-    sectionLabel: {
-      fontSize: 7,
-      fontWeight: 600,
-      color: '#9B9790',
-      letterSpacing: 1.5,
-      textTransform: 'uppercase',
-      marginBottom: 10,
-    },
-    scopeText: {
-      fontSize: 10,
-      color: '#3D3D3A',
-      lineHeight: 1.8,
-    },
-
-    // Metrics row
-    metricsRow: {
-      flexDirection: 'row',
-      marginTop: 4,
-    },
-    metricBlock: {
-      flex: 1,
-      paddingRight: 24,
-    },
-    metricBlockBordered: {
-      flex: 1,
-      paddingLeft: 24,
-      borderLeftWidth: 1,
-      borderLeftColor: '#E4E0D8',
-    },
-    metricLabel: {
-      fontSize: 7,
-      fontWeight: 600,
-      color: '#9B9790',
-      letterSpacing: 1.5,
-      textTransform: 'uppercase',
-      marginBottom: 6,
-    },
-    metricValueAccent: {
-      fontSize: 30,
-      fontWeight: 600,
-      color: accent,
-      lineHeight: 1.05,
-    },
-    metricValue: {
-      fontSize: 15,
-      fontWeight: 600,
-      color: '#0D0D0B',
-    },
-
-    paymentSection: {
-      marginTop: 20,
-    },
-    paymentText: {
-      fontSize: 10,
-      color: '#3D3D3A',
-      lineHeight: 1.6,
-    },
-
-    // Footer
-    footer: {
-      position: 'absolute',
-      bottom: 24,
-      left: 52,
-      right: 52,
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      paddingTop: 12,
-      borderTopWidth: 1,
-      borderTopColor: '#E4E0D8',
-    },
-    footerLeft: {
-      fontSize: 7,
-      color: '#B0AB9F',
-    },
-    footerRight: {
-      fontSize: 7,
-      fontWeight: 600,
-      color: '#B0AB9F',
-    },
   })
 
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        {/* Accent bar */}
-        <View style={styles.accentBar} />
-
-        {/* Body */}
-        <View style={styles.body}>
-          {/* Header */}
-          <View style={styles.header}>
+        {/* ── Large accent header block ──────────────────────────── */}
+        <View style={styles.headerBlock}>
+          <View style={styles.headerLeft}>
             {user.logoUrl ? (
               <Image src={user.logoUrl} style={styles.companyLogo} />
             ) : (
-              <Text style={styles.companyName}>{companyName}</Text>
+              <Text style={styles.companyNameHeader}>{companyName}</Text>
             )}
-            <Text style={styles.headerBadge}>PROPOSTA COMERCIAL</Text>
           </View>
+          <Text style={styles.headerTitle}>PROPOSTA COMERCIAL</Text>
+        </View>
 
+        {/* ── Body ───────────────────────────────────────────────── */}
+        <View style={styles.body}>
           {/* Client */}
-          <Text style={styles.eyebrow}>Proposta para</Text>
+          <Text style={styles.eyebrow}>PROPOSTA PARA</Text>
           <Text style={styles.clientName}>{proposal.clientName}</Text>
           {proposal.clientEmail ? (
             <Text style={styles.clientEmail}>{proposal.clientEmail}</Text>
@@ -255,37 +292,66 @@ export function TemplateClean({ proposal, user }: Props) {
           <View style={styles.divider} />
 
           {/* Scope */}
-          <Text style={styles.sectionLabel}>Escopo do projeto</Text>
-          <Text style={styles.scopeText}>{proposal.scope}</Text>
+          <Text style={styles.scopeLabel}>ESCOPO DO PROJETO</Text>
+          <View style={styles.scopeQuote}>
+            <Text style={styles.scopeText}>{proposal.scope}</Text>
+          </View>
 
           <View style={styles.divider} />
 
-          {/* Metrics */}
-          <View style={styles.metricsRow}>
-            <View style={styles.metricBlock}>
-              <Text style={styles.metricLabel}>Investimento</Text>
-              <Text style={styles.metricValueAccent}>
+          {/* Investment — two columns */}
+          <View style={styles.investmentRow}>
+            {/* Left: price */}
+            <View style={styles.investmentLeft}>
+              <Text style={styles.investmentLabel}>INVESTIMENTO</Text>
+              <Text style={styles.investmentPrice}>
                 {formatCurrency(proposal.valueInCents)}
               </Text>
             </View>
-            {proposal.deadline ? (
-              <View style={styles.metricBlockBordered}>
-                <Text style={styles.metricLabel}>Prazo de entrega</Text>
-                <Text style={styles.metricValue}>{formatDate(proposal.deadline)}</Text>
+
+            {/* Right: details stacked */}
+            <View style={styles.investmentRight}>
+              {proposal.deadline ? (
+                <View style={styles.detailRow}>
+                  <Text style={styles.detailLabel}>PRAZO</Text>
+                  <Text style={styles.detailValue}>
+                    {formatDate(proposal.deadline)}
+                  </Text>
+                </View>
+              ) : null}
+
+              <View style={styles.detailRow}>
+                <Text style={styles.detailLabel}>DATA</Text>
+                <Text style={styles.detailValue}>
+                  {new Date().toLocaleDateString('pt-BR')}
+                </Text>
               </View>
-            ) : null}
+
+              {proposal.paymentTerms ? (
+                <View style={styles.detailRow}>
+                  <Text style={styles.detailLabel}>PAGAMENTO</Text>
+                  <Text style={styles.detailValue}>Ver abaixo</Text>
+                </View>
+              ) : null}
+            </View>
           </View>
 
           {/* Payment terms */}
           {proposal.paymentTerms ? (
             <View style={styles.paymentSection}>
-              <Text style={styles.sectionLabel}>Condições de pagamento</Text>
-              <Text style={styles.paymentText}>{proposal.paymentTerms}</Text>
+              <Text style={styles.paymentLabel}>
+                CONDIÇÕES DE PAGAMENTO
+              </Text>
+              <View style={styles.paymentQuote}>
+                <Text style={styles.paymentText}>
+                  {proposal.paymentTerms}
+                </Text>
+              </View>
             </View>
           ) : null}
         </View>
 
-        {/* Watermark — rendered after body so it appears on top */}
+        {/* ── Watermark (on top of body for free plan) ───────────── */}
         {isFreePlan && (
           <View style={styles.watermarkOverlay}>
             <View style={styles.watermarkStamp}>
@@ -294,7 +360,7 @@ export function TemplateClean({ proposal, user }: Props) {
           </View>
         )}
 
-        {/* Footer */}
+        {/* ── Footer ─────────────────────────────────────────────── */}
         <View style={styles.footer}>
           <Text style={styles.footerLeft}>
             {proposal.title} · Gerado em {new Date().toLocaleDateString('pt-BR')}

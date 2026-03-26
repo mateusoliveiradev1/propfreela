@@ -44,13 +44,13 @@ export function TemplateMinimal({ proposal, user }: Props) {
     page: {
       fontFamily: 'Inter',
       backgroundColor: '#FFFFFF',
-      paddingHorizontal: 64,
-      paddingVertical: 56,
+      paddingHorizontal: 72,
+      paddingVertical: 60,
       fontSize: 10,
       color: '#2A2A28',
     },
 
-    // Watermark
+    /* ── Watermark ── */
     watermarkOverlay: {
       position: 'absolute',
       top: 0,
@@ -75,81 +75,87 @@ export function TemplateMinimal({ proposal, user }: Props) {
       textTransform: 'uppercase',
     },
 
-    // Header
+    /* ── Header ── */
     header: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      alignItems: 'flex-end',
-      marginBottom: 40,
-    },
-    headerLeft: {
-      flexDirection: 'column',
+      alignItems: 'flex-start',
     },
     headerLogo: {
-      height: 22,
-      maxWidth: 100,
+      height: 20,
+      maxWidth: 90,
       objectFit: 'contain',
     },
     headerCompany: {
-      fontSize: 11,
+      fontSize: 10,
       fontWeight: 600,
-      color: '#2A2A28',
+      color: '#1A1A18',
     },
-    headerDate: {
+    headerLabel: {
       fontSize: 8,
-      color: '#A0A09C',
-      marginTop: 2,
+      color: '#B0AB9F',
+      letterSpacing: 2,
+      textTransform: 'uppercase',
     },
 
+    /* ── Hairline ── */
     hairline: {
       height: 0.5,
-      backgroundColor: '#D8D4CC',
-      marginVertical: 32,
+      backgroundColor: '#DDD8D0',
+      marginVertical: 40,
+    },
+    hairlineTight: {
+      height: 0.5,
+      backgroundColor: '#DDD8D0',
+      marginVertical: 36,
     },
 
-    // Client — large, airy
+    /* ── Client ── */
     clientName: {
-      fontSize: 34,
+      fontSize: 38,
       fontWeight: 600,
-      color: '#2A2A28',
-      lineHeight: 1.1,
-      marginBottom: 6,
+      color: '#1A1A18',
+      lineHeight: 1.05,
     },
     clientEmail: {
       fontSize: 10,
       color: '#A0A09C',
+      marginTop: 4,
     },
 
-    // Scope
+    /* ── Scope ── */
     scopeLabel: {
-      fontSize: 9,
-      color: '#A0A09C',
-      marginBottom: 12,
+      fontSize: 8,
+      color: '#C0BCB4',
+      letterSpacing: 1,
+      textTransform: 'uppercase',
+      marginBottom: 14,
     },
     scopeText: {
       fontSize: 10,
       color: '#4A4A48',
-      lineHeight: 2,
+      lineHeight: 2.0,
     },
 
-    // Value — large, accent, standalone
-    valueAmount: {
-      fontSize: 36,
+    /* ── Price ── */
+    priceAmount: {
+      fontSize: 40,
       fontWeight: 600,
       color: accent,
-      lineHeight: 1.05,
-      marginBottom: 24,
+      marginBottom: 32,
     },
 
-    // Metadata — subtle, side by side
+    /* ── Metadata ── */
     metaRow: {
       flexDirection: 'row',
-      gap: 48,
+      gap: 56,
     },
     metaBlock: {},
     metaLabel: {
-      fontSize: 8,
-      color: '#A0A09C',
+      fontSize: 7,
+      color: '#C0BCB4',
+      letterSpacing: 1,
+      textTransform: 'uppercase',
       marginBottom: 3,
     },
     metaValue: {
@@ -157,70 +163,74 @@ export function TemplateMinimal({ proposal, user }: Props) {
       color: '#2A2A28',
     },
 
-    // Footer
+    /* ── Footer ── */
     footer: {
       position: 'absolute',
-      bottom: 40,
-      left: 64,
-      right: 64,
+      bottom: 44,
+      left: 72,
+      right: 72,
       alignItems: 'center',
     },
     footerDot: {
-      fontSize: 14,
+      fontSize: 16,
       color: accent,
-      marginBottom: 6,
+      marginBottom: 4,
     },
-    footerText: {
+    footerBrand: {
       fontSize: 7,
-      color: '#C0BCB4',
-      letterSpacing: 1,
+      color: '#D0CCC4',
+      letterSpacing: 1.5,
+      textTransform: 'uppercase',
     },
   })
 
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        {/* Header */}
+        {/* ── Header ── */}
         <View style={styles.header}>
-          <View style={styles.headerLeft}>
+          <View>
             {user.logoUrl ? (
               <Image src={user.logoUrl} style={styles.headerLogo} />
             ) : (
               <Text style={styles.headerCompany}>{companyName}</Text>
             )}
           </View>
-          <Text style={styles.headerDate}>
-            {new Date().toLocaleDateString('pt-BR')}
-          </Text>
+          <Text style={styles.headerLabel}>Proposta Comercial</Text>
         </View>
 
+        {/* ── Hairline ── */}
         <View style={styles.hairline} />
 
-        {/* Client */}
+        {/* ── Client ── */}
         <Text style={styles.clientName}>{proposal.clientName}</Text>
         {proposal.clientEmail ? (
           <Text style={styles.clientEmail}>{proposal.clientEmail}</Text>
         ) : null}
 
-        <View style={styles.hairline} />
+        {/* ── Hairline ── */}
+        <View style={styles.hairlineTight} />
 
-        {/* Scope */}
+        {/* ── Scope ── */}
         <Text style={styles.scopeLabel}>Escopo</Text>
         <Text style={styles.scopeText}>{proposal.scope}</Text>
 
-        <View style={styles.hairline} />
+        {/* ── Hairline ── */}
+        <View style={styles.hairlineTight} />
 
-        {/* Value */}
-        <Text style={styles.valueAmount}>
+        {/* ── Price ── */}
+        <Text style={styles.priceAmount}>
           {formatCurrency(proposal.valueInCents)}
         </Text>
 
-        {/* Metadata */}
+        {/* ── Metadata ── */}
         <View style={styles.metaRow}>
           {proposal.deadline ? (
             <View style={styles.metaBlock}>
               <Text style={styles.metaLabel}>Prazo</Text>
-              <Text style={styles.metaValue}>{formatDate(proposal.deadline)}</Text>
+              <Text style={styles.metaValue}>
+                {formatDate(proposal.deadline)}
+              </Text>
             </View>
           ) : null}
           {proposal.paymentTerms ? (
@@ -229,9 +239,15 @@ export function TemplateMinimal({ proposal, user }: Props) {
               <Text style={styles.metaValue}>{proposal.paymentTerms}</Text>
             </View>
           ) : null}
+          <View style={styles.metaBlock}>
+            <Text style={styles.metaLabel}>Data</Text>
+            <Text style={styles.metaValue}>
+              {new Date().toLocaleDateString('pt-BR')}
+            </Text>
+          </View>
         </View>
 
-        {/* Watermark */}
+        {/* ── Watermark ── */}
         {isFreePlan && (
           <View style={styles.watermarkOverlay}>
             <View style={styles.watermarkStamp}>
@@ -240,10 +256,10 @@ export function TemplateMinimal({ proposal, user }: Props) {
           </View>
         )}
 
-        {/* Footer */}
+        {/* ── Footer ── */}
         <View style={styles.footer}>
           <Text style={styles.footerDot}>·</Text>
-          <Text style={styles.footerText}>propfreela.com.br</Text>
+          <Text style={styles.footerBrand}>propfreela.com.br</Text>
         </View>
       </Page>
     </Document>

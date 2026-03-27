@@ -29,6 +29,9 @@ export default async function PublicProposalPage({
     notFound()
   }
 
+  // Record view — fire-and-forget, never break the page
+  void proposalsService.recordView({ publicToken: token, db }).catch(() => {})
+
   const statusLabel: Record<string, string> = {
     aprovada: 'Aprovada',
     recusada: 'Recusada',

@@ -87,6 +87,15 @@ export default async function PropostasPage() {
                 <span className="font-mono text-sm text-fg-base">
                   {formatCurrency(proposal.valueInCents)}
                 </span>
+                {proposal.viewCount > 0 && (
+                  <span className="flex items-center gap-1 text-xs text-fg-placeholder">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                      <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    {proposal.viewCount}
+                  </span>
+                )}
                 <ProposalStatusBadge status={proposal.status} />
                 <span className="hidden text-xs text-fg-placeholder sm:block">
                   {new Date(proposal.createdAt).toLocaleDateString('pt-BR')}

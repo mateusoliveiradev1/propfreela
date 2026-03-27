@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server'
-import { and, eq, gte, lt } from 'drizzle-orm'
+import { and, eq, gte, lt, sql } from 'drizzle-orm'
 import { createId } from '@paralleldrive/cuid2'
 import { proposals, users } from '@propfreela/db'
 import type { Database, Proposal, ProposalStatus } from '@propfreela/db'
@@ -291,6 +291,18 @@ async function respondByPublicToken({
   return { status: action }
 }
 
+// ─── View tracking ────────────────────────────────────────────────────────────
+
+async function recordView({ publicToken, db }: { publicToken: string; db: Database }) {
+  await db
+    .update(proposals)
+    .set({
+      viewCount: sql`${proposals.viewCount} + 1`,
+      lastViewedAt: new Date(),
+    })
+    .where(eq(proposals.publicToken, publicToken))
+}
+
 // ─── Export ───────────────────────────────────────────────────────────────────
 
 export const proposalsService = {
@@ -304,4 +316,5 @@ export const proposalsService = {
   generateShareToken,
   getByPublicToken,
   respondByPublicToken,
+  recordView,
 }

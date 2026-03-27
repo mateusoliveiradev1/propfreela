@@ -42,6 +42,8 @@ export const proposals = pgTable('proposals', {
   clientFeedback: text('client_feedback'),
   publicToken: text('public_token').unique(),
   pdfUrl: text('pdf_url'),
+  viewCount: integer('view_count').default(0).notNull(),
+  lastViewedAt: timestamp('last_viewed_at', { withTimezone: true }),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
 })

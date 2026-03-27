@@ -113,6 +113,33 @@ export default async function ProposalDetailPage({ params }: Props) {
             </p>
             <p className="text-sm capitalize text-fg-base">{proposal.templateId}</p>
           </div>
+
+          <div className="rounded-sm border border-border p-5">
+            <p className="mb-1 text-xs font-medium uppercase tracking-[0.12em] text-fg-muted">
+              Visualizações
+            </p>
+            {proposal.viewCount > 0 ? (
+              <>
+                <p className="text-2xl font-light text-fg-base">{proposal.viewCount}</p>
+                {proposal.lastViewedAt && (
+                  <p className="mt-1 text-xs text-fg-muted">
+                    Última visita{' '}
+                    {new Date(proposal.lastViewedAt).toLocaleDateString('pt-BR', {
+                      day: '2-digit',
+                      month: '2-digit',
+                    })}{' '}
+                    às{' '}
+                    {new Date(proposal.lastViewedAt).toLocaleTimeString('pt-BR', {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                  </p>
+                )}
+              </>
+            ) : (
+              <p className="text-sm text-fg-placeholder">Ainda não foi vista</p>
+            )}
+          </div>
         </div>
       </div>
     </div>

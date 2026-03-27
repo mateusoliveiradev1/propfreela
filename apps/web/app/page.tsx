@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { auth } from '@/auth'
 import { FaqAccordion } from '@/components/landing/FaqAccordion'
 
 export const metadata: Metadata = {
@@ -15,7 +16,10 @@ export const metadata: Metadata = {
   },
 }
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const session = await auth()
+  const isLoggedIn = !!session?.user
+
   return (
     <div className="min-h-screen bg-bg-base font-sans">
       {/* ── Nav ─────────────────────────────────────────────────── */}
@@ -29,12 +33,21 @@ export default function LandingPage() {
             <Link href="/precos" className="text-xs text-fg-muted hover:text-fg-base">
               Precos
             </Link>
-            <Link
-              href="/login"
-              className="inline-flex h-8 items-center rounded-sm bg-accent px-4 text-xs font-medium text-accent-fg transition-colors hover:bg-accent-hover"
-            >
-              Entrar
-            </Link>
+            {isLoggedIn ? (
+              <Link
+                href="/dashboard"
+                className="inline-flex h-8 items-center rounded-sm border border-border px-4 text-xs font-medium text-fg-base transition-colors hover:bg-bg-subtle"
+              >
+                Dashboard
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                className="inline-flex h-8 items-center rounded-sm bg-accent px-4 text-xs font-medium text-accent-fg transition-colors hover:bg-accent-hover"
+              >
+                Entrar
+              </Link>
+            )}
           </div>
         </div>
       </header>

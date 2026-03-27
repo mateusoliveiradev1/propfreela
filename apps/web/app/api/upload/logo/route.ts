@@ -32,9 +32,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Tipo de arquivo inválido. Use PNG, JPG ou SVG.' }, { status: 400 })
   }
 
-  // Max 2MB
-  if (file.size > 2 * 1024 * 1024) {
-    return NextResponse.json({ error: 'Arquivo muito grande. Máximo 2MB.' }, { status: 400 })
+  // Max 5MB
+  if (file.size > 5 * 1024 * 1024) {
+    return NextResponse.json({ error: 'Arquivo muito grande. Máximo 5MB.' }, { status: 400 })
   }
 
   const timestamp = Math.round(Date.now() / 1000)

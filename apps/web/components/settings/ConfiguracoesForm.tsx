@@ -28,6 +28,7 @@ export function ConfiguracoesForm({ defaultValues, isPro }: Props) {
   const [saved, setSaved] = useState(false)
   const [logoPreview, setLogoPreview] = useState<string | null>(defaultValues.logoUrl)
   const [uploadingLogo, setUploadingLogo] = useState(false)
+  const [uploadError, setUploadError] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const {
@@ -56,18 +57,23 @@ export function ConfiguracoesForm({ defaultValues, isPro }: Props) {
 
   async function handleLogoUpload(file: File) {
     setUploadingLogo(true)
+    setUploadError(null)
     try {
       const formData = new FormData()
       formData.append('file', file)
 
       const res = await fetch('/api/upload/logo', { method: 'POST', body: formData })
-      if (!res.ok) throw new Error('Falha no upload')
+      const json = (await res.json()) as { url?: string; error?: string }
 
-      const { url } = (await res.json()) as { url: string }
-      setValue('logoUrl', url)
-      setLogoPreview(url)
+      if (!res.ok) {
+        setUploadError(json.error ?? 'Falha no upload. Tente novamente.')
+        return
+      }
+
+      setValue('logoUrl', json.url ?? null)
+      setLogoPreview(json.url ?? null)
     } catch {
-      // silently fail — user can retry
+      setUploadError('Erro de conexão. Tente novamente.')
     } finally {
       setUploadingLogo(false)
     }
@@ -144,6 +150,9 @@ export function ConfiguracoesForm({ defaultValues, isPro }: Props) {
                 </button>
               )}
             </div>
+            {uploadError && (
+              <p className="mt-2 text-xs text-red-600">{uploadError}</p>
+            )}
           ) : (
             <div className="flex h-12 items-center rounded-sm border border-dashed border-border px-4">
               <p className="text-xs text-fg-placeholder">

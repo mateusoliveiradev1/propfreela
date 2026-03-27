@@ -76,7 +76,7 @@ export const userRouter = router({
         line_items: [{ price: priceId, quantity: 1 }],
         ...(user.stripeCustomerId ? { customer: user.stripeCustomerId } : {}),
         metadata: { userId: ctx.session.user.id },
-        success_url: `${process.env['NEXT_PUBLIC_APP_URL']}/configuracoes?success=true`,
+        success_url: `${process.env['NEXT_PUBLIC_APP_URL']}/sucesso`,
         cancel_url: `${process.env['NEXT_PUBLIC_APP_URL']}/precos`,
       })
 

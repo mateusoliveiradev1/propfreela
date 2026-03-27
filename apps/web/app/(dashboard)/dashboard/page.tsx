@@ -65,14 +65,37 @@ export default async function DashboardPage() {
         </div>
 
         {recent.length === 0 ? (
-          <div className="rounded-sm border border-border bg-bg-subtle p-10 text-center">
-            <p className="text-sm text-fg-muted">Nenhuma proposta ainda.</p>
-            <Link
-              href="/nova-proposta"
-              className="mt-3 inline-block text-sm font-medium text-accent hover:underline"
-            >
-              Criar primeira proposta
-            </Link>
+          <div className="rounded-sm border border-border p-10">
+            <div className="mx-auto max-w-md text-center">
+              <div className="mx-auto mb-6 flex h-12 w-12 items-center justify-center rounded-sm bg-accent/10">
+                <span className="text-xl">✎</span>
+              </div>
+              <h3 className="mb-2 text-base font-medium text-fg-base">
+                Crie sua primeira proposta
+              </h3>
+              <p className="mb-8 text-sm text-fg-muted">
+                Em menos de 2 minutos você tem um PDF profissional pronto para enviar ao cliente.
+              </p>
+              <div className="mb-8 grid grid-cols-3 gap-4 text-left">
+                {[
+                  { n: '01', title: 'Preencha os dados', desc: 'Cliente, valor e prazo.' },
+                  { n: '02', title: 'IA gera o escopo', desc: 'Edite se quiser.' },
+                  { n: '03', title: 'Baixe o PDF', desc: 'Escolha o template.' },
+                ].map((step) => (
+                  <div key={step.n} className="space-y-1">
+                    <span className="font-mono text-xs font-medium text-accent">{step.n}</span>
+                    <p className="text-xs font-medium text-fg-base">{step.title}</p>
+                    <p className="text-xs text-fg-muted">{step.desc}</p>
+                  </div>
+                ))}
+              </div>
+              <Link
+                href="/nova-proposta"
+                className="inline-flex h-10 items-center rounded-sm bg-accent px-6 text-sm font-medium text-accent-fg transition-colors hover:bg-accent-hover"
+              >
+                Criar primeira proposta
+              </Link>
+            </div>
           </div>
         ) : (
           <div className="divide-y divide-border rounded-sm border border-border">

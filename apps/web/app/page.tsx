@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { auth } from '@/auth'
+import { db } from '@/server/db'
+import { proposals } from '@propfreela/db'
+import { count } from 'drizzle-orm'
 import { FaqAccordion } from '@/components/landing/FaqAccordion'
 
 export const metadata: Metadata = {
@@ -16,9 +19,19 @@ export const metadata: Metadata = {
   },
 }
 
+function formatCount(n: number): string {
+  if (n < 10) return String(n)
+  if (n < 100) return `${Math.floor(n / 10) * 10}+`
+  if (n < 1000) return `${Math.floor(n / 100) * 100}+`
+  return `${(n / 1000).toFixed(1).replace('.0', '')}k+`
+}
+
 export default async function LandingPage() {
   const session = await auth()
   const isLoggedIn = !!session?.user
+
+  const [{ proposalCount }] = await db.select({ proposalCount: count() }).from(proposals)
+  const proposalLabel = formatCount(proposalCount)
 
   return (
     <div className="min-h-screen bg-bg-base font-sans">
@@ -57,7 +70,7 @@ export default async function LandingPage() {
         <div className="max-w-2xl">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-border bg-bg-subtle px-3 py-1">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-            <span className="text-xs text-fg-muted">+500 propostas criadas por freelancers</span>
+            <span className="text-xs text-fg-muted">{proposalLabel} propostas criadas por freelancers</span>
           </div>
           <h1 className="mb-6 text-5xl font-light leading-[1.1] text-fg-base">
             Feche mais projetos com propostas que{' '}
@@ -115,7 +128,7 @@ export default async function LandingPage() {
       {/* ── Social proof bar ───────────────────────────────────── */}
       <section className="border-y border-border bg-bg-subtle">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-8 px-6 py-6 sm:justify-between">
-          <Stat value="500+" label="propostas criadas" />
+          <Stat value={proposalLabel} label="propostas criadas" />
           <Stat value="5" label="templates profissionais" />
           <Stat value="< 2 min" label="para gerar um PDF" />
           <Stat value="R$0" label="para comecar" />

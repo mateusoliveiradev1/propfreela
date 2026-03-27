@@ -36,8 +36,8 @@ export default async function DashboardPage() {
       <div className="mb-10 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
         <MetricCard
           label="Propostas este mês"
-          value={`${proposalCount.thisMonth} / ${proposalCount.remaining + proposalCount.thisMonth}`}
-          sub={`${proposalCount.remaining} restantes`}
+          value={proposalCount.isPro ? String(proposalCount.thisMonth) : `${proposalCount.thisMonth} / 3`}
+          sub={proposalCount.isPro ? 'Ilimitadas' : `${proposalCount.remaining ?? 0} restantes`}
           accent="border-t-accent"
           icon={
             <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="text-fg-placeholder">

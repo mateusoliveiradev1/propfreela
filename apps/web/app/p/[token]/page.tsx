@@ -49,7 +49,10 @@ export default async function PublicProposalPage({
     <div className="min-h-screen bg-bg-base">
       {/* Header bar */}
       <header className="border-b border-border bg-white/60 backdrop-blur-sm">
-        <div className="mx-auto max-w-2xl px-6 py-4">
+        <div className="mx-auto max-w-2xl px-6 py-4 flex items-center gap-3">
+          {proposal.logoUrl && proposal.userPlan === 'pro' && (
+            <img src={proposal.logoUrl} alt={displayName ?? ''} className="h-8 w-auto object-contain" />
+          )}
           <p className="text-sm font-medium text-fg-muted">
             Proposta de{' '}
             <span className="text-fg-base font-semibold">{displayName}</span>

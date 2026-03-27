@@ -33,16 +33,17 @@ export const userRouter = router({
   }),
 
   getProposalCount: protectedProcedure.query(async ({ ctx }) => {
-    // Delegated to proposals service — imported lazily to avoid circular deps
     const { proposalsService } = await import('../../services/proposals.service')
-    const count = await proposalsService.getMonthlyCount({
-      userId: ctx.session.user.id,
-      db: ctx.db,
-    })
+    const [[userRow], count] = await Promise.all([
+      ctx.db.select({ plan: users.plan }).from(users).where(eq(users.id, ctx.session.user.id)).limit(1),
+      proposalsService.getMonthlyCount({ userId: ctx.session.user.id, db: ctx.db }),
+    ])
+    const isPro = userRow?.plan === 'pro'
     const FREE_LIMIT = 3
     return {
       thisMonth: count,
-      remaining: Math.max(0, FREE_LIMIT - count),
+      remaining: isPro ? null : Math.max(0, FREE_LIMIT - count),
+      isPro,
     }
   }),
 

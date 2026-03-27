@@ -1,6 +1,7 @@
 import { auth } from '@/auth'
 import { redirect } from 'next/navigation'
 import { DashboardNav } from '@/components/layout/DashboardNav'
+import { AutoRefresh } from '@/components/layout/AutoRefresh'
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const session = await auth()
@@ -24,6 +25,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
       <main className="min-w-0 flex-1 pt-14 md:pt-0">
         {children}
       </main>
+      <AutoRefresh />
     </div>
   )
 }

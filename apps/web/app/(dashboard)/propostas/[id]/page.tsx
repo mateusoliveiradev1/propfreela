@@ -124,12 +124,10 @@ export default async function ProposalDetailPage({ params }: Props) {
                 {proposal.lastViewedAt && (
                   <p className="mt-1 text-xs text-fg-muted">
                     Última visita{' '}
-                    {new Date(proposal.lastViewedAt).toLocaleDateString('pt-BR', {
+                    {new Date(proposal.lastViewedAt).toLocaleString('pt-BR', {
+                      timeZone: 'America/Sao_Paulo',
                       day: '2-digit',
                       month: '2-digit',
-                    })}{' '}
-                    às{' '}
-                    {new Date(proposal.lastViewedAt).toLocaleTimeString('pt-BR', {
                       hour: '2-digit',
                       minute: '2-digit',
                     })}

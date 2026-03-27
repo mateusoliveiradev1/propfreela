@@ -26,12 +26,21 @@ export default async function PrecosPage() {
           <Link href="/" className="text-sm font-medium tracking-tight text-fg-base">
             PropFreela
           </Link>
-          <Link
-            href="/login"
-            className="inline-flex h-8 items-center rounded-sm bg-accent px-4 text-xs font-medium text-accent-fg transition-colors hover:bg-accent-hover"
-          >
-            Entrar
-          </Link>
+          {isLoggedIn ? (
+            <Link
+              href="/dashboard"
+              className="inline-flex h-8 items-center rounded-sm border border-border px-4 text-xs font-medium text-fg-base transition-colors hover:bg-bg-subtle"
+            >
+              Dashboard
+            </Link>
+          ) : (
+            <Link
+              href="/login"
+              className="inline-flex h-8 items-center rounded-sm bg-accent px-4 text-xs font-medium text-accent-fg transition-colors hover:bg-accent-hover"
+            >
+              Entrar
+            </Link>
+          )}
         </div>
       </header>
 

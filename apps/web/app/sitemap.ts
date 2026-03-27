@@ -13,6 +13,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/blog/como-precificar-servicos-freelancer`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/blog/contrato-freelancer-modelo`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/blog/como-conseguir-clientes-freelancer`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE}/blog/proposta-comercial-desenvolvedor-web`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE}/blog/proposta-comercial-designer-grafico`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE}/blog/email-para-enviar-proposta-comercial`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE}/blog/follow-up-proposta-comercial`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE}/blog/freelancer-mei-ou-pj`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/termos-de-uso`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
     { url: `${BASE}/privacidade`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
   ]

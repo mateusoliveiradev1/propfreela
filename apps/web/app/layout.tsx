@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env['NEXT_PUBLIC_APP_URL'] ?? 'https://propfreela.com'),
   title: {
     default: 'PropFreela — Propostas comerciais para freelancers',
     template: '%s | PropFreela',
@@ -24,6 +25,9 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'pt_BR',
     siteName: 'PropFreela',
+  },
+  twitter: {
+    card: 'summary_large_image',
   },
 }
 

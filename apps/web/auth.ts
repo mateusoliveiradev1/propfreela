@@ -3,6 +3,7 @@ import Google from 'next-auth/providers/google'
 import { DrizzleAdapter } from '@auth/drizzle-adapter'
 import { db } from '@/server/db'
 import { accounts, sessions, users, verificationTokens } from '@propfreela/db'
+import { sendWelcomeEmail } from '@/server/services/email.service'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: DrizzleAdapter(db, {
@@ -27,6 +28,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       session.user.id = user.id
       session.user.role = (user as unknown as { role: 'user' | 'admin' }).role ?? 'user'
       return session
+    },
+    async signIn({ user }) {
+      // Send welcome email on first login (emailVerified is null for new users)
+      const adapterUser = user as { email?: string | null; name?: string | null; emailVerified?: Date | null }
+      if (!adapterUser.emailVerified && adapterUser.email && adapterUser.name) {
+        try {
+          await sendWelcomeEmail(adapterUser.email, adapterUser.name)
+        } catch {}
+      }
+      return true
     },
   },
   pages: {

@@ -13,7 +13,10 @@ export default async function ConfiguracoesPage({
 }) {
   const { success } = await searchParams
   const caller = await createServerCaller()
-  const user = await caller.user.getMe()
+  const [user, proposalCount] = await Promise.all([
+    caller.user.getMe(),
+    caller.user.getProposalCount(),
+  ])
 
   return (
     <div className="px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-10">
@@ -38,19 +41,38 @@ export default async function ConfiguracoesPage({
           <p className="mb-4 text-xs font-medium uppercase tracking-[0.12em] text-fg-muted">
             Plano atual
           </p>
-          <div className="flex items-center justify-between rounded-sm border border-border p-5">
-            <div>
-              <p className="text-sm font-medium text-fg-base capitalize">{user.plan}</p>
-              <p className="mt-0.5 text-xs text-fg-muted">
-                {user.plan === 'free'
-                  ? '3 propostas por mês • watermark no PDF'
-                  : 'Propostas ilimitadas • sem watermark • logo própria'}
-              </p>
+          <div className="rounded-sm border border-border p-5 space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="flex items-center gap-2">
+                  <p className="text-sm font-medium text-fg-base">
+                    {user.plan === 'free' ? 'Plano Gratuito' : 'Plano Pro'}
+                  </p>
+                  {user.plan === 'pro' && (
+                    <span className="rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-medium text-accent">
+                      Pro
+                    </span>
+                  )}
+                </div>
+                <p className="mt-0.5 text-xs text-fg-muted">
+                  {user.plan === 'free'
+                    ? `${proposalCount.thisMonth} de 3 propostas usadas este mês`
+                    : 'Propostas ilimitadas • sem watermark • logo própria'}
+                </p>
+              </div>
+              {user.plan === 'free' ? (
+                <UpgradeButton />
+              ) : (
+                <CancelPlanButton />
+              )}
             </div>
-            {user.plan === 'free' ? (
-              <UpgradeButton />
-            ) : (
-              <CancelPlanButton />
+            {user.plan === 'free' && (
+              <div className="h-1.5 w-full overflow-hidden rounded-full bg-bg-subtle">
+                <div
+                  className="h-full rounded-full bg-accent transition-all duration-500"
+                  style={{ width: `${Math.min(100, (proposalCount.thisMonth / 3) * 100)}%` }}
+                />
+              </div>
             )}
           </div>
         </div>

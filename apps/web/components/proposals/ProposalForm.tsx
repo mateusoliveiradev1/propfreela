@@ -13,15 +13,63 @@ import type { Proposal } from '@propfreela/db'
 
 // ─── Template metadata ──────────────────────────────────────────────────────
 
-function TemplateIcon({ id }: { id: string }) {
-  const props = { width: 18, height: 18, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.5, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const }
+function TemplateThumbnail({ id }: { id: string }) {
   switch (id) {
-    case 'clean': return <svg {...props}><path d="M4 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2H4V5Zm0 4h16v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9Z" /></svg>
-    case 'moderno': return <svg {...props}><path d="M3 4h7v16H3V4Zm9 0h9v16h-9V4Z" /></svg>
-    case 'bold': return <svg {...props}><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z" /></svg>
-    case 'minimal': return <svg {...props}><path d="M4 6h16M4 12h10M4 18h6" /></svg>
-    case 'executivo': return <svg {...props}><path d="M3 6h18M3 12h18M3 18h18M8 6v12" /></svg>
-    default: return null
+    case 'clean':
+      return (
+        <div className="mb-2.5 h-10 w-full overflow-hidden rounded-sm border border-border/60 bg-bg-subtle flex flex-col">
+          <div className="h-2 w-full bg-accent/40" />
+          <div className="flex-1 p-1 space-y-0.5">
+            <div className="h-0.5 w-3/4 rounded bg-fg-placeholder/40" />
+            <div className="h-0.5 w-1/2 rounded bg-fg-placeholder/25" />
+          </div>
+        </div>
+      )
+    case 'moderno':
+      return (
+        <div className="mb-2.5 h-10 w-full overflow-hidden rounded-sm border border-border/60 flex">
+          <div className="w-1/3 bg-fg-base/70" />
+          <div className="flex-1 bg-bg-subtle p-1 space-y-0.5">
+            <div className="h-0.5 w-3/4 rounded bg-fg-placeholder/40" />
+            <div className="h-0.5 w-1/2 rounded bg-fg-placeholder/25" />
+          </div>
+        </div>
+      )
+    case 'bold':
+      return (
+        <div className="mb-2.5 h-10 w-full overflow-hidden rounded-sm border border-border/60 flex flex-col">
+          <div className="h-4 w-full bg-accent/50 flex items-center px-1.5">
+            <div className="h-1 w-8 rounded bg-white/50" />
+          </div>
+          <div className="flex-1 bg-bg-subtle p-1 space-y-0.5">
+            <div className="h-0.5 w-1/2 rounded bg-fg-placeholder/40" />
+          </div>
+        </div>
+      )
+    case 'minimal':
+      return (
+        <div className="mb-2.5 h-10 w-full overflow-hidden rounded-sm border border-border/60 bg-bg-subtle p-1.5 space-y-1">
+          <div className="h-1 w-2/3 rounded bg-fg-base/40" />
+          <div className="h-0.5 w-full rounded bg-fg-placeholder/30" />
+          <div className="h-0.5 w-4/5 rounded bg-fg-placeholder/20" />
+        </div>
+      )
+    case 'executivo':
+      return (
+        <div className="mb-2.5 h-10 w-full overflow-hidden rounded-sm border border-border/60 bg-bg-subtle p-1 space-y-0.5">
+          <div className="h-0.5 w-full rounded bg-fg-base/35" />
+          <div className="flex h-2.5 gap-0.5">
+            <div className="w-px bg-fg-placeholder/30" />
+            <div className="flex-1 space-y-0.5 py-0.5">
+              <div className="h-0.5 w-3/4 rounded bg-fg-placeholder/30" />
+              <div className="h-0.5 w-1/2 rounded bg-fg-placeholder/20" />
+            </div>
+          </div>
+          <div className="h-0.5 w-full rounded bg-fg-base/35" />
+        </div>
+      )
+    default:
+      return null
   }
 }
 
@@ -281,7 +329,7 @@ export function ProposalForm({ defaultValues, proposalId }: Props) {
             {TEMPLATES.map((t) => (
               <label
                 key={t.id}
-                className={`flex cursor-pointer items-start gap-3 rounded-sm border p-4 transition-colors ${
+                className={`block cursor-pointer rounded-sm border p-3 transition-colors ${
                   selectedTemplate === t.id
                     ? 'border-accent bg-accent/5'
                     : 'border-border hover:border-accent/40'
@@ -291,15 +339,11 @@ export function ProposalForm({ defaultValues, proposalId }: Props) {
                   type="radio"
                   value={t.id}
                   {...register('templateId')}
-                  className="mt-0.5 accent-accent"
+                  className="sr-only"
                 />
-                <div className="min-w-0">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-fg-muted"><TemplateIcon id={t.id} /></span>
-                    <span className="text-sm font-medium text-fg-base">{t.name}</span>
-                  </div>
-                  <p className="mt-0.5 text-xs leading-relaxed text-fg-muted">{t.desc}</p>
-                </div>
+                <TemplateThumbnail id={t.id} />
+                <span className="text-sm font-medium text-fg-base">{t.name}</span>
+                <p className="mt-0.5 text-xs leading-relaxed text-fg-muted">{t.desc}</p>
               </label>
             ))}
           </div>

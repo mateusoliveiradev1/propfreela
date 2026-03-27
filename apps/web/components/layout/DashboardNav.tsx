@@ -28,7 +28,7 @@ function HomeIcon() {
 
 function PlusIcon() {
   return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
       <line x1="12" y1="5" x2="12" y2="19" />
       <line x1="5" y1="12" x2="19" y2="12" />
     </svg>
@@ -92,14 +92,26 @@ function XIcon() {
   )
 }
 
-// ─── Nav Links ────────────────────────────────────────────────────────────────
+// ─── Nav Links (sem Nova proposta — virou CTA separado) ───────────────────────
 
 const NAV_LINKS = [
   { href: '/dashboard', label: 'Início', Icon: HomeIcon },
-  { href: '/nova-proposta', label: 'Nova proposta', Icon: PlusIcon },
   { href: '/propostas', label: 'Propostas', Icon: FileTextIcon },
   { href: '/configuracoes', label: 'Configurações', Icon: SettingsIcon },
 ]
+
+// ─── Avatar color derivado do nome ────────────────────────────────────────────
+
+function getAvatarBg(name: string) {
+  const palette = [
+    'bg-accent',
+    'bg-blue-600',
+    'bg-amber-600',
+    'bg-rose-600',
+    'bg-violet-600',
+  ]
+  return palette[name.charCodeAt(0) % palette.length]
+}
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
@@ -150,22 +162,36 @@ export function DashboardNav({ user }: { user: NavUser }) {
         </button>
 
         {/* Brand */}
-        <div className="mb-10 px-2">
+        <div className="mb-8 px-2">
           <Image src="/logo.svg" alt="PropFreela" width={120} height={28} priority />
         </div>
 
+        {/* CTA — Nova proposta */}
+        <Link
+          href="/nova-proposta"
+          onClick={() => setMobileOpen(false)}
+          className="mb-6 flex w-full items-center justify-center gap-2 rounded-sm bg-accent px-3 py-2 text-sm font-medium text-accent-fg transition-colors hover:bg-accent-hover"
+        >
+          <PlusIcon />
+          Nova proposta
+        </Link>
+
         {/* Navigation */}
         <nav className="flex flex-1 flex-col gap-0.5">
+          <p className="mb-1.5 px-3 text-[10px] uppercase tracking-[0.12em] text-fg-placeholder">
+            Menu
+          </p>
+
           {NAV_LINKS.map(({ href, label, Icon }) => (
             <Link
               key={href}
               href={href}
               onClick={() => setMobileOpen(false)}
               className={cn(
-                'flex items-center gap-2.5 rounded-sm px-3 py-2 text-sm transition-colors',
+                'flex items-center gap-2.5 rounded-sm border-l-2 px-3 py-2 text-sm transition-colors',
                 isActive(href)
-                  ? 'bg-bg-overlay font-medium text-fg-base'
-                  : 'text-fg-muted hover:bg-bg-subtle hover:text-fg-base',
+                  ? 'border-l-accent bg-accent/10 font-medium text-fg-base'
+                  : 'border-l-transparent text-fg-muted hover:bg-bg-subtle hover:text-fg-base',
               )}
             >
               <Icon />
@@ -178,10 +204,10 @@ export function DashboardNav({ user }: { user: NavUser }) {
               href="/admin"
               onClick={() => setMobileOpen(false)}
               className={cn(
-                'mt-1 flex items-center gap-2.5 rounded-sm px-3 py-2 text-sm transition-colors',
+                'mt-1 flex items-center gap-2.5 rounded-sm border-l-2 px-3 py-2 text-sm transition-colors',
                 pathname.startsWith('/admin')
-                  ? 'bg-bg-overlay font-medium text-fg-base'
-                  : 'text-fg-muted hover:bg-bg-subtle hover:text-fg-base',
+                  ? 'border-l-accent bg-accent/10 font-medium text-fg-base'
+                  : 'border-l-transparent text-fg-muted hover:bg-bg-subtle hover:text-fg-base',
               )}
             >
               <ShieldIcon />
@@ -200,7 +226,10 @@ export function DashboardNav({ user }: { user: NavUser }) {
                 className="h-7 w-7 rounded-full object-cover"
               />
             ) : (
-              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-bg-overlay text-xs font-medium text-fg-muted">
+              <div className={cn(
+                'flex h-7 w-7 items-center justify-center rounded-full text-xs font-medium text-white',
+                getAvatarBg(user.name),
+              )}>
                 {user.name.charAt(0).toUpperCase()}
               </div>
             )}

@@ -182,23 +182,29 @@ async function generateShareToken({
   const proposal = await getById({ id, userId, db })
   if (!proposal) throw new TRPCError({ code: 'NOT_FOUND' })
 
-  // Reuse existing token if already shared
-  if (proposal.publicToken) {
-    const url = `${process.env['NEXT_PUBLIC_APP_URL'] ?? ''}/p/${proposal.publicToken}`
-    return { token: proposal.publicToken, url }
+  const token = proposal.publicToken ?? createId()
+
+  // Always update when coming from rascunho or em_revisao
+  const needsUpdate =
+    !proposal.publicToken ||
+    proposal.status === 'rascunho' ||
+    proposal.status === 'em_revisao'
+
+  if (needsUpdate) {
+    await db
+      .update(proposals)
+      .set({
+        publicToken: token,
+        // rascunho → enviada on first share
+        ...(proposal.status === 'rascunho' ? { status: 'enviada' as const } : {}),
+        // em_revisao → enviada when freelancer resends; clear feedback
+        ...(proposal.status === 'em_revisao'
+          ? { status: 'enviada' as const, clientFeedback: null }
+          : {}),
+        updatedAt: new Date(),
+      })
+      .where(eq(proposals.id, id))
   }
-
-  const token = createId()
-
-  await db
-    .update(proposals)
-    .set({
-      publicToken: token,
-      // Auto-transition from rascunho → enviada when sharing
-      ...(proposal.status === 'rascunho' ? { status: 'enviada' as const } : {}),
-      updatedAt: new Date(),
-    })
-    .where(eq(proposals.id, id))
 
   const url = `${process.env['NEXT_PUBLIC_APP_URL'] ?? ''}/p/${token}`
   return { token, url }

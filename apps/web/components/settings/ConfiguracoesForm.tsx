@@ -110,6 +110,7 @@ export function ConfiguracoesForm({ defaultValues, isPro }: Props) {
             )}
           </p>
           {isPro ? (
+            <>
             <div className="flex items-center gap-4">
               {logoPreview && (
                 <img
@@ -153,6 +154,7 @@ export function ConfiguracoesForm({ defaultValues, isPro }: Props) {
             {uploadError && (
               <p className="mt-2 text-xs text-red-600">{uploadError}</p>
             )}
+            </>
           ) : (
             <div className="flex h-12 items-center rounded-sm border border-dashed border-border px-4">
               <p className="text-xs text-fg-placeholder">

@@ -23,6 +23,9 @@ export default function LandingPage() {
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <span className="text-sm font-medium tracking-tight text-fg-base">PropFreela</span>
           <div className="flex items-center gap-6">
+            <Link href="/blog" className="hidden text-xs text-fg-muted hover:text-fg-base sm:inline">
+              Blog
+            </Link>
             <Link href="/precos" className="text-xs text-fg-muted hover:text-fg-base">
               Precos
             </Link>

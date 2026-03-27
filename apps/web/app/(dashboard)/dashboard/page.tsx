@@ -33,7 +33,7 @@ export default async function DashboardPage() {
       </div>
 
       {/* Metrics */}
-      <div className="mb-10 grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
+      <div className="mb-10 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
         <MetricCard
           label="Propostas este mês"
           value={`${proposalCount.thisMonth} / ${proposalCount.remaining + proposalCount.thisMonth}`}

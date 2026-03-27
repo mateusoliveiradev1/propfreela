@@ -35,9 +35,12 @@ export default function ComoFazerPropostaPage() {
       </header>
 
       <main className="mx-auto max-w-2xl px-6 py-16">
-        <p className="mb-4 text-xs font-medium uppercase tracking-[0.15em] text-fg-muted">
-          Blog · Propostas
-        </p>
+        <Link
+          href="/blog"
+          className="mb-6 inline-block text-xs font-medium uppercase tracking-[0.15em] text-fg-muted hover:text-fg-base"
+        >
+          ← Blog
+        </Link>
         <h1 className="mb-6 text-4xl font-light leading-tight text-fg-base">
           Como fazer uma proposta comercial para freelancer
         </h1>

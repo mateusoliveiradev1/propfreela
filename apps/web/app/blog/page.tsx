@@ -15,17 +15,24 @@ export const metadata: Metadata = {
 
 const articles = [
   {
-    href: '/blog/como-precificar-servicos-freelancer',
-    title: 'Como precificar seus servicos como freelancer',
-    description:
-      'Aprenda a calcular seu custo-hora, usar precificacao por valor e apresentar precos que o cliente aceita.',
-    label: 'Negocios',
-  },
-  {
     href: '/blog/como-fazer-proposta-comercial-freelancer',
     title: 'Como fazer uma proposta comercial para freelancer',
     description:
       'Estrutura completa de uma proposta que convence: o que incluir, como organizar e dicas para aumentar a taxa de aprovacao.',
+    label: 'Propostas',
+  },
+  {
+    href: '/blog/proposta-comercial-desenvolvedor-web',
+    title: 'Proposta comercial para desenvolvedor web freelancer',
+    description:
+      'Modelo completo de proposta para devs freelancers: escopo tecnico, tecnologias, prazo e como apresentar o valor sem brigar pelo preco.',
+    label: 'Propostas',
+  },
+  {
+    href: '/blog/proposta-comercial-designer-grafico',
+    title: 'Proposta comercial para designer grafico freelancer',
+    description:
+      'Como criar uma proposta de design que protege seu escopo, define revisoes e apresenta o valor criativo do seu trabalho.',
     label: 'Propostas',
   },
   {
@@ -36,11 +43,39 @@ const articles = [
     label: 'Propostas',
   },
   {
+    href: '/blog/email-para-enviar-proposta-comercial',
+    title: 'Como enviar uma proposta comercial por email',
+    description:
+      'Modelo de email, assunto certo e dicas para aumentar a taxa de resposta do cliente depois de enviar o PDF.',
+    label: 'Vendas',
+  },
+  {
+    href: '/blog/follow-up-proposta-comercial',
+    title: 'Como fazer follow-up de proposta comercial sem parecer chato',
+    description:
+      'Quando e como dar follow-up depois de enviar uma proposta. Modelos prontos para email e WhatsApp.',
+    label: 'Vendas',
+  },
+  {
+    href: '/blog/como-precificar-servicos-freelancer',
+    title: 'Como precificar seus servicos como freelancer',
+    description:
+      'Aprenda a calcular seu custo-hora, usar precificacao por valor e apresentar precos que o cliente aceita.',
+    label: 'Negocios',
+  },
+  {
     href: '/blog/contrato-freelancer-modelo',
     title: 'Contrato de prestacao de servicos para freelancer',
     description:
       'Clausulas essenciais, modelo comentado e dicas praticas para proteger seu trabalho e se profissionalizar.',
     label: 'Juridico',
+  },
+  {
+    href: '/blog/freelancer-mei-ou-pj',
+    title: 'Freelancer: MEI ou PJ? Qual e a melhor opcao em 2025',
+    description:
+      'Entenda as diferencas, limites de faturamento, impostos e qual e a melhor escolha para o seu perfil.',
+    label: 'Negocios',
   },
   {
     href: '/blog/como-conseguir-clientes-freelancer',

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/server/db'
 import { users } from '@propfreela/db'
 import { eq } from 'drizzle-orm'
+import { sendPaymentFailedEmail } from '@/server/services/email.service'
 
 export async function POST(req: NextRequest) {
   const body = await req.text()
@@ -56,6 +57,24 @@ export async function POST(req: NextRequest) {
         .update(users)
         .set({ plan: 'free', updatedAt: new Date() })
         .where(eq(users.stripeCustomerId, customerId))
+      break
+    }
+
+    case 'invoice.payment_failed': {
+      const invoice = event.data.object
+      const customerId =
+        typeof invoice.customer === 'string' ? invoice.customer : (invoice.customer as { id: string } | null)?.id
+      if (!customerId) break
+
+      const [user] = await db
+        .select({ email: users.email, name: users.name })
+        .from(users)
+        .where(eq(users.stripeCustomerId, customerId))
+        .limit(1)
+
+      if (user?.email) {
+        sendPaymentFailedEmail(user.email, user.name ?? 'Freelancer').catch(() => {})
+      }
       break
     }
 

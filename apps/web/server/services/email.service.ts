@@ -275,3 +275,33 @@ export async function sendRevisionRequestedEmail(
     html: proposalRevisionHtml(proposalTitle, feedback),
   })
 }
+
+export async function sendPaymentFailedEmail(to: string, name: string): Promise<void> {
+  if (!resend) return
+  const firstName = name.split(' ')[0]
+  await resend.emails.send({
+    from: FROM,
+    to,
+    subject: 'Problema com seu pagamento — PropFreela Pro',
+    html: baseHtml(`
+      <p style="font-size:22px;font-weight:300;color:#0D0D0B;margin:0 0 16px;">
+        Não conseguimos processar seu pagamento, ${firstName}.
+      </p>
+      <p style="font-size:14px;line-height:1.7;color:#4B4B4B;margin:0 0 16px;">
+        Houve uma falha ao cobrar o seu cartão para renovar o plano Pro do PropFreela.
+        Isso pode acontecer por cartão vencido, limite insuficiente ou bloqueio do banco.
+      </p>
+      <p style="font-size:14px;line-height:1.7;color:#4B4B4B;margin:0 0 32px;">
+        Acesse suas configurações e atualize o método de pagamento para continuar usando o plano Pro sem interrupção.
+      </p>
+      <a href="https://propfreela.com/configuracoes"
+         style="display:inline-block;background:#1A472A;color:#fff;text-decoration:none;
+                font-size:14px;font-weight:500;padding:12px 28px;border-radius:2px;">
+        Atualizar pagamento →
+      </a>
+      <p style="font-size:12px;color:#9CA3AF;margin:32px 0 0;">
+        Se não atualizado em breve, sua conta será rebaixada para o plano gratuito automaticamente pelo Stripe.
+      </p>
+    `),
+  })
+}

@@ -30,7 +30,7 @@ export default async function LandingPage() {
   const session = await auth()
   const isLoggedIn = !!session?.user
 
-  const [{ proposalCount }] = await db.select({ proposalCount: count() }).from(proposals)
+  const [{ proposalCount } = { proposalCount: 0 }] = await db.select({ proposalCount: count() }).from(proposals)
   const proposalLabel = formatCount(proposalCount)
 
   return (

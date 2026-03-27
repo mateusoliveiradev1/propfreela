@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { auth } from '@/auth'
+import { CheckoutButton } from '@/components/billing/CheckoutButton'
 
 export const metadata: Metadata = {
   title: 'Preços — PropFreela',
@@ -12,7 +14,10 @@ export const metadata: Metadata = {
   },
 }
 
-export default function PrecosPage() {
+export default async function PrecosPage() {
+  const session = await auth()
+  const isLoggedIn = !!session?.user
+
   return (
     <div className="min-h-screen bg-bg-base">
       {/* Nav */}
@@ -104,12 +109,16 @@ export default function PrecosPage() {
                 </li>
               ))}
             </ul>
-            <Link
-              href="/login"
-              className="inline-flex h-10 w-full items-center justify-center rounded-sm bg-accent text-sm font-medium text-accent-fg transition-colors hover:bg-accent-hover"
-            >
-              Assinar Pro
-            </Link>
+            {isLoggedIn ? (
+              <CheckoutButton />
+            ) : (
+              <Link
+                href="/login"
+                className="inline-flex h-10 w-full items-center justify-center rounded-sm bg-accent text-sm font-medium text-accent-fg transition-colors hover:bg-accent-hover"
+              >
+                Assinar Pro
+              </Link>
+            )}
           </div>
         </div>
 

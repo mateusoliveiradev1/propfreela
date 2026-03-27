@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { ConfiguracoesForm } from '@/components/settings/ConfiguracoesForm'
 import { CancelPlanButton } from '@/components/settings/CancelPlanButton'
+import { CheckoutButton } from '@/components/billing/CheckoutButton'
 import { createServerCaller } from '@/lib/trpc/server'
 
 export const metadata: Metadata = { title: 'Configurações' }
@@ -69,13 +70,5 @@ export default async function ConfiguracoesPage({
 }
 
 function UpgradeButton() {
-  // Client component imported inline would create a problem — rendered as a link instead
-  return (
-    <a
-      href="/precos"
-      className="inline-flex h-9 items-center rounded-sm bg-accent px-4 text-xs font-medium text-accent-fg transition-colors hover:bg-accent-hover"
-    >
-      Fazer upgrade
-    </a>
-  )
+  return <CheckoutButton />
 }

@@ -187,9 +187,42 @@ async function refineScope(input: GenerateScopeInput): Promise<string> {
   return callAI(prompt)
 }
 
+// ─── Refine scope incorporating client feedback ───────────────────────────────
+
+async function refineScopeWithFeedback(input: GenerateScopeInput): Promise<string> {
+  const prompt = [
+    `Você é um redator especializado em propostas comerciais para freelancers brasileiros.`,
+    `O cliente solicitou uma revisão da proposta. Reescreva o escopo incorporando o feedback do cliente.`,
+    ``,
+    `Cliente: ${input.clientName}`,
+    `Projeto: ${input.title}`,
+    ``,
+    `Escopo atual:`,
+    `"""`,
+    input.currentScope,
+    `"""`,
+    ``,
+    `Feedback do cliente:`,
+    `"""`,
+    input.clientFeedback,
+    `"""`,
+    ``,
+    `Regras:`,
+    `- Incorpore o que o cliente pediu de forma natural no escopo`,
+    `- Mantenha o tom profissional e persuasivo`,
+    `- Português brasileiro`,
+    `- NÃO use markdown, bullets, asteriscos ou formatação — texto corrido puro`,
+    `- Retorne APENAS o novo escopo, sem comentários ou explicações`,
+    `- Máximo 350 palavras`,
+  ].join('\n')
+
+  return callAI(prompt)
+}
+
 // ─── Export ──────────────────────────────────────────────────────────────────
 
 export const aiService = {
   generateScope,
   refineScope,
+  refineScopeWithFeedback,
 }

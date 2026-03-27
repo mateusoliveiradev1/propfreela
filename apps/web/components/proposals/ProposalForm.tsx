@@ -125,9 +125,10 @@ function SparklesIcon() {
 type Props = {
   defaultValues?: Partial<CreateProposalInput>
   proposalId?: string // if set, update mode
+  clientFeedback?: string // if set, AI will incorporate client revision request
 }
 
-export function ProposalForm({ defaultValues, proposalId }: Props) {
+export function ProposalForm({ defaultValues, proposalId, clientFeedback }: Props) {
   const router = useRouter()
   const [showUpgrade, setShowUpgrade] = useState(false)
 
@@ -190,6 +191,7 @@ export function ProposalForm({ defaultValues, proposalId }: Props) {
       title,
       valueInCents: valueInCents || undefined,
       currentScope: scope || undefined,
+      clientFeedback: clientFeedback || undefined,
     })
   }
 
@@ -267,9 +269,11 @@ export function ProposalForm({ defaultValues, proposalId }: Props) {
             ) : (
               <>
                 <SparklesIcon />
-                {watch('scope') && watch('scope').length > 10
-                  ? 'Melhorar com IA'
-                  : 'Gerar escopo com IA'}
+                {clientFeedback
+                  ? 'Incorporar feedback do cliente'
+                  : watch('scope') && watch('scope').length > 10
+                    ? 'Melhorar com IA'
+                    : 'Gerar escopo com IA'}
               </>
             )}
           </button>

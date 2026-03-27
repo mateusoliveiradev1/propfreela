@@ -50,6 +50,7 @@ export const GenerateScopeSchema = z.object({
   title: z.string().min(1, 'Título é obrigatório'),
   valueInCents: z.number().int().positive().optional(),
   currentScope: z.string().optional(),
+  clientFeedback: z.string().optional(),
 })
 
 export type GenerateScopeInput = z.infer<typeof GenerateScopeSchema>

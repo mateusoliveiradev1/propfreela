@@ -47,6 +47,7 @@ export default async function EditarPropostaPage({ params }: Props) {
       <div className="max-w-2xl">
         <ProposalForm
           proposalId={proposal.id}
+          {...(proposal.clientFeedback != null ? { clientFeedback: proposal.clientFeedback } : {})}
           defaultValues={{
             title: proposal.title,
             clientName: proposal.clientName,

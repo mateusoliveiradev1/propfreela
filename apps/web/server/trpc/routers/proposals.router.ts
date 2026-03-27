@@ -79,7 +79,9 @@ export const proposalsRouter = router({
     ),
 
   generateScope: protectedProcedure.input(GenerateScopeSchema).mutation(async ({ input }) => {
-    // If there's existing scope text, refine it; otherwise generate from scratch
+    if (input.clientFeedback && input.currentScope && input.currentScope.trim().length > 10) {
+      return aiService.refineScopeWithFeedback(input)
+    }
     if (input.currentScope && input.currentScope.trim().length > 10) {
       return aiService.refineScope(input)
     }

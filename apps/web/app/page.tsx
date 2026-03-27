@@ -50,7 +50,7 @@ export default async function LandingPage() {
               Blog
             </Link>
             <Link href="/precos" className="text-xs text-fg-muted transition-colors hover:text-fg-base">
-              Precos
+              Preços
             </Link>
             {isLoggedIn ? (
               <Link
@@ -76,7 +76,9 @@ export default async function LandingPage() {
         <div className="max-w-2xl">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-border bg-bg-subtle px-3 py-1">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-            <span className="text-xs text-fg-muted">{proposalLabel} propostas criadas por freelancers</span>
+            <span className="text-xs text-fg-muted">
+              {proposalCount >= 50 ? `${proposalLabel} propostas criadas por freelancers` : 'Para freelancers brasileiros'}
+            </span>
           </div>
           <h1 className="mb-6 text-5xl font-normal leading-[1.1] text-fg-base">
             Feche mais projetos com propostas que{' '}
@@ -84,7 +86,7 @@ export default async function LandingPage() {
           </h1>
           <p className="mb-10 max-w-lg text-base leading-relaxed text-fg-muted">
             Crie propostas comerciais profissionais em PDF em menos de 2 minutos.
-            Com IA que gera o escopo pra voce. Gratis para comecar.
+            Com IA que gera o escopo pra você. Grátis para começar.
           </p>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
             <Link
@@ -93,7 +95,7 @@ export default async function LandingPage() {
             >
               Criar minha primeira proposta
             </Link>
-            <span className="text-xs text-fg-placeholder">Gratis, sem cartao de credito</span>
+            <span className="text-xs text-fg-placeholder">Grátis, sem cartão de crédito</span>
           </div>
         </div>
 
@@ -139,7 +141,10 @@ export default async function LandingPage() {
       <section className="border-y border-border bg-bg-subtle">
         <div className="mx-auto flex max-w-5xl items-center justify-center gap-6 px-6 py-5 text-sm text-fg-muted">
           <span>
-            <span className="font-mono font-medium text-accent">{proposalLabel}</span> propostas criadas
+            {proposalCount >= 50
+              ? <><span className="font-mono font-medium text-accent">{proposalLabel}</span> propostas criadas</>
+              : <span>Grátis para começar</span>
+            }
           </span>
           <span className="text-border">·</span>
           <span>

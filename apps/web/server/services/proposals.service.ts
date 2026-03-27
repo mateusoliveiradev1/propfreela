@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server'
-import { and, eq, gte, lt, sql } from 'drizzle-orm'
+import { and, eq, gte, isNotNull, lt, lte, sql } from 'drizzle-orm'
 import { createId } from '@paralleldrive/cuid2'
 import { proposals, users } from '@propfreela/db'
 import type { Database, Proposal, ProposalStatus } from '@propfreela/db'
@@ -94,6 +94,7 @@ async function create({
       deadline: input.deadline ?? null,
       paymentTerms: input.paymentTerms ?? null,
       templateId: input.templateId,
+      expiresAt: input.expiresAt ?? null,
       status: 'rascunho',
     })
     .returning()
@@ -229,6 +230,7 @@ async function getByPublicToken({
       paymentTerms: proposals.paymentTerms,
       templateId: proposals.templateId,
       status: proposals.status,
+      expiresAt: proposals.expiresAt,
       createdAt: proposals.createdAt,
       // User info for branding
       userName: users.name,
@@ -291,6 +293,51 @@ async function respondByPublicToken({
   return { status: action }
 }
 
+// ─── Cron helpers ────────────────────────────────────────────────────────────
+
+async function expireOverdue({ db }: { db: Database }): Promise<number> {
+  const now = new Date()
+  const result = await db
+    .update(proposals)
+    .set({ status: 'expirada', updatedAt: now })
+    .where(
+      and(
+        eq(proposals.status, 'enviada'),
+        isNotNull(proposals.expiresAt),
+        lt(proposals.expiresAt, now),
+      ),
+    )
+    .returning({ id: proposals.id })
+  return result.length
+}
+
+async function findExpiringIn2Days({ db }: { db: Database }) {
+  const in2Days = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000)
+  const in3Days = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000)
+
+  return db
+    .select({
+      id: proposals.id,
+      title: proposals.title,
+      clientName: proposals.clientName,
+      clientEmail: proposals.clientEmail,
+      publicToken: proposals.publicToken,
+      expiresAt: proposals.expiresAt,
+      userEmail: users.email,
+      userName: users.name,
+    })
+    .from(proposals)
+    .innerJoin(users, eq(proposals.userId, users.id))
+    .where(
+      and(
+        eq(proposals.status, 'enviada'),
+        isNotNull(proposals.expiresAt),
+        gte(proposals.expiresAt, in2Days),
+        lte(proposals.expiresAt, in3Days),
+      ),
+    )
+}
+
 // ─── View tracking ────────────────────────────────────────────────────────────
 
 async function recordView({ publicToken, db }: { publicToken: string; db: Database }) {
@@ -317,4 +364,6 @@ export const proposalsService = {
   getByPublicToken,
   respondByPublicToken,
   recordView,
+  expireOverdue,
+  findExpiringIn2Days,
 }

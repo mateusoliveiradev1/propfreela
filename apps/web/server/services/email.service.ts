@@ -119,6 +119,69 @@ function proposalRevisionHtml(proposalTitle: string, feedback: string): string {
   `)
 }
 
+function proposalExpiryReminderToClientHtml(
+  proposalTitle: string,
+  freelancerName: string,
+  proposalUrl: string,
+  expiresAt: Date,
+): string {
+  const formatted = expiresAt.toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'America/Sao_Paulo',
+  })
+  return baseHtml(`
+    <p style="font-size:22px;font-weight:300;color:#0D0D0B;margin:0 0 16px;">
+      Sua proposta expira em breve.
+    </p>
+    <div style="background:#fff;border:1px solid #E5E4E1;padding:16px 20px;margin:0 0 24px;border-radius:2px;">
+      <p style="font-size:13px;color:#9CA3AF;margin:0 0 4px;text-transform:uppercase;letter-spacing:0.08em;">Proposta de ${freelancerName}</p>
+      <p style="font-size:15px;font-weight:500;color:#0D0D0B;margin:0 0 8px;">${proposalTitle}</p>
+      <p style="font-size:13px;color:#B45309;margin:0;">Válida até ${formatted}</p>
+    </div>
+    <p style="font-size:14px;line-height:1.7;color:#4B4B4B;margin:0 0 32px;">
+      Esta proposta comercial está aguardando sua resposta. Acesse o link abaixo para aprová-la, recusá-la ou solicitar ajustes.
+    </p>
+    <a href="${proposalUrl}"
+       style="display:inline-block;background:#1A472A;color:#fff;text-decoration:none;
+              font-size:14px;font-weight:500;padding:12px 28px;border-radius:2px;">
+      Ver proposta →
+    </a>
+  `)
+}
+
+function proposalExpiryWarningToFreelancerHtml(
+  proposalTitle: string,
+  clientName: string,
+  expiresAt: Date,
+): string {
+  const formatted = expiresAt.toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'America/Sao_Paulo',
+  })
+  return baseHtml(`
+    <p style="font-size:22px;font-weight:300;color:#0D0D0B;margin:0 0 16px;">
+      Sua proposta expira em 2 dias.
+    </p>
+    <div style="background:#fff;border:1px solid #E5E4E1;padding:16px 20px;margin:0 0 24px;border-radius:2px;">
+      <p style="font-size:13px;color:#9CA3AF;margin:0 0 4px;text-transform:uppercase;letter-spacing:0.08em;">Proposta</p>
+      <p style="font-size:15px;font-weight:500;color:#0D0D0B;margin:0 0 8px;">${proposalTitle}</p>
+      <p style="font-size:13px;color:#4B4B4B;margin:0;">Cliente: <strong>${clientName}</strong> · Expira em ${formatted}</p>
+    </div>
+    <p style="font-size:14px;line-height:1.7;color:#4B4B4B;margin:0 0 32px;">
+      O cliente ainda não respondeu. Considere entrar em contato diretamente para agilizar a decisão.
+    </p>
+    <a href="https://propfreela.com/propostas"
+       style="display:inline-block;background:#1A472A;color:#fff;text-decoration:none;
+              font-size:14px;font-weight:500;padding:12px 28px;border-radius:2px;">
+      Ver minhas propostas →
+    </a>
+  `)
+}
+
 // ─── Public API ───────────────────────────────────────────────────────────────
 
 export async function sendWelcomeEmail(to: string, name: string): Promise<void> {
@@ -154,6 +217,48 @@ export async function sendProposalRejectedEmail(
     to,
     subject: `Proposta não aprovada: ${proposalTitle}`,
     html: proposalRejectedHtml(proposalTitle),
+  })
+}
+
+export async function sendExpiryReminderToClient({
+  to,
+  proposalTitle,
+  freelancerName,
+  proposalUrl,
+  expiresAt,
+}: {
+  to: string
+  proposalTitle: string
+  freelancerName: string
+  proposalUrl: string
+  expiresAt: Date
+}): Promise<void> {
+  if (!resend) return
+  await resend.emails.send({
+    from: FROM,
+    to,
+    subject: `⏰ Proposta expira em breve: ${proposalTitle}`,
+    html: proposalExpiryReminderToClientHtml(proposalTitle, freelancerName, proposalUrl, expiresAt),
+  })
+}
+
+export async function sendExpiryWarningToFreelancer({
+  to,
+  proposalTitle,
+  clientName,
+  expiresAt,
+}: {
+  to: string
+  proposalTitle: string
+  clientName: string
+  expiresAt: Date
+}): Promise<void> {
+  if (!resend) return
+  await resend.emails.send({
+    from: FROM,
+    to,
+    subject: `⏰ Proposta prestes a expirar: ${proposalTitle}`,
+    html: proposalExpiryWarningToFreelancerHtml(proposalTitle, clientName, expiresAt),
   })
 }
 

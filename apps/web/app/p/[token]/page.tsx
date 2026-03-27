@@ -38,6 +38,7 @@ export default async function PublicProposalPage({
     enviada: 'Aguardando resposta',
     rascunho: 'Rascunho',
     em_revisao: 'Em revisão',
+    expirada: 'Expirada',
   }
 
   const statusColor: Record<string, string> = {
@@ -46,7 +47,17 @@ export default async function PublicProposalPage({
     enviada: 'bg-yellow-100 text-yellow-800',
     rascunho: 'bg-gray-100 text-gray-700',
     em_revisao: 'bg-amber-100 text-amber-800',
+    expirada: 'bg-gray-100 text-gray-600',
   }
+
+  const formattedExpiry = proposal.expiresAt
+    ? proposal.expiresAt.toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+        timeZone: 'America/Sao_Paulo',
+      })
+    : null
 
   const displayName = proposal.companyName || proposal.userName
 
@@ -115,6 +126,11 @@ export default async function PublicProposalPage({
                   Pagamento: <span className="font-medium text-fg-base">{proposal.paymentTerms}</span>
                 </p>
               )}
+              {formattedExpiry && proposal.status === 'enviada' && (
+                <p className="mt-1 text-xs text-amber-700">
+                  Válida até {formattedExpiry}
+                </p>
+              )}
             </div>
           </div>
         </section>
@@ -126,6 +142,14 @@ export default async function PublicProposalPage({
           <div className="rounded-sm border border-amber-200 bg-amber-50 p-6 text-center">
             <p className="text-sm text-amber-800">
               Você solicitou uma revisão desta proposta. O freelancer irá analisar seu feedback em breve.
+            </p>
+          </div>
+        ) : proposal.status === 'expirada' ? (
+          <div className="rounded-sm border border-border bg-bg-subtle p-6 text-center">
+            <p className="text-sm text-fg-muted">
+              Esta proposta expirou
+              {formattedExpiry ? ` em ${formattedExpiry}` : ''}.
+              Entre em contato com o freelancer para solicitar uma nova proposta.
             </p>
           </div>
         ) : (

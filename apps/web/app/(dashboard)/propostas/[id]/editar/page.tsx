@@ -57,6 +57,7 @@ export default async function EditarPropostaPage({ params }: Props) {
             deadline: proposal.deadline ?? undefined,
             paymentTerms: proposal.paymentTerms ?? undefined,
             templateId: proposal.templateId as 'clean' | 'moderno',
+            expiresAt: proposal.expiresAt ?? undefined,
           }}
         />
       </div>

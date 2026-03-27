@@ -12,6 +12,7 @@ function statusBorderClass(status: string) {
     case 'enviada':    return 'border-l-blue-400'
     case 'recusada':   return 'border-l-red-400'
     case 'em_revisao': return 'border-l-amber-400'
+    case 'expirada':   return 'border-l-gray-300'
     default:           return 'border-l-border'
   }
 }

@@ -122,6 +122,23 @@ function SparklesIcon() {
 
 // ─── Component ──────────────────────────────────────────────────────────────
 
+const VALIDITY_OPTIONS = [
+  { label: 'Sem validade', days: null },
+  { label: '7 dias', days: 7 },
+  { label: '15 dias', days: 15 },
+  { label: '30 dias', days: 30 },
+] as const
+
+type ValidityDays = null | 7 | 15 | 30
+
+function initialValidityDays(expiresAt?: Date, isEditing?: boolean): ValidityDays {
+  if (!expiresAt) return isEditing ? null : 15
+  const days = Math.round((expiresAt.getTime() - Date.now()) / (24 * 60 * 60 * 1000))
+  if (days <= 8) return 7
+  if (days <= 18) return 15
+  return 30
+}
+
 type Props = {
   defaultValues?: Partial<CreateProposalInput>
   proposalId?: string // if set, update mode
@@ -131,6 +148,9 @@ type Props = {
 export function ProposalForm({ defaultValues, proposalId, clientFeedback }: Props) {
   const router = useRouter()
   const [showUpgrade, setShowUpgrade] = useState(false)
+  const [validityDays, setValidityDays] = useState<ValidityDays>(() =>
+    initialValidityDays(defaultValues?.expiresAt, !!proposalId),
+  )
 
   const {
     register,
@@ -173,10 +193,15 @@ export function ProposalForm({ defaultValues, proposalId, clientFeedback }: Prop
   })
 
   function onSubmit(data: CreateProposalInput) {
+    const expiresAt =
+      validityDays !== null
+        ? new Date(Date.now() + validityDays * 24 * 60 * 60 * 1000)
+        : undefined
+
     if (proposalId) {
-      updateMutation.mutate({ id: proposalId, ...data })
+      updateMutation.mutate({ id: proposalId, ...data, expiresAt })
     } else {
-      createMutation.mutate(data)
+      createMutation.mutate({ ...data, expiresAt })
     }
   }
 
@@ -322,6 +347,37 @@ export function ProposalForm({ defaultValues, proposalId, clientFeedback }: Prop
               placeholder="50% na aprovação, 50% na entrega"
             />
           </Field>
+
+          {/* Validity */}
+          <div>
+            <p className="mb-2 text-sm text-fg-muted">Validade da proposta</p>
+            <div className="flex flex-wrap gap-2">
+              {VALIDITY_OPTIONS.map((opt) => (
+                <button
+                  key={String(opt.days)}
+                  type="button"
+                  onClick={() => setValidityDays(opt.days)}
+                  className={`rounded-sm border px-3 py-1 text-xs font-medium transition-colors ${
+                    validityDays === opt.days
+                      ? 'border-accent bg-accent text-accent-fg'
+                      : 'border-border text-fg-muted hover:border-accent/40 hover:text-fg-base'
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+            {validityDays !== null && (
+              <p className="mt-1.5 text-xs text-fg-muted">
+                O cliente terá até{' '}
+                {new Date(Date.now() + validityDays * 24 * 60 * 60 * 1000).toLocaleDateString(
+                  'pt-BR',
+                  { day: '2-digit', month: 'long', year: 'numeric' },
+                )}{' '}
+                para responder.
+              </p>
+            )}
+          </div>
         </div>
 
         {/* Template selector */}

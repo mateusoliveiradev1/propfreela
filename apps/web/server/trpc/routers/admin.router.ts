@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { count, eq } from 'drizzle-orm'
+import { count, eq, gte } from 'drizzle-orm'
 import { TRPCError } from '@trpc/server'
 import { proposals, users } from '@propfreela/db'
 import { router, adminProcedure } from '../trpc'
@@ -14,12 +14,38 @@ export const adminRouter = router({
       ctx.db.select({ id: proposals.id }).from(proposals),
     ])
 
+    const proCount = allUsers.filter((u) => u.plan === 'pro').length
     return {
       totalUsers: allUsers.length,
-      proUsers: allUsers.filter((u) => u.plan === 'pro').length,
+      proUsers: proCount,
       freeUsers: allUsers.filter((u) => u.plan === 'free').length,
       totalProposals: allProposals.length,
+      mrrInCents: proCount * 2900,
     }
+  }),
+
+  /**
+   * Daily signup counts for the last 30 days.
+   */
+  getSignupHistory: adminProcedure.query(async ({ ctx }) => {
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
+    const rows = await ctx.db
+      .select({ createdAt: users.createdAt })
+      .from(users)
+      .where(gte(users.createdAt, thirtyDaysAgo))
+
+    // Build a 30-entry map keyed by ISO date (UTC)
+    const counts: Record<string, number> = {}
+    for (let i = 29; i >= 0; i--) {
+      const d = new Date(Date.now() - i * 24 * 60 * 60 * 1000)
+      counts[d.toISOString().split('T')[0]!] = 0
+    }
+    for (const row of rows) {
+      const key = row.createdAt.toISOString().split('T')[0]!
+      if (key in counts) counts[key]!++
+    }
+
+    return Object.entries(counts).map(([date, count]) => ({ date, count }))
   }),
 
   /**
@@ -34,6 +60,7 @@ export const adminRouter = router({
         plan: users.plan,
         role: users.role,
         createdAt: users.createdAt,
+        lastLoginAt: users.lastLoginAt,
         proposalCount: count(proposals.id),
       })
       .from(users)
@@ -45,6 +72,7 @@ export const adminRouter = router({
         users.plan,
         users.role,
         users.createdAt,
+        users.lastLoginAt,
       )
       .orderBy(users.createdAt)
 

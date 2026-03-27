@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import Script from 'next/script'
 import { TRPCProvider } from '@/lib/trpc/provider'
 import './globals.css'
 
@@ -33,10 +34,23 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const gaId = process.env['NEXT_PUBLIC_GA_ID']
+
   return (
     <html lang="pt-BR" className={`${geistSans.variable} ${geistMono.variable} h-full`}>
       <body className="min-h-full">
         <TRPCProvider>{children}</TRPCProvider>
+        {gaId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${gaId}')`}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   )

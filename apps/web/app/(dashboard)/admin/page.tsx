@@ -14,9 +14,10 @@ export default async function AdminPage() {
   }
 
   const caller = await createServerCaller()
-  const [stats, allUsers] = await Promise.all([
+  const [stats, allUsers, signupHistory] = await Promise.all([
     caller.admin.getStats(),
     caller.admin.getAllUsers(),
+    caller.admin.getSignupHistory(),
   ])
 
   return (
@@ -30,7 +31,7 @@ export default async function AdminPage() {
       </div>
 
       {/* Stats */}
-      <div className="mb-10 grid grid-cols-2 gap-4 md:grid-cols-4">
+      <div className="mb-10 grid grid-cols-2 gap-4 md:grid-cols-5">
         <StatCard label="Total de usuários" value={String(stats.totalUsers)} />
         <StatCard
           label="Plano pro"
@@ -42,6 +43,19 @@ export default async function AdminPage() {
           value={String(stats.freeUsers)}
         />
         <StatCard label="Total de propostas" value={String(stats.totalProposals)} />
+        <StatCard
+          label="MRR"
+          value={new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(stats.mrrInCents / 100)}
+          sub="receita mensal recorrente"
+        />
+      </div>
+
+      {/* Signup chart */}
+      <div className="mb-10 rounded-sm border border-border bg-bg-base p-5">
+        <p className="mb-4 text-xs font-medium uppercase tracking-[0.12em] text-fg-muted">
+          Cadastros — últimos 30 dias
+        </p>
+        <SignupChart data={signupHistory} />
       </div>
 
       {/* Users Table */}
@@ -56,6 +70,7 @@ export default async function AdminPage() {
               plan: u.plan as 'free' | 'pro',
               role: (u.role ?? 'user') as 'user' | 'admin',
               proposalCount: u.proposalCount ?? 0,
+              lastLoginAt: u.lastLoginAt ?? null,
             }))}
           />
         )}
@@ -80,6 +95,27 @@ function StatCard({
       </p>
       <p className="font-mono text-2xl font-light text-fg-base">{value}</p>
       {sub && <p className="mt-1 text-xs text-fg-placeholder">{sub}</p>}
+    </div>
+  )
+}
+
+function SignupChart({ data }: { data: { date: string; count: number }[] }) {
+  const max = Math.max(...data.map((d) => d.count), 1)
+  const BAR_H = 60
+
+  return (
+    <div className="flex items-end gap-px h-[60px] w-full">
+      {data.map((d) => {
+        const h = d.count > 0 ? Math.max(Math.round((d.count / max) * BAR_H), 4) : 1
+        return (
+          <div
+            key={d.date}
+            title={`${d.date}: ${d.count} cadastro${d.count !== 1 ? 's' : ''}`}
+            style={{ height: `${h}px` }}
+            className={`flex-1 rounded-[1px] ${d.count > 0 ? 'bg-accent' : 'bg-border'}`}
+          />
+        )
+      })}
     </div>
   )
 }

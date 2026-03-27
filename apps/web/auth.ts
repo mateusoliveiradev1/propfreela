@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth'
 import Google from 'next-auth/providers/google'
 import { DrizzleAdapter } from '@auth/drizzle-adapter'
+import { eq } from 'drizzle-orm'
 import { db } from '@/server/db'
 import { accounts, sessions, users, verificationTokens } from '@propfreela/db'
 import { sendWelcomeEmail } from '@/server/services/email.service'
@@ -30,6 +31,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session
     },
     async signIn({ user }) {
+      // Update last login timestamp
+      if (user.id) {
+        try {
+          await db.update(users).set({ lastLoginAt: new Date() }).where(eq(users.id, user.id))
+        } catch {}
+      }
+
       // Send welcome email on first login (emailVerified is null for new users)
       const adapterUser = user as { email?: string | null; name?: string | null; emailVerified?: Date | null }
       if (!adapterUser.emailVerified && adapterUser.email && adapterUser.name) {

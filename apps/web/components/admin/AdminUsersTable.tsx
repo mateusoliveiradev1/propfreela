@@ -11,6 +11,7 @@ type AdminUser = {
   role: 'user' | 'admin'
   proposalCount: number
   createdAt: Date
+  lastLoginAt: Date | null
 }
 
 export function AdminUsersTable({ initialUsers }: { initialUsers: AdminUser[] }) {
@@ -51,6 +52,9 @@ export function AdminUsersTable({ initialUsers }: { initialUsers: AdminUser[] })
               <p className="text-xs text-fg-muted">
                 {user.proposalCount} proposta{user.proposalCount !== 1 ? 's' : ''} ·{' '}
                 {new Date(user.createdAt).toLocaleDateString('pt-BR')}
+                {user.lastLoginAt && (
+                  <> · acesso {new Date(user.lastLoginAt).toLocaleDateString('pt-BR')}</>
+                )}
               </p>
               {user.role !== 'admin' && (
                 <button
@@ -89,6 +93,9 @@ export function AdminUsersTable({ initialUsers }: { initialUsers: AdminUser[] })
                 Cadastro
               </th>
               <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-[0.1em] text-fg-muted">
+                Último acesso
+              </th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-[0.1em] text-fg-muted">
                 Ações
               </th>
             </tr>
@@ -121,6 +128,11 @@ export function AdminUsersTable({ initialUsers }: { initialUsers: AdminUser[] })
                 </td>
                 <td className="px-4 py-3 text-xs text-fg-muted">
                   {new Date(user.createdAt).toLocaleDateString('pt-BR')}
+                </td>
+                <td className="px-4 py-3 text-xs text-fg-muted">
+                  {user.lastLoginAt
+                    ? new Date(user.lastLoginAt).toLocaleDateString('pt-BR')
+                    : '—'}
                 </td>
                 <td className="px-4 py-3">
                   {user.role !== 'admin' && (

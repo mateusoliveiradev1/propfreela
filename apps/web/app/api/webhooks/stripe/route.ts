@@ -35,9 +35,14 @@ export async function POST(req: NextRequest) {
       const stripeCustomerId =
         typeof session.customer === 'string' ? session.customer : (session.customer?.id ?? null)
 
+      const stripeSubscriptionId =
+        typeof session.subscription === 'string'
+          ? session.subscription
+          : (session.subscription?.id ?? null)
+
       await db
         .update(users)
-        .set({ plan: 'pro', stripeCustomerId, updatedAt: new Date() })
+        .set({ plan: 'pro', stripeCustomerId, stripeSubscriptionId, updatedAt: new Date() })
         .where(eq(users.id, userId))
       break
     }

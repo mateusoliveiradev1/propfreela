@@ -95,6 +95,30 @@ function proposalRejectedHtml(proposalTitle: string): string {
   `)
 }
 
+function proposalRevisionHtml(proposalTitle: string, feedback: string): string {
+  return baseHtml(`
+    <p style="font-size:22px;font-weight:300;color:#0D0D0B;margin:0 0 16px;">
+      Seu cliente solicitou uma revisão.
+    </p>
+    <div style="background:#fff;border:1px solid #E5E4E1;padding:16px 20px;margin:0 0 24px;border-radius:2px;">
+      <p style="font-size:13px;color:#9CA3AF;margin:0 0 4px;text-transform:uppercase;letter-spacing:0.08em;">Proposta</p>
+      <p style="font-size:15px;font-weight:500;color:#0D0D0B;margin:0;">${proposalTitle}</p>
+    </div>
+    <div style="border-left:3px solid #1A472A;padding:12px 16px;margin:0 0 24px;background:#f9f9f8;">
+      <p style="font-size:13px;color:#9CA3AF;margin:0 0 6px;text-transform:uppercase;letter-spacing:0.08em;">Feedback do cliente</p>
+      <p style="font-size:14px;line-height:1.7;color:#0D0D0B;margin:0;white-space:pre-wrap;">${feedback}</p>
+    </div>
+    <p style="font-size:14px;line-height:1.7;color:#4B4B4B;margin:0 0 32px;">
+      Edite a proposta com base no feedback e reenvie o link ao cliente.
+    </p>
+    <a href="https://propfreela.com/propostas"
+       style="display:inline-block;background:#1A472A;color:#fff;text-decoration:none;
+              font-size:14px;font-weight:500;padding:12px 28px;border-radius:2px;">
+      Ver minhas propostas →
+    </a>
+  `)
+}
+
 // ─── Public API ───────────────────────────────────────────────────────────────
 
 export async function sendWelcomeEmail(to: string, name: string): Promise<void> {
@@ -130,5 +154,19 @@ export async function sendProposalRejectedEmail(
     to,
     subject: `Proposta não aprovada: ${proposalTitle}`,
     html: proposalRejectedHtml(proposalTitle),
+  })
+}
+
+export async function sendRevisionRequestedEmail(
+  to: string,
+  proposalTitle: string,
+  feedback: string,
+): Promise<void> {
+  if (!resend) return
+  await resend.emails.send({
+    from: FROM,
+    to,
+    subject: `Revisão solicitada: ${proposalTitle}`,
+    html: proposalRevisionHtml(proposalTitle, feedback),
   })
 }

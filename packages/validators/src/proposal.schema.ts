@@ -3,7 +3,7 @@ import { z } from 'zod'
 // ─── Enums (mirrors DB schema, avoids runtime import of @propfreela/db) ───────
 
 export const ProposalTemplateEnum = z.enum(['clean', 'moderno', 'bold', 'minimal', 'executivo'])
-export const ProposalStatusEnum = z.enum(['rascunho', 'enviada', 'aprovada', 'recusada'])
+export const ProposalStatusEnum = z.enum(['rascunho', 'enviada', 'aprovada', 'recusada', 'em_revisao'])
 
 // ─── Create ───────────────────────────────────────────────────────────────────
 
@@ -64,9 +64,10 @@ export type ShareProposalInput = z.infer<typeof ShareProposalSchema>
 
 export const RespondProposalSchema = z.object({
   token: z.string().min(1, 'Token é obrigatório'),
-  action: z.enum(['aprovada', 'recusada'], {
+  action: z.enum(['aprovada', 'recusada', 'revisao'], {
     required_error: 'Ação é obrigatória',
   }),
+  feedback: z.string().min(1).optional(),
 })
 
 export type RespondProposalInput = z.infer<typeof RespondProposalSchema>

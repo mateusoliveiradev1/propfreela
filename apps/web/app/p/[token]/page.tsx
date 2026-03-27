@@ -34,6 +34,7 @@ export default async function PublicProposalPage({
     recusada: 'Recusada',
     enviada: 'Aguardando resposta',
     rascunho: 'Rascunho',
+    em_revisao: 'Em revisão',
   }
 
   const statusColor: Record<string, string> = {
@@ -41,6 +42,7 @@ export default async function PublicProposalPage({
     recusada: 'bg-red-100 text-red-800',
     enviada: 'bg-yellow-100 text-yellow-800',
     rascunho: 'bg-gray-100 text-gray-700',
+    em_revisao: 'bg-amber-100 text-amber-800',
   }
 
   const displayName = proposal.companyName || proposal.userName
@@ -117,6 +119,12 @@ export default async function PublicProposalPage({
         {/* Action buttons or read-only status */}
         {proposal.status === 'enviada' ? (
           <ProposalResponseButtons token={token} />
+        ) : proposal.status === 'em_revisao' ? (
+          <div className="rounded-sm border border-amber-200 bg-amber-50 p-6 text-center">
+            <p className="text-sm text-amber-800">
+              Você solicitou uma revisão desta proposta. O freelancer irá analisar seu feedback em breve.
+            </p>
+          </div>
         ) : (
           proposal.status !== 'rascunho' && (
             <div className="rounded-sm border border-border bg-bg-subtle p-6 text-center">

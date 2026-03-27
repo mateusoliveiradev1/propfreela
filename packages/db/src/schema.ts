@@ -35,10 +35,11 @@ export const proposals = pgTable('proposals', {
   paymentTerms: text('payment_terms'),
   templateId: text('template_id', { enum: ['clean', 'moderno', 'bold', 'minimal', 'executivo'] }).default('clean').notNull(),
   status: text('status', {
-    enum: ['rascunho', 'enviada', 'aprovada', 'recusada'],
+    enum: ['rascunho', 'enviada', 'aprovada', 'recusada', 'em_revisao'],
   })
     .default('rascunho')
     .notNull(),
+  clientFeedback: text('client_feedback'),
   publicToken: text('public_token').unique(),
   pdfUrl: text('pdf_url'),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),

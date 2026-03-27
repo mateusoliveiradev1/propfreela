@@ -243,10 +243,12 @@ async function getByPublicToken({
 async function respondByPublicToken({
   token,
   action,
+  feedback,
   db,
 }: {
   token: string
-  action: 'aprovada' | 'recusada'
+  action: 'aprovada' | 'recusada' | 'revisao'
+  feedback?: string
   db: Database
 }) {
   const [proposal] = await db
@@ -262,6 +264,17 @@ async function respondByPublicToken({
       code: 'BAD_REQUEST',
       message: 'Esta proposta já foi respondida',
     })
+  }
+
+  if (action === 'revisao') {
+    if (!feedback?.trim()) {
+      throw new TRPCError({ code: 'BAD_REQUEST', message: 'Descreva o que precisa ser revisado.' })
+    }
+    await db
+      .update(proposals)
+      .set({ status: 'em_revisao', clientFeedback: feedback.trim(), updatedAt: new Date() })
+      .where(eq(proposals.publicToken, token))
+    return { status: 'em_revisao' as const }
   }
 
   await db

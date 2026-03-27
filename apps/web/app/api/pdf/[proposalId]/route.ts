@@ -63,6 +63,8 @@ export async function GET(_req: NextRequest, { params }: Params) {
       'Content-Type': 'application/pdf',
       'Content-Disposition': `attachment; filename="${filename}"`,
       'Content-Length': String(buffer.length),
+      'Cache-Control': 'private, no-store',
+      'X-Content-Type-Options': 'nosniff',
     },
   })
 }

@@ -8,6 +8,7 @@ const statusVariantMap: Record<ProposalStatus, BadgeVariant> = {
   enviada: 'info',
   aprovada: 'success',
   recusada: 'danger',
+  em_revisao: 'warning',
 }
 
 const statusLabelMap: Record<ProposalStatus, string> = {
@@ -15,6 +16,7 @@ const statusLabelMap: Record<ProposalStatus, string> = {
   enviada: 'Enviada',
   aprovada: 'Aprovada',
   recusada: 'Recusada',
+  em_revisao: 'Em revisão',
 }
 
 export function ProposalStatusBadge({ status }: { status: ProposalStatus }) {

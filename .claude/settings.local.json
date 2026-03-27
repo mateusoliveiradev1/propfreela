@@ -5,7 +5,20 @@
       "Bash(git --version)",
       "Bash(pnpm dlx:*)",
       "Bash(pnpm approve-builds:*)",
-      "Bash(pnpm type-check:*)"
+      "Bash(pnpm type-check:*)",
+      "Bash(pnpm --filter web add @paralleldrive/cuid2)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm --filter web add -D @testing-library/jest-dom)",
+      "Bash(netstat -ano)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(pnpm --filter web type-check)",
+      "Bash(grep -r \"TODO\\\\|FIXME\\\\|XXX\\\\|HACK\" /c/Users/Liiiraa/Documents/estudos/grana/apps/web --include=*.ts --include=*.tsx)",
+      "Bash(grep -r \"hardcoded\\\\|HARDCODED\\\\|hardcode\" /c/Users/Liiiraa/Documents/estudos/grana/apps/web --include=*.ts --include=*.tsx)",
+      "Bash(xargs ls:*)",
+      "Bash(grep -r \"password\\\\|secret\\\\|token\" /c/Users/Liiiraa/Documents/estudos/grana/apps/web/server/trpc --include=*.ts)",
+      "Bash(grep -r process.env /c/Users/Liiiraa/Documents/estudos/grana/apps/web/app/api --include=*.ts)",
+      "Bash(find /c/Users/Liiiraa/Documents/estudos/grana -name page.tsx -path */blog/*)",
+      "Bash(pnpm --filter web add resend)"
     ]
   }
 }

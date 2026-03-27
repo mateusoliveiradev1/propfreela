@@ -7,6 +7,7 @@ import { rateLimit } from '@/lib/rate-limit'
 import {
   sendProposalApprovedEmail,
   sendProposalRejectedEmail,
+  sendRevisionRequestedEmail,
 } from '@/server/services/email.service'
 
 export async function POST(
@@ -21,11 +22,11 @@ export async function POST(
     }
 
     const { token } = await params
-    const body = (await request.json()) as { action?: string }
+    const body = (await request.json()) as { action?: string; feedback?: string }
 
-    if (body.action !== 'aprovada' && body.action !== 'recusada') {
+    if (body.action !== 'aprovada' && body.action !== 'recusada' && body.action !== 'revisao') {
       return NextResponse.json(
-        { error: 'Ação inválida. Use "aprovada" ou "recusada".' },
+        { error: 'Ação inválida.' },
         { status: 400 },
       )
     }
@@ -33,6 +34,7 @@ export async function POST(
     const result = await proposalsService.respondByPublicToken({
       token,
       action: body.action,
+      ...(body.feedback !== undefined && { feedback: body.feedback }),
       db,
     })
 
@@ -48,8 +50,10 @@ export async function POST(
       if (row) {
         if (body.action === 'aprovada') {
           await sendProposalApprovedEmail(row.email, row.title)
-        } else {
+        } else if (body.action === 'recusada') {
           await sendProposalRejectedEmail(row.email, row.title)
+        } else {
+          await sendRevisionRequestedEmail(row.email, row.title, body.feedback ?? '')
         }
       }
     } catch {}

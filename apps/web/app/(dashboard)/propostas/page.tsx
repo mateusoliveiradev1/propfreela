@@ -8,10 +8,11 @@ export const metadata: Metadata = { title: 'Propostas' }
 
 function statusBorderClass(status: string) {
   switch (status) {
-    case 'aprovada': return 'border-l-emerald-400'
-    case 'enviada':  return 'border-l-blue-400'
-    case 'recusada': return 'border-l-red-400'
-    default:         return 'border-l-border'
+    case 'aprovada':   return 'border-l-emerald-400'
+    case 'enviada':    return 'border-l-blue-400'
+    case 'recusada':   return 'border-l-red-400'
+    case 'em_revisao': return 'border-l-amber-400'
+    default:           return 'border-l-border'
   }
 }
 

@@ -30,6 +30,7 @@ export default async function ProposalDetailPage({ params }: Props) {
     notFound()
   }
 
+
   return (
     <div className="px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-10">
       {/* Back */}
@@ -56,6 +57,17 @@ export default async function ProposalDetailPage({ params }: Props) {
 
         <ProposalActions proposal={proposal} />
       </div>
+
+      {proposal.status === 'em_revisao' && proposal.clientFeedback && (
+        <div className="mt-8 rounded-sm border border-amber-200 bg-amber-50 p-5">
+          <p className="mb-2 text-xs font-medium uppercase tracking-[0.12em] text-amber-700">
+            Feedback do cliente
+          </p>
+          <p className="whitespace-pre-wrap text-sm leading-relaxed text-amber-900">
+            {proposal.clientFeedback}
+          </p>
+        </div>
+      )}
 
       <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-3">
         <div className="space-y-8 lg:col-span-2">

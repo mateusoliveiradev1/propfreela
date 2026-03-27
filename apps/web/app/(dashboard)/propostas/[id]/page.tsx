@@ -5,6 +5,7 @@ import { createServerCaller } from '@/lib/trpc/server'
 import { formatCurrency } from '@/lib/currency'
 import { ProposalStatusBadge } from '@/components/proposals/ProposalStatusBadge'
 import { ProposalActions } from '@/components/proposals/ProposalActions'
+import { RevisionActions } from '@/components/proposals/RevisionActions'
 
 type Props = { params: Promise<{ id: string }> }
 
@@ -66,6 +67,7 @@ export default async function ProposalDetailPage({ params }: Props) {
           <p className="whitespace-pre-wrap text-sm leading-relaxed text-amber-900">
             {proposal.clientFeedback}
           </p>
+          <RevisionActions proposalId={proposal.id} />
         </div>
       )}
 

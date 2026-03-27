@@ -73,7 +73,7 @@ export default async function ProposalDetailPage({ params }: Props) {
         </div>
 
         <div className="space-y-4">
-          <div className="rounded-sm border border-border p-5">
+          <div className="rounded-sm border border-accent/20 bg-accent/3 p-5">
             <p className="mb-1 text-xs font-medium uppercase tracking-[0.12em] text-fg-muted">
               Investimento
             </p>

@@ -43,17 +43,32 @@ export function FaqAccordion() {
         >
           <div className="flex-1">
             <p className="text-sm font-medium text-fg-base">{faq.q}</p>
-            {open === i && (
-              <p className="mt-3 text-sm leading-relaxed text-fg-muted">
-                {faq.a}
-              </p>
-            )}
+            <div
+              className="grid transition-[grid-template-rows] duration-200 ease-out"
+              style={{ gridTemplateRows: open === i ? '1fr' : '0fr' }}
+            >
+              <div className="overflow-hidden">
+                <p className="pt-3 text-sm leading-relaxed text-fg-muted">
+                  {faq.a}
+                </p>
+              </div>
+            </div>
           </div>
-          <span className="mt-0.5 text-fg-muted transition-transform duration-200"
-            style={{ transform: open === i ? 'rotate(45deg)' : 'rotate(0deg)' }}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={16}
+            height={16}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="mt-1 shrink-0 text-fg-muted transition-transform duration-200"
+            style={{ transform: open === i ? 'rotate(180deg)' : 'rotate(0deg)' }}
           >
-            +
-          </span>
+            <path d="M6 9l6 6 6-6" />
+          </svg>
         </button>
       ))}
     </div>

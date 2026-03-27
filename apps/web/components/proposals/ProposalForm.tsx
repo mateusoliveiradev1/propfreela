@@ -13,36 +13,43 @@ import type { Proposal } from '@propfreela/db'
 
 // ─── Template metadata ──────────────────────────────────────────────────────
 
+function TemplateIcon({ id }: { id: string }) {
+  const props = { width: 18, height: 18, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.5, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const }
+  switch (id) {
+    case 'clean': return <svg {...props}><path d="M4 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2H4V5Zm0 4h16v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9Z" /></svg>
+    case 'moderno': return <svg {...props}><path d="M3 4h7v16H3V4Zm9 0h9v16h-9V4Z" /></svg>
+    case 'bold': return <svg {...props}><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z" /></svg>
+    case 'minimal': return <svg {...props}><path d="M4 6h16M4 12h10M4 18h6" /></svg>
+    case 'executivo': return <svg {...props}><path d="M3 6h18M3 12h18M3 18h18M8 6v12" /></svg>
+    default: return null
+  }
+}
+
 const TEMPLATES = [
   {
     id: 'clean' as const,
     name: 'Clean',
     desc: 'Barra de cor no topo, layout organizado em seções',
-    icon: '📄',
   },
   {
     id: 'moderno' as const,
     name: 'Moderno',
     desc: 'Sidebar escura com informações + área principal',
-    icon: '🎨',
   },
   {
     id: 'bold' as const,
     name: 'Bold',
     desc: 'Header colorido de impacto e card de valor',
-    icon: '⚡',
   },
   {
     id: 'minimal' as const,
     name: 'Minimal',
     desc: 'Ultra limpo, tipografia grande, bastante espaço',
-    icon: '✨',
   },
   {
     id: 'executivo' as const,
     name: 'Executivo',
     desc: 'Corporativo com seções numeradas e bordas',
-    icon: '🏛️',
   },
 ]
 
@@ -288,7 +295,7 @@ export function ProposalForm({ defaultValues, proposalId }: Props) {
                 />
                 <div className="min-w-0">
                   <div className="flex items-center gap-1.5">
-                    <span className="text-sm">{t.icon}</span>
+                    <span className="text-fg-muted"><TemplateIcon id={t.id} /></span>
                     <span className="text-sm font-medium text-fg-base">{t.name}</span>
                   </div>
                   <p className="mt-0.5 text-xs leading-relaxed text-fg-muted">{t.desc}</p>

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { auth } from '@/auth'
 import { db } from '@/server/db'
@@ -38,12 +39,17 @@ export default async function LandingPage() {
       {/* ── Nav ─────────────────────────────────────────────────── */}
       <header className="border-b border-border">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <span className="text-sm font-medium tracking-tight text-fg-base">PropFreela</span>
+          <Link href="/" className="flex items-center gap-2">
+            <div className="flex h-6 w-6 items-center justify-center rounded-sm bg-accent text-[10px] font-bold text-accent-fg">
+              P
+            </div>
+            <span className="text-sm font-medium tracking-tight text-fg-base">PropFreela</span>
+          </Link>
           <div className="flex items-center gap-6">
-            <Link href="/blog" className="hidden text-xs text-fg-muted hover:text-fg-base sm:inline">
+            <Link href="/blog" className="hidden text-xs text-fg-muted transition-colors hover:text-fg-base sm:inline">
               Blog
             </Link>
-            <Link href="/precos" className="text-xs text-fg-muted hover:text-fg-base">
+            <Link href="/precos" className="text-xs text-fg-muted transition-colors hover:text-fg-base">
               Precos
             </Link>
             {isLoggedIn ? (
@@ -56,7 +62,7 @@ export default async function LandingPage() {
             ) : (
               <Link
                 href="/login"
-                className="inline-flex h-8 items-center rounded-sm bg-accent px-4 text-xs font-medium text-accent-fg transition-colors hover:bg-accent-hover"
+                className="inline-flex h-8 items-center rounded-sm bg-accent px-4 text-xs font-medium text-accent-fg shadow-sm transition-colors hover:bg-accent-hover"
               >
                 Entrar
               </Link>
@@ -66,13 +72,13 @@ export default async function LandingPage() {
       </header>
 
       {/* ── Hero ────────────────────────────────────────────────── */}
-      <section className="mx-auto max-w-5xl px-6 pb-20 pt-20">
+      <section className="mx-auto max-w-5xl px-6 pb-24 pt-24">
         <div className="max-w-2xl">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-border bg-bg-subtle px-3 py-1">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
             <span className="text-xs text-fg-muted">{proposalLabel} propostas criadas por freelancers</span>
           </div>
-          <h1 className="mb-6 text-5xl font-light leading-[1.1] text-fg-base">
+          <h1 className="mb-6 text-5xl font-normal leading-[1.1] text-fg-base">
             Feche mais projetos com propostas que{' '}
             <span className="text-accent">impressionam.</span>
           </h1>
@@ -83,7 +89,7 @@ export default async function LandingPage() {
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
             <Link
               href="/login"
-              className="inline-flex h-12 items-center justify-center rounded-sm bg-accent px-8 text-sm font-medium text-accent-fg transition-colors hover:bg-accent-hover"
+              className="inline-flex h-12 items-center justify-center rounded-sm bg-accent px-8 text-sm font-medium text-accent-fg shadow-sm transition-all hover:bg-accent-hover hover:shadow-md"
             >
               Criar minha primeira proposta
             </Link>
@@ -92,8 +98,8 @@ export default async function LandingPage() {
         </div>
 
         {/* PDF mockup */}
-        <div className="mt-16 rounded-sm border border-border bg-bg-subtle p-6 sm:p-8">
-          <div className="mx-auto max-w-lg space-y-4 rounded-sm border border-border bg-bg-base p-6 sm:p-8">
+        <div className="relative mt-16 overflow-hidden rounded-sm border border-border bg-bg-subtle p-6 sm:p-8">
+          <div className="mx-auto max-w-lg space-y-4 rounded-sm border border-border bg-bg-base p-6 shadow-[var(--shadow-card)] sm:p-8">
             <div className="flex items-start justify-between">
               <div>
                 <p className="text-xs font-medium uppercase tracking-[0.12em] text-fg-muted">
@@ -103,7 +109,9 @@ export default async function LandingPage() {
                   Website institucional — Proposta Comercial
                 </p>
               </div>
-              <div className="h-8 w-8 rounded-sm bg-accent" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-sm bg-accent text-xs font-bold text-accent-fg">
+                P
+              </div>
             </div>
             <div className="h-px bg-border" />
             <div className="space-y-2">
@@ -122,43 +130,38 @@ export default async function LandingPage() {
               </p>
             </div>
           </div>
+          {/* Fade bottom */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-bg-subtle to-transparent" />
         </div>
       </section>
 
       {/* ── Social proof bar ───────────────────────────────────── */}
       <section className="border-y border-border bg-bg-subtle">
-        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-8 px-6 py-6 sm:justify-between">
-          <Stat value={proposalLabel} label="propostas criadas" />
-          <Stat value="5" label="templates profissionais" />
-          <Stat value="< 2 min" label="para gerar um PDF" />
-          <Stat value="R$0" label="para comecar" />
+        <div className="mx-auto flex max-w-5xl items-center justify-center gap-6 px-6 py-5 text-sm text-fg-muted">
+          <span>
+            <span className="font-mono font-medium text-accent">{proposalLabel}</span> propostas criadas
+          </span>
+          <span className="text-border">·</span>
+          <span>
+            <span className="font-mono font-medium text-fg-base">5</span> templates profissionais
+          </span>
+          <span className="hidden text-border sm:inline">·</span>
+          <span className="hidden sm:inline">Gratis para comecar</span>
         </div>
       </section>
 
       {/* ── Como funciona (3 steps) ────────────────────────────── */}
-      <section className="mx-auto max-w-5xl px-6 py-20">
+      <section className="mx-auto max-w-5xl px-6 py-16">
         <p className="mb-3 text-center text-xs font-medium uppercase tracking-[0.15em] text-fg-muted">
           Como funciona
         </p>
-        <h2 className="mb-14 text-center text-3xl font-light text-fg-base">
+        <h2 className="mb-14 text-center text-2xl font-medium text-fg-base">
           Tres passos. Dois minutos.
         </h2>
         <div className="grid gap-10 sm:grid-cols-3 sm:gap-8">
-          <Step
-            number="01"
-            title="Preencha os dados"
-            description="Nome do cliente, valor, prazo e uma breve descricao do projeto. Simples assim."
-          />
-          <Step
-            number="02"
-            title="IA gera o escopo"
-            description="Nossa inteligencia artificial cria um escopo profissional completo. Voce pode editar o que quiser."
-          />
-          <Step
-            number="03"
-            title="Baixe o PDF"
-            description="Escolha um dos 5 templates, personalize com sua marca e baixe um PDF pronto para enviar."
-          />
+          <Step number="01" title="Preencha os dados" description="Nome do cliente, valor, prazo e uma breve descricao do projeto. Simples assim." />
+          <Step number="02" title="IA gera o escopo" description="Nossa inteligencia artificial cria um escopo profissional completo. Voce pode editar o que quiser." />
+          <Step number="03" title="Baixe o PDF" description="Escolha um dos 5 templates, personalize com sua marca e baixe um PDF pronto para enviar." />
         </div>
       </section>
 
@@ -168,37 +171,37 @@ export default async function LandingPage() {
           <p className="mb-3 text-center text-xs font-medium uppercase tracking-[0.15em] text-fg-muted">
             Tudo que voce precisa
           </p>
-          <h2 className="mb-14 text-center text-3xl font-light text-fg-base">
+          <h2 className="mb-14 text-center text-3xl font-normal text-fg-base">
             Feito para quem vive de freelance
           </h2>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <Feature
-              icon="&#9998;"
+              image="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600&q=80&auto=format"
               title="5 templates profissionais"
               description="Clean, Moderno, Bold, Minimal e Executivo. Todos cabem em uma pagina A4."
             />
             <Feature
-              icon="&#9889;"
+              image="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80&auto=format"
               title="Escopo gerado por IA"
               description="Descreva o projeto em uma frase. A IA transforma em escopo detalhado e profissional."
             />
             <Feature
-              icon="&#128196;"
+              image="https://images.unsplash.com/photo-1568702846914-96b305d2uj38?w=600&q=80&auto=format"
               title="PDF perfeito"
               description="Layout limpo, tipografia profissional. Seu cliente recebe algo que transmite confianca."
             />
             <Feature
-              icon="&#127912;"
+              image="https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=600&q=80&auto=format"
               title="Sua marca no PDF"
               description="Adicione sua logo e cor de destaque. Cada proposta sai com a cara do seu negocio."
             />
             <Feature
-              icon="&#128202;"
+              image="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80&auto=format"
               title="Dashboard completo"
               description="Historico de propostas, status, valores e filtros. Tenha controle total das suas negociacoes."
             />
             <Feature
-              icon="&#128279;"
+              image="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&q=80&auto=format"
               title="Link de aprovacao"
               description="Compartilhe um link. Seu cliente visualiza a proposta e aprova com um clique — sem criar conta."
             />
@@ -207,11 +210,11 @@ export default async function LandingPage() {
       </section>
 
       {/* ── Pricing ────────────────────────────────────────────── */}
-      <section className="mx-auto max-w-5xl px-6 py-20">
+      <section className="mx-auto max-w-5xl px-6 py-24">
         <p className="mb-3 text-center text-xs font-medium uppercase tracking-[0.15em] text-fg-muted">
           Planos
         </p>
-        <h2 className="mb-4 text-center text-3xl font-light text-fg-base">
+        <h2 className="mb-4 text-center text-2xl font-medium text-fg-base">
           Simples e transparente
         </h2>
         <p className="mb-14 text-center text-sm text-fg-muted">
@@ -251,7 +254,7 @@ export default async function LandingPage() {
           </div>
 
           {/* Pro */}
-          <div className="rounded-sm border-2 border-accent p-8">
+          <div className="rounded-sm border-2 border-accent p-8 shadow-[var(--shadow-card)]">
             <div className="mb-1 flex items-center gap-2">
               <p className="text-xs font-medium uppercase tracking-[0.12em] text-accent">Pro</p>
               <span className="rounded-full bg-accent px-2 py-0.5 text-[10px] font-medium text-accent-fg">
@@ -281,7 +284,7 @@ export default async function LandingPage() {
             </ul>
             <Link
               href="/login"
-              className="inline-flex h-10 w-full items-center justify-center rounded-sm bg-accent text-sm font-medium text-accent-fg transition-colors hover:bg-accent-hover"
+              className="inline-flex h-10 w-full items-center justify-center rounded-sm bg-accent text-sm font-medium text-accent-fg shadow-sm transition-all hover:bg-accent-hover hover:shadow-md"
             >
               Assinar Pro
             </Link>
@@ -291,11 +294,11 @@ export default async function LandingPage() {
 
       {/* ── FAQ ─────────────────────────────────────────────────── */}
       <section className="border-t border-border">
-        <div className="mx-auto max-w-2xl px-6 py-20">
+        <div className="mx-auto max-w-2xl px-6 py-16">
           <p className="mb-3 text-center text-xs font-medium uppercase tracking-[0.15em] text-fg-muted">
             Perguntas frequentes
           </p>
-          <h2 className="mb-10 text-center text-3xl font-light text-fg-base">
+          <h2 className="mb-10 text-center text-2xl font-normal text-fg-base">
             Tire suas duvidas
           </h2>
           <FaqAccordion />
@@ -303,9 +306,12 @@ export default async function LandingPage() {
       </section>
 
       {/* ── Final CTA ──────────────────────────────────────────── */}
-      <section className="bg-accent">
-        <div className="mx-auto max-w-5xl px-6 py-16 text-center">
-          <h2 className="mb-4 text-3xl font-light text-accent-fg">
+      <section
+        className="bg-accent"
+        style={{ backgroundImage: 'radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%)' }}
+      >
+        <div className="mx-auto max-w-5xl px-6 py-20 text-center">
+          <h2 className="mb-4 text-3xl font-medium text-accent-fg">
             Pronto para impressionar seus clientes?
           </h2>
           <p className="mb-8 text-sm text-accent-fg/70">
@@ -313,7 +319,7 @@ export default async function LandingPage() {
           </p>
           <Link
             href="/login"
-            className="inline-flex h-12 items-center rounded-sm bg-bg-base px-8 text-sm font-medium text-accent transition-colors hover:bg-bg-subtle"
+            className="inline-flex h-12 items-center rounded-sm bg-bg-base px-8 text-sm font-medium text-accent shadow-sm transition-all hover:bg-bg-subtle hover:shadow-md"
           >
             Comecar agora — e gratis
           </Link>
@@ -329,13 +335,13 @@ export default async function LandingPage() {
           <div className="flex gap-6">
             <Link
               href="/blog/como-fazer-proposta-comercial-freelancer"
-              className="text-sm text-fg-muted hover:text-fg-base"
+              className="text-sm text-fg-muted transition-colors hover:text-fg-base"
             >
               Como fazer uma proposta comercial &rarr;
             </Link>
             <Link
               href="/blog/modelos-proposta-comercial-freelancer"
-              className="text-sm text-fg-muted hover:text-fg-base"
+              className="text-sm text-fg-muted transition-colors hover:text-fg-base"
             >
               Modelos de proposta para freelancer &rarr;
             </Link>
@@ -364,31 +370,33 @@ export default async function LandingPage() {
 
 /* ── Sub-components ─────────────────────────────────────────────── */
 
-function Stat({ value, label }: { value: string; label: string }) {
-  return (
-    <div className="text-center">
-      <p className="font-mono text-lg font-light text-fg-base">{value}</p>
-      <p className="text-xs text-fg-muted">{label}</p>
-    </div>
-  )
-}
-
 function Step({ number, title, description }: { number: string; title: string; description: string }) {
   return (
     <div>
-      <span className="mb-3 inline-block font-mono text-2xl font-light text-accent">{number}</span>
+      <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-full border border-accent/30 bg-accent/5 font-mono text-sm text-accent">
+        {number}
+      </div>
       <p className="mb-2 text-sm font-medium text-fg-base">{title}</p>
       <p className="text-sm leading-relaxed text-fg-muted">{description}</p>
     </div>
   )
 }
 
-function Feature({ icon, title, description }: { icon: string; title: string; description: string }) {
+function Feature({ image, title, description }: { image: string; title: string; description: string }) {
   return (
-    <div className="rounded-sm border border-border bg-bg-base p-6">
-      <span className="mb-3 inline-block text-xl" dangerouslySetInnerHTML={{ __html: icon }} />
-      <p className="mb-2 text-sm font-medium text-fg-base">{title}</p>
-      <p className="text-sm leading-relaxed text-fg-muted">{description}</p>
+    <div className="group relative h-52 overflow-hidden rounded-sm shadow-[var(--shadow-card)] transition-shadow duration-300 hover:shadow-[var(--shadow-card-hover)]">
+      <Image
+        src={image}
+        alt=""
+        fill
+        className="object-cover transition-transform duration-500 group-hover:scale-105"
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0B]/85 via-[#0D0D0B]/40 to-transparent" />
+      <div className="relative z-10 flex h-full flex-col justify-end p-5">
+        <p className="mb-1 text-sm font-medium text-white">{title}</p>
+        <p className="text-xs leading-relaxed text-white/70">{description}</p>
+      </div>
     </div>
   )
 }

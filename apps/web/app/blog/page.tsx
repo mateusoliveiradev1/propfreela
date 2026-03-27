@@ -107,7 +107,7 @@ export default function BlogPage() {
         <p className="mb-3 text-xs font-medium uppercase tracking-[0.15em] text-fg-muted">
           Blog
         </p>
-        <h1 className="mb-4 text-4xl font-light leading-tight text-fg-base">
+        <h1 className="mb-4 text-4xl font-normal leading-tight text-fg-base">
           Guias para freelancers brasileiros
         </h1>
         <p className="mb-14 text-sm text-fg-muted">

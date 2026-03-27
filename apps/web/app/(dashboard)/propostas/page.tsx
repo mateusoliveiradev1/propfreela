@@ -39,7 +39,7 @@ export default async function PropostasPage() {
             <Link
               key={proposal.id}
               href={`/propostas/${proposal.id}`}
-              className="flex flex-col px-5 py-4 transition-colors hover:bg-bg-subtle sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-5"
+              className="flex flex-col border-l-2 border-l-transparent px-5 py-4 transition-colors hover:border-l-accent hover:bg-bg-subtle sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-5"
             >
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-medium text-fg-base">

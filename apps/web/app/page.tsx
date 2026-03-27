@@ -181,17 +181,17 @@ export default async function LandingPage() {
               description="Clean, Moderno, Bold, Minimal e Executivo. Todos cabem em uma pagina A4."
             />
             <Feature
-              image="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80&auto=format"
+              image="https://images.unsplash.com/photo-1745674684468-b9fc392fda3f?w=600&q=80&auto=format"
               title="Escopo gerado por IA"
               description="Descreva o projeto em uma frase. A IA transforma em escopo detalhado e profissional."
             />
             <Feature
-              image="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80&auto=format"
+              image="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&q=80&auto=format"
               title="PDF perfeito"
               description="Layout limpo, tipografia profissional. Seu cliente recebe algo que transmite confianca."
             />
             <Feature
-              image="https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=600&q=80&auto=format"
+              image="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80&auto=format"
               title="Sua marca no PDF"
               description="Adicione sua logo e cor de destaque. Cada proposta sai com a cara do seu negocio."
             />
@@ -201,7 +201,7 @@ export default async function LandingPage() {
               description="Historico de propostas, status, valores e filtros. Tenha controle total das suas negociacoes."
             />
             <Feature
-              image="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&q=80&auto=format"
+              image="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80&auto=format"
               title="Link de aprovacao"
               description="Compartilhe um link. Seu cliente visualiza a proposta e aprova com um clique — sem criar conta."
             />

@@ -101,21 +101,67 @@ function StatCard({
 
 function SignupChart({ data }: { data: { date: string; count: number }[] }) {
   const max = Math.max(...data.map((d) => d.count), 1)
-  const BAR_H = 60
+  const total = data.reduce((s, d) => s + d.count, 0)
+  const BAR_H = 64
+
+  // Show labels every 7 days
+  const labelIndices = [0, 7, 14, 21, data.length - 1]
+
+  function formatLabel(dateStr: string) {
+    const [, m, d] = dateStr.split('-')
+    return `${d}/${m}`
+  }
 
   return (
-    <div className="flex items-end gap-px h-[60px] w-full">
-      {data.map((d) => {
-        const h = d.count > 0 ? Math.max(Math.round((d.count / max) * BAR_H), 4) : 1
-        return (
-          <div
-            key={d.date}
-            title={`${d.date}: ${d.count} cadastro${d.count !== 1 ? 's' : ''}`}
-            style={{ height: `${h}px` }}
-            className={`flex-1 rounded-[1px] ${d.count > 0 ? 'bg-accent' : 'bg-border'}`}
-          />
-        )
-      })}
+    <div>
+      {/* Summary */}
+      <div className="mb-3 flex items-baseline gap-3">
+        <span className="font-mono text-lg font-light text-fg-base">{total}</span>
+        <span className="text-xs text-fg-muted">
+          cadastro{total !== 1 ? 's' : ''} no período
+        </span>
+      </div>
+
+      {/* Bars */}
+      <div className="flex items-end gap-px" style={{ height: `${BAR_H}px` }}>
+        {data.map((d) => {
+          const h = d.count > 0 ? Math.max(Math.round((d.count / max) * BAR_H), 4) : 1
+          return (
+            <div
+              key={d.date}
+              title={`${formatLabel(d.date)}: ${d.count} cadastro${d.count !== 1 ? 's' : ''}`}
+              className="relative flex-1 group"
+              style={{ height: `${BAR_H}px` }}
+            >
+              <div
+                style={{ height: `${h}px` }}
+                className={`absolute bottom-0 left-0 right-0 rounded-[1px] transition-colors ${
+                  d.count > 0
+                    ? 'bg-accent/70 group-hover:bg-accent'
+                    : 'bg-border'
+                }`}
+              />
+              {/* Show count on hover when > 0 */}
+              {d.count > 0 && (
+                <span className="absolute -top-4 left-1/2 -translate-x-1/2 hidden group-hover:block font-mono text-[10px] text-accent">
+                  {d.count}
+                </span>
+              )}
+            </div>
+          )
+        })}
+      </div>
+
+      {/* Date labels */}
+      <div className="mt-1.5 flex">
+        {data.map((d, i) => (
+          <div key={d.date} className="flex-1 text-center">
+            {labelIndices.includes(i) && (
+              <span className="text-[10px] text-fg-placeholder">{formatLabel(d.date)}</span>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

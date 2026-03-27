@@ -176,22 +176,22 @@ export default async function LandingPage() {
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <Feature
-              image="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600&q=80&auto=format"
+              image="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80&auto=format"
               title="5 templates profissionais"
               description="Clean, Moderno, Bold, Minimal e Executivo. Todos cabem em uma pagina A4."
             />
             <Feature
-              image="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80&auto=format"
+              image="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&q=80&auto=format"
               title="Escopo gerado por IA"
               description="Descreva o projeto em uma frase. A IA transforma em escopo detalhado e profissional."
             />
             <Feature
-              image="https://images.unsplash.com/photo-1568702846914-96b305d2uj38?w=600&q=80&auto=format"
+              image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&auto=format"
               title="PDF perfeito"
               description="Layout limpo, tipografia profissional. Seu cliente recebe algo que transmite confianca."
             />
             <Feature
-              image="https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=600&q=80&auto=format"
+              image="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80&auto=format"
               title="Sua marca no PDF"
               description="Adicione sua logo e cor de destaque. Cada proposta sai com a cara do seu negocio."
             />
@@ -201,7 +201,7 @@ export default async function LandingPage() {
               description="Historico de propostas, status, valores e filtros. Tenha controle total das suas negociacoes."
             />
             <Feature
-              image="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&q=80&auto=format"
+              image="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80&auto=format"
               title="Link de aprovacao"
               description="Compartilhe um link. Seu cliente visualiza a proposta e aprova com um clique — sem criar conta."
             />

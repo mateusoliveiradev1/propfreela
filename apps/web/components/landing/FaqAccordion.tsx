@@ -38,12 +38,16 @@ export function FaqAccordion() {
         <button
           key={i}
           type="button"
+          aria-expanded={open === i}
+          aria-controls={`faq-answer-${i}`}
           className="flex w-full items-start justify-between gap-4 py-5 text-left"
           onClick={() => setOpen(open === i ? null : i)}
         >
           <div className="flex-1">
             <p className="text-sm font-medium text-fg-base">{faq.q}</p>
             <div
+              id={`faq-answer-${i}`}
+              role="region"
               className="grid transition-[grid-template-rows] duration-200 ease-out"
               style={{ gridTemplateRows: open === i ? '1fr' : '0fr' }}
             >
@@ -55,6 +59,7 @@ export function FaqAccordion() {
             </div>
           </div>
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width={16}
             height={16}

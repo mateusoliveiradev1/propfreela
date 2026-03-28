@@ -75,7 +75,7 @@ export default async function LandingPage() {
       <section className="mx-auto max-w-5xl px-6 pb-24 pt-24">
         <div className="max-w-2xl">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-border bg-bg-subtle px-3 py-1">
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
             <span className="text-xs text-fg-muted">
               {proposalCount >= 50 ? `${proposalLabel} propostas criadas por freelancers` : 'Para freelancers brasileiros'}
             </span>
@@ -95,7 +95,7 @@ export default async function LandingPage() {
             >
               Criar minha primeira proposta
             </Link>
-            <span className="text-xs text-fg-placeholder">Grátis, sem cartão de crédito</span>
+            <span className="text-xs text-fg-muted">Grátis, sem cartão de crédito</span>
           </div>
         </div>
 
@@ -270,7 +270,7 @@ export default async function LandingPage() {
               <span className="font-mono text-3xl font-light text-fg-base">R$29</span>
               <span className="text-xs text-fg-muted">por mes</span>
             </div>
-            <p className="mb-6 text-xs text-fg-placeholder">ou R$197/ano — economize 44%</p>
+            <p className="mb-6 text-xs text-fg-muted">ou R$197/ano — economize 44%</p>
             <ul className="mb-8 space-y-2">
               {[
                 'Propostas ilimitadas',
@@ -356,14 +356,14 @@ export default async function LandingPage() {
 
       <footer className="border-t border-border">
         <div className="mx-auto flex max-w-5xl flex-col gap-2 px-6 py-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-fg-placeholder">
+          <p className="text-xs text-fg-muted">
             &copy; {new Date().getFullYear()} PropFreela. Feito para freelancers brasileiros.
           </p>
           <div className="flex gap-4">
-            <Link href="/termos-de-uso" className="text-xs text-fg-placeholder hover:text-fg-muted">
+            <Link href="/termos-de-uso" className="text-xs text-fg-muted hover:text-fg-base">
               Termos de uso
             </Link>
-            <Link href="/privacidade" className="text-xs text-fg-placeholder hover:text-fg-muted">
+            <Link href="/privacidade" className="text-xs text-fg-muted hover:text-fg-base">
               Privacidade
             </Link>
           </div>

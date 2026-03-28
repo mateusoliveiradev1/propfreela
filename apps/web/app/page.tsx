@@ -139,7 +139,7 @@ export default async function LandingPage() {
                       </span>
                     ))}
                   </div>
-                  <span className="text-xs text-fg-muted">Grátis · sem cartão</span>
+                  <span className="text-xs text-fg-muted">Grátis para começar</span>
                 </div>
               </div>
             </div>
@@ -200,19 +200,20 @@ export default async function LandingPage() {
           <div className="mx-auto max-w-5xl px-6 py-4">
             <dl className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
 
-              <div className="flex items-center gap-2">
-                <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-accent">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
-                </svg>
-                <dt className="sr-only">Propostas criadas</dt>
-                <dd className="text-sm text-fg-muted">
-                  <span className="font-mono font-semibold text-fg-base">
-                    {proposalCount >= 50 ? proposalLabel : '500+'}
-                  </span>{' '}propostas criadas
-                </dd>
-              </div>
-
-              <span aria-hidden="true" className="h-4 w-px bg-border" />
+              {proposalCount >= 50 && (
+                <>
+                  <div className="flex items-center gap-2">
+                    <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-accent">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                    <dt className="sr-only">Propostas criadas</dt>
+                    <dd className="text-sm text-fg-muted">
+                      <span className="font-mono font-semibold text-fg-base">{proposalLabel}</span>{' '}propostas criadas
+                    </dd>
+                  </div>
+                  <span aria-hidden="true" className="h-4 w-px bg-border" />
+                </>
+              )}
 
               <div className="flex items-center gap-2">
                 <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-accent">

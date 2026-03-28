@@ -33,47 +33,46 @@ export function FaqAccordion() {
   const [open, setOpen] = useState<number | null>(null)
 
   return (
-    <div className="divide-y divide-border">
+    <div>
       {faqs.map((faq, i) => (
-        <button
-          key={i}
-          type="button"
-          aria-expanded={open === i}
-          aria-controls={`faq-answer-${i}`}
-          className="flex w-full items-start justify-between gap-4 py-5 text-left"
-          onClick={() => setOpen(open === i ? null : i)}
-        >
-          <div className="flex-1">
-            <p className="text-sm font-medium text-fg-base">{faq.q}</p>
-            <div
-              id={`faq-answer-${i}`}
-              className="grid transition-[grid-template-rows] duration-200 ease-out"
-              style={{ gridTemplateRows: open === i ? '1fr' : '0fr' }}
+        <div key={i} className="border-b border-border">
+          <button
+            type="button"
+            aria-expanded={open === i}
+            aria-controls={`faq-answer-${i}`}
+            className="flex w-full items-center justify-between gap-4 py-5 text-left"
+            onClick={() => setOpen(open === i ? null : i)}
+          >
+            <span className="text-sm font-medium text-fg-base">{faq.q}</span>
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width={16}
+              height={16}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="shrink-0 text-fg-muted transition-transform duration-200"
+              style={{ transform: open === i ? 'rotate(180deg)' : 'rotate(0deg)' }}
             >
-              <div className="overflow-hidden">
-                <p className="pt-3 text-sm leading-relaxed text-fg-muted">
-                  {faq.a}
-                </p>
-              </div>
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </button>
+          <div
+            id={`faq-answer-${i}`}
+            className="grid transition-[grid-template-rows] duration-200 ease-out"
+            style={{ gridTemplateRows: open === i ? '1fr' : '0fr' }}
+          >
+            <div className="overflow-hidden">
+              <p className="pb-5 text-sm leading-relaxed text-fg-muted">
+                {faq.a}
+              </p>
             </div>
           </div>
-          <svg
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            width={16}
-            height={16}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={2}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="mt-1 shrink-0 text-fg-muted transition-transform duration-200"
-            style={{ transform: open === i ? 'rotate(180deg)' : 'rotate(0deg)' }}
-          >
-            <path d="M6 9l6 6 6-6" />
-          </svg>
-        </button>
+        </div>
       ))}
     </div>
   )

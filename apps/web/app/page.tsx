@@ -146,11 +146,11 @@ export default async function LandingPage() {
               : <span>Grátis para começar</span>
             }
           </span>
-          <span className="text-border">·</span>
+          <span aria-hidden="true" className="text-border">·</span>
           <span>
             <span className="font-mono font-medium text-fg-base">5</span> templates profissionais
           </span>
-          <span className="hidden text-border sm:inline">·</span>
+          <span aria-hidden="true" className="hidden text-border sm:inline">·</span>
           <span className="hidden sm:inline">Gratis para comecar</span>
         </div>
       </section>

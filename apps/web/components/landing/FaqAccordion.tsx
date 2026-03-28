@@ -47,7 +47,6 @@ export function FaqAccordion() {
             <p className="text-sm font-medium text-fg-base">{faq.q}</p>
             <div
               id={`faq-answer-${i}`}
-              role="region"
               className="grid transition-[grid-template-rows] duration-200 ease-out"
               style={{ gridTemplateRows: open === i ? '1fr' : '0fr' }}
             >

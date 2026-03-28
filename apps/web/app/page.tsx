@@ -71,6 +71,7 @@ export default async function LandingPage() {
         </div>
       </header>
 
+      <main>
       {/* ── Hero ────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-5xl px-6 pb-24 pt-24">
         <div className="max-w-2xl">
@@ -354,6 +355,7 @@ export default async function LandingPage() {
         </div>
       </section>
 
+      </main>
       <footer className="border-t border-border">
         <div className="mx-auto flex max-w-5xl flex-col gap-2 px-6 py-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-fg-muted">

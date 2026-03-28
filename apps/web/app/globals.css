@@ -64,3 +64,36 @@ h1, h2, h3, h4 {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--color-bg-subtle); }
 ::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+
+/* ─── Landing Page Utilities ─────────────────────────────────────────────── */
+
+/* Noise texture sutil — aplica sobre qualquer fundo */
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* Shimmer no hover do CTA principal */
+@keyframes shimmer {
+  from { background-position: -200% center; }
+  to   { background-position:  200% center; }
+}
+.btn-shimmer:hover {
+  background-image: linear-gradient(
+    105deg,
+    var(--color-accent) 40%,
+    color-mix(in srgb, var(--color-accent) 65%, white) 50%,
+    var(--color-accent) 60%
+  );
+  background-size: 200% auto;
+  animation: shimmer 1.2s linear;
+}
+
+/* Glow verde radial para o hero */
+.hero-glow {
+  background: radial-gradient(
+    ellipse 65% 55% at 72% 50%,
+    color-mix(in srgb, var(--color-accent) 9%, transparent) 0%,
+    transparent 70%
+  );
+}

@@ -40,7 +40,7 @@ export function FaqAccordion() {
             type="button"
             aria-expanded={open === i}
             aria-controls={`faq-answer-${i}`}
-            className="flex w-full items-center justify-between gap-4 py-5 text-left"
+            className="flex w-full items-center justify-between gap-4 py-5 text-left transition-colors hover:text-accent"
             onClick={() => setOpen(open === i ? null : i)}
           >
             <span className="text-sm font-medium text-fg-base">{faq.q}</span>
@@ -55,7 +55,7 @@ export function FaqAccordion() {
               strokeWidth={2}
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="shrink-0 text-fg-muted transition-transform duration-200"
+              className={`shrink-0 transition-all duration-200 ${open === i ? 'text-accent' : 'text-fg-muted'}`}
               style={{ transform: open === i ? 'rotate(180deg)' : 'rotate(0deg)' }}
             >
               <path d="M6 9l6 6 6-6" />
